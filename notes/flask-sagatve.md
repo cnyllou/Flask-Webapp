@@ -2,7 +2,7 @@
 tags: [Main]
 title: flask-sagatve
 created: '2020-09-29T03:34:25.446Z'
-modified: '2020-09-29T06:01:38.719Z'
+modified: '2020-09-29T08:14:54.889Z'
 ---
 
 # Flask sagatavošana
@@ -36,6 +36,26 @@ if __name__ == "__main__":
 - Rakstīt `python main.py`
 - Tiks ieslēgts Python serveris un tālāk būs Pārlūkā jāiekopē piedāvātā mājaslapas adrese
 ` http://127.0.0.1:5000/`
+
+# Iespējas ar Flask
+- Rakstīt Python kodu iekšā `.html` datnē
+```html
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Home page</title>
+</head>
+<body>
+    <h1>Hello {{content}}</h1>
+    <h2>This is my basic HTML home page</h2>
+    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Recusandae aliquid ab ipsa nam cum laboriosam temporibus doloribus minus, inventore corrupti reiciendis expedita molestiae, beatae, ratione optio quasi explicabo sit sunt?</p>
+    {% for x in range(0, 10) %}
+        <p>Hello  </p>
+    {% endfor %}
+</body>
+</html>
+```
+
 
 
 ---
