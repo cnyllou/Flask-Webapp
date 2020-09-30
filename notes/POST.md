@@ -1,0 +1,17 @@
+---
+title: GET/POST
+created: '2020-09-30T18:28:40.495Z'
+modified: '2020-09-30T18:32:28.682Z'
+---
+
+# GET/POST
+Galvenās atšķirības starp GET un POST pieprasijumiem
+
+# GET
+Nedrošs veids kā iegūt informāciju
+- Redzams lietotājam, kā saite
+
+# POST
+Drošāks nekā GET pieprasjums
+- Domāts priekš parolēm un citas informācijas, kura nedrīkstētu nonākt nepareizajās rokās
+
