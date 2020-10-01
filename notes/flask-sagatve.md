@@ -2,7 +2,7 @@
 tags: [Main]
 title: flask-sagatve
 created: '2020-09-29T03:34:25.446Z'
-modified: '2020-09-29T08:14:54.889Z'
+modified: '2020-10-01T05:09:03.350Z'
 ---
 
 # Flask sagatavošana
@@ -54,6 +54,11 @@ if __name__ == "__main__":
     {% endfor %}
 </body>
 </html>
+```
+- Automātiski atjaunot mājaslapu kamēr tiek rakstīts kods, šajā veidā nav vajadzība restartēt serveri ik pēc katras izmaiņas
+```Python
+if __name__ == "__main__":
+    app.run(debug=True) # Iedodot `debug=True` parametru
 ```
 
 
