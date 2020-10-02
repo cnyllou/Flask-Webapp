@@ -1,12 +1,12 @@
 ---
 title: Darāmais
 created: '2020-10-01T18:50:39.295Z'
-modified: '2020-10-01T19:33:59.167Z'
+modified: '2020-10-02T23:04:48.044Z'
 ---
 
 # Darāmais
 ## Priekšlapa
-- [ ] Navigāciju augšā ar logout labajā pusē
+- [x] Navigāciju augšā ar logout labajā pusē
 - [ ] Kreisajā pusē galveno navigāciju ar izvēlēm
   - Virs visa ir lietotājs ar
     - profila bildi

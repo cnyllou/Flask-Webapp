@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>  
+  <title>{% block title %}{% endblock %}</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
+
+  <script src="https://kit.fontawesome.com/b99e675b6e.js"></script>
+</head>
+<body>
+  <div class="topnav">
+    <ul>
+        <li><a href="#" class="title">Trakeris</a></li>
+        <li class="nav-right"><a class="active logout" href="#"><i class="fas fa-sign-out-alt"></i> Izlogoties</a></li>
+    </ul> 
+</div>
+
+<div class="wrapper">
+    <div class="sidebar" >
+        <div class="user-bar">
+            <div class="pull-left image">
+                <img src="{{ url_for('static', filename='images/image.png') }}">
+            </div>
+            <div class="pull-left info">
+                <p>Moe Saber</p>
+                <a><i class="fa fa-icon icon fa-user  text-success"></i>Employee</a>
+            </div>
+            
+        </div>
+        <ul>
+            <li class="main-nav">Galvenā navigācija</li>
+            <li><a href="#"><i class="fas fa-box"></i>Viss inventārs</a></li>
+            <li><a href="#"><i class="fa fa-plus"></i>Pievienot jaunu vienumu</a></li>
+        </ul> 
+    </div>
+
+    {% block content %}
+    {% endblock %}
+</body>
+</html>
+
