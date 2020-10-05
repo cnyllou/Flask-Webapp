@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block title %}Pievienot{% endblock %}
+{% block content %}
+<div class="add-main_content">
+  <div class="add-header">Pievienot jaunu vienumu</div>
+  <form class="content" method="POST">
+    <div class="add-input">
+      <input name="item_name" id="item_name" placeholder="Ievadiet nosaukumu" required>
+      <input name="item_cat" id="item_cat" placeholder="Ievadiet kategoriju" required>
+    </div>
+    <br/><hr/>
+    <div class="add-button">
+      <button type="submit">Pievienot</button>
+    </div>
+  </form>
+</div>
+{% endblock %}

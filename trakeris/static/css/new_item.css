@@ -1,0 +1,21 @@
+.add-main_content{
+    width: 100%;
+    margin-left: 225px;
+}
+
+.add-main_content .add-header{
+    padding: 20px;
+    background: #fff;
+    color: #717171;
+    border-bottom: 1px solid #e0e4e8;
+}
+
+.add-main_content .add-info{
+    margin: 20px;
+    color: #717171;
+    line-height: 25px;
+}
+
+.add-main_content .add-info div{
+    margin-bottom: 20px;
+}

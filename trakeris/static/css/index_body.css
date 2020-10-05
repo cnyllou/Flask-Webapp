@@ -1,0 +1,19 @@
+.container {
+  margin: 12px;
+}
+
+.filters {
+  height: 100px;
+  background: white;
+}
+
+.filters {
+  padding: 12px;
+}
+
+.catalog-item {
+  display: inline-block;
+  border: 1px solid black;
+  position: relative;
+  width:
+}
