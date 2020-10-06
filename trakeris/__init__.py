@@ -1,6 +1,10 @@
 import os
 
-from flask import Flask
+from flask import Flask, flash, request, redirect, url_for
+from werkzeug.utils import secure_filename
+
+
+
 
 def create_app(test_config=None):
     """Create and configure an instance of the Flask application."""
@@ -10,7 +14,11 @@ def create_app(test_config=None):
         SECRET_KEY="dev",
         # store the database in the instance folder
         DATABASE=os.path.join(app.instance_path, 'trakeris.sqlite'),
+
+        UPLOAD_FOLDER = 'trakeris/static/images/profile_pics/',
     )
+
+    #app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
     if test_config is None:
         # load the instance config, if it exists, when not testing

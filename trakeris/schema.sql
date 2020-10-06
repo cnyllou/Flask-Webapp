@@ -1,14 +1,132 @@
-DROP TABLE IF EXISTS users;
-DROP TABLE IF EXISTS items;
+DROP TABLE IF EXISTS t_lietotaji;
+DROP TABLE IF EXISTS t_biroji;
+DROP TABLE IF EXISTS t_pilsetas;
+DROP TABLE IF EXISTS t_projekti;
+DROP TABLE IF EXISTS t_pozicijas;
 
-CREATE TABLE users (
-  id INTEGER PRIMARY KEY AUTOINCREMENT,
-  username TEXT UNIQUE NOT NULL,
-  password TEXT NOT NULL
+DROP TABLE IF EXISTS t_vienumi;
+DROP TABLE IF EXISTS t_noliktavas;
+DROP TABLE IF EXISTS t_ieraksti;
+DROP TABLE IF EXISTS t_darbibas;
+DROP TABLE IF EXISTS t_kategorijas;
+DROP TABLE IF EXISTS t_razotaji;
+
+DROP TABLE IF EXISTS t_pieprasijumi;
+DROP TABLE IF EXISTS t_statusi;
+DROP TABLE IF EXISTS t_prioritate;
+
+
+CREATE TABLE t_lietotaji (
+  liet_id INTEGER PRIMARY KEY AUTOINCREMENT,
+  lietv TEXT UNIQUE NOT NULL,
+  parole TEXT NOT NULL,
+  vards TEXT NOT NULL,
+  uzv TEXT NOT NULL,
+  poz_id INTEGER NOT NULL,
+  proj_id INTEGER NOT NULL,
+  biroj_id INTEGER NOT NULL,
+  pers_kods INTEGER NOT NULL,
+  epasts TEXT NOT NULL,
+  tel_num INTEGER NOT NULL,
+  profil_bild_cels VARCHAR(10),
+  izveid_dat TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  FOREIGN KEY (poz_id) REFERENCES t_pozicijas (poz_id),
+  FOREIGN KEY (proj_id) REFERENCES t_pozicijas (proj_id),
+  FOREIGN KEY (biroj_id) REFERENCES t_biroji (biroj_id)
 );
 
-CREATE TABLE items (
-  id INTEGER PRIMARY KEY AUTOINCREMENT,
-  item TEXT NOT NULL,
-  category TEXT NOT NULL
-)
+CREATE TABLE t_biroji (
+  biroj_id INTEGER PRIMARY KEY AUTOINCREMENT,
+  birojs TEXT UNIQUE NOT NULL,
+  pils_id INTEGER NOT NULL,
+  FOREIGN KEY (pils_id) REFERENCES t_pilsetas (pils_id)
+);
+
+CREATE TABLE t_pilsetas (
+  pils_id INTEGER PRIMARY KEY AUTOINCREMENT,
+  pilseta TEXT UNIQUE NOT NULL
+);
+
+CREATE TABLE t_projekti (
+  proj_id INTEGER PRIMARY KEY AUTOINCREMENT,
+  projekts TEXT UNIQUE NOT NULL
+);
+
+CREATE TABLE t_pozicijas (
+  poz_id INTEGER PRIMARY KEY AUTOINCREMENT,
+  pozicija TEXT UNIQUE NOT NULL
+);
+
+
+CREATE TABLE t_vienumi (
+  vienum_id INTEGER PRIMARY KEY AUTOINCREMENT,
+  vienum_nosauk TEXT NOT NULL,
+  modelis TEXT NOT NULL,
+  razot_id INTEGER NOT NULL,
+  iss_aprakst TEXT,
+  detalas TEXT NOT NULL,
+  komentars TEXT,
+  kateg_id INTEGER NOT NULL,
+  pils_id INTEGER NOT NULL,
+  liet_id INTEGER NOT NULL,
+  bilde_cels VARCHAR(10),
+  nopirkt_dat DATE,
+  izveid_dat TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  atjauninats TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  FOREIGN KEY (kateg_id) REFERENCES t_kategorijas (kateg_id),
+  FOREIGN KEY (pils_id) REFERENCES t_pilsetas (pils_id),
+  FOREIGN KEY (liet_id) REFERENCES t_lietotaji (liet_id),
+  FOREIGN KEY (razot_id) REFERENCES t_razotaji (razot_id)
+);
+
+CREATE TABLE t_noliktavas (
+  noliktv_id INTEGER PRIMARY KEY AUTOINCREMENT,
+  nosauk TEXT UNIQUE NOT NULL,
+  pils_id INTEGER NOT NULL,
+  FOREIGN KEY (pils_id) REFERENCES t_pilsetas (pils_id)
+);
+
+CREATE TABLE t_ieraksti (
+  ierakst_id INTEGER PRIMARY KEY AUTOINCREMENT,
+  liet_id INTEGER NOT NULL,
+  darb_id INTEGER NOT NULL,
+  noris_laiks TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  FOREIGN KEY (liet_id) REFERENCES t_lietotaji (liet_id),
+  FOREIGN KEY (darb_id) REFERENCES t_darbibas (darb_id)
+);
+
+CREATE TABLE t_darbibas (
+  darb_id INTEGER PRIMARY KEY AUTOINCREMENT,
+  darbiba TEXT UNIQUE NOT NULL
+);
+
+CREATE TABLE t_kategorijas (
+  kateg_id INTEGER PRIMARY KEY AUTOINCREMENT,
+  kategorija TEXT UNIQUE NOT NULL
+);
+
+CREATE TABLE t_razotaji (
+  razot_id INTEGER PRIMARY KEY AUTOINCREMENT,
+  razotajs TEXT UNIQUE NOT NULL
+);
+
+
+CREATE TABLE t_pieprasijumi (
+  piepras_id INTEGER PRIMARY KEY AUTOINCREMENT,
+  liet_id INTEGER NOT NULL,
+  vienum_id INTEGER NOT NULL,
+  piepr_laiks TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  koment TEXT,
+  FOREIGN KEY (liet_id) REFERENCES t_lietotaji (liet_id),
+  FOREIGN KEY (vienum_id) REFERENCES t_vienumi (vienum_id)
+);
+
+CREATE TABLE t_statusi (
+  stat_id INTEGER PRIMARY KEY AUTOINCREMENT,
+  status TEXT UNIQUE NOT NULL
+);
+
+CREATE TABLE t_prioritate (
+  prior_id INTEGER PRIMARY KEY AUTOINCREMENT,
+  prioritate TEXT UNIQUE NOT NULL
+);

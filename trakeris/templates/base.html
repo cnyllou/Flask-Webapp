@@ -23,11 +23,11 @@
     <div class="sidebar" >
         <div class="user-bar">
             <div class="pull-left image">
-                <img src="{{ url_for('static', filename='images/image.png') }}">
+                <img src="{{ url_for('static', filename='images/profile_pics/' + g.user['profil_bild_cels']) }}">
             </div>
             <div class="pull-left info">
-                <p>{{ g.user['username'] }}</p>
-                <a><i class="fa fa-icon icon fa-user  text-success"></i>Employee</a>
+                <p>{{ g.user['vards'] }} {{ g.user['uzv'] }}</p>
+                <a><i class="fa fa-icon icon fa-user  text-success"></i>{{ g.user['poz_id'] }}</a>
             </div>
         </div>
         <ul>

@@ -1,4 +1,5 @@
 # Datubāze
+---
 Inventāra pārvaldības/izsekošanas sistēmas datubāze
 
 # Ko es gribu?
@@ -7,12 +8,21 @@ Inventāra pārvaldības/izsekošanas sistēmas datubāze
 - Apvienot ar Python programmēšanas valodu
 
 # Ko es lietošu?
+- SQLite studio
 - SQLite3
 - Flask
 - Python
 
+## SQLite Studio
+Programma priekš SQLite datubāžu veidošanas, rediģēšanas un apskatīšanas.
+
+### Kādam nolūkam lietoju
+Ir tikai daži iemesli, jo SQL koda rediģēšanu es daru tikai `schema.sql` datnē, kas satur manu kodu un
+importēšanu es darīju ar Python skriptu, tas ir tāpēc, ka ar to iesāku un man ērtāk ir tā turpināt.
+Lielākoties tas iemesls lietot ir, lai ērtāk apskatīt veiktos ierakstu un tabulas, kas neizdzēsās, kā arī tabulas struktūru.
+
+
 ## SQLite3
----
 ### Kas ir SQLite3
 sqlite3 ir datu bāzes dzinējs, kas ir bez-servera, bez-konfigurācijas un paš-uzturams.
 Tas ir ātrs un mazsvara, kur visa datubāze glabājas vienā datnē uz diska un to izmanto
@@ -26,7 +36,6 @@ priekš strādāšanas ar šo datubāzi, "sqlite3".
 - Vienkārši iesākt, bez sarežģītas konfigurācijas un sāknēšanas
 
 ## Python 
----
 ### Kas tas ir Python
 Python ir skriptēšanas valoda, kas dod iespēju strādāt ātrāk un integrēt
 systēmas efektīvāk.
@@ -37,7 +46,6 @@ systēmas efektīvāk.
 - Sadarbojas labi ar tīkla lietotnēm
 
 ## Flask
----
 ### Kas tas Flask ir tāds
 Flask ir Mikrotīkla satvars priekš Python, kas tiek izmantots, lai veidotu
 tīkla lietotnes.
@@ -66,4 +74,5 @@ https://www.w3schools.com/sql/ [SQL pamācība]
 https://www.tutorialspoint.com/sqlite/sqlite_python.htm [sqlite pamācība]
 https://docs.python.org/3/library/sqlite3.html [sqlite3 dokumentācija]
 https://www.pythoncentral.io/introduction-to-sqlite-in-python/ [Ievads sqlite3]
+https://sqlitestudio.pl/ [SQLite Studio mājaslapa]
 
