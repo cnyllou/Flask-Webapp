@@ -15,6 +15,7 @@ def create_app(test_config=None):
         # store the database in the instance folder
         DATABASE=os.path.join(app.instance_path, 'trakeris.sqlite'),
 
+        IMPORT_DATA='trakeris/import_data/',
         UPLOAD_FOLDER = 'trakeris/static/images/profile_pics/',
     )
 
@@ -42,6 +43,12 @@ def create_app(test_config=None):
     from trakeris import db
 
     db.init_app(app)
+
+    # My own custom script
+    from trakeris import import_data
+
+    import_data.init_app(app)
+
 
     # Pielietot Blueprint lietotnei
     from trakeris import auth, track
