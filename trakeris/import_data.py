@@ -15,7 +15,7 @@ def import_csv(file_path):
     formatArray = []
     formatArrayRow = []
 
-    print("Importing...")
+    print("Importē...")
     for row in fileData:
         print("> ", row)
 
@@ -36,29 +36,63 @@ def import_csv(file_path):
                 formatArrayRow = list(map(str.strip, row))
                 formatArray.append(formatArrayRow)
     else:
-        print("Aborting return.")
+        print("Atcelt atgriešanu.")
 
     return formatArray
 
 # preces.csv table col1,col2
 def instert_into_db(table, cols, data):
+    row = data[0]
+    values_string = ", ?" * ((len(row)) - 1)
+    query = 'INSERT INTO {} ({}) VALUES (?{})'.format(
+             table, cols, values_string)
+
+    print("Tavs vaicājums:\n", query)
+    print("Turpināt vai rediģēt? (r - rediģēt)")
+    user_input = input()
+
+    if user_input == 'r':
+        print("\nIerakstiet savu vaicājumu:")
+        new_query = input()
+        print("Apstriprināt? (y, a - izmantot iepriekšējo, n - atcelt darbību)")
+        user_input = input()
+        if user_input == 'y':
+            query = new_query
+            print("Tiek izmantots vaicājums:\n" + query)
+        elif user_input == 'a':
+            print("Tiek izmantots vaicājums:\n" + query)
+        else:
+            raise "Programmas darbība tiek pārtraukta..."
+
+    db = get_db()
+    col_count = (len(row))
+
     for row in data:
-        values_string = ", ?" * ((len(row)) - 1)
-        query = 'INSERT INTO {} ({}) VALUES (?{})'.format(
-                 table, cols, values_string)
+        #print("Row: ", row)
+        values = []
+        for val in row:
+            #print("Val: ", val)
+            values.append(val)
+        #print(', '.join(map(str, values)))
+        db.execute(query, (values))
+        db.commit()
 
-    print("Your query:\n", query)
-    #db = get_db()
+        cursor = db.cursor()
+        cursor.execute("SELECT * FROM t_biroji")
 
-    #db.execute(query, )
-    #db.commit()
+        result = cursor.fetchall()
+
+        for row in result:
+            for field in row:
+                print(field, end=" | ")
+            print("")
 
 @click.command('import-data')
 @with_appcontext
 def import_data_command():
     click.echo("IMPORT WIZARD ACTIVATED.")
-    click.echo("Import syntax is the following:")
-    click.echo("csv_filepath table col1,col2,..,col9")
+    click.echo("Sintakse priekš importa ir sekojoša:")
+    click.echo("datne tabula kol1,kol2,..,kol9")
     try:
         user_input = input()
         uargv = list(user_input.split(" "))
@@ -70,6 +104,8 @@ def import_data_command():
             print("Tavi parametri: ",uargv , "\n...\n")
             print("Dati no '{}' tiks importēti tabulas '{}' kolonās '{}'".
                   format(filename, tablename, columns))
+
+
 
         except IndexError as error:
             print("Error: ", error, "\nProgramma tiek slēgta.")
@@ -83,7 +119,7 @@ def import_data_command():
         instert_into_db(tablename, columns, import_data)
 
 
-    except NameError as error:
+    except (NameError, OSError) as error:
         print("Error: ", error)
 
 

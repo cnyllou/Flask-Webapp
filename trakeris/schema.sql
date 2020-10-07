@@ -37,7 +37,7 @@ CREATE TABLE t_lietotaji (
 
 CREATE TABLE t_biroji (
   biroj_id INTEGER PRIMARY KEY AUTOINCREMENT,
-  birojs TEXT UNIQUE NOT NULL,
+  birojs TEXT NOT NULL,
   pils_id INTEGER NOT NULL,
   FOREIGN KEY (pils_id) REFERENCES t_pilsetas (pils_id)
 );
