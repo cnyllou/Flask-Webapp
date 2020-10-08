@@ -1,20 +1,20 @@
 ---
 title: Darāmais
 created: '2020-10-01T18:50:39.295Z'
-modified: '2020-10-02T23:04:48.044Z'
+modified: '2020-10-07T17:04:40.824Z'
 ---
 
 # Darāmais
 ## Priekšlapa
 - [x] Navigāciju augšā ar logout labajā pusē
-- [ ] Kreisajā pusē galveno navigāciju ar izvēlēm
+- [x] Kreisajā pusē galveno navigāciju ar izvēlēm
   - Virs visa ir lietotājs ar
     - profila bildi
     - Vārdu, Uzvārdu
     - Pozīciju
   - Viss inventārs
   - Pieprasīt inventāru
-- [ ] Ielogošanās lapa (Vienkārša paskata lapa)
+- [x] Ielogošanās lapa (Vienkārša paskata lapa)
   - E-pasts
   - Parole
 - [ ] Galvenē var apskatīt visu inventāru
@@ -41,9 +41,9 @@ modified: '2020-10-02T23:04:48.044Z'
     - Pievienot, dzēst, modificēt ierakstus inventāram
 
 ## Datubāzes daļa (Mini datubāze priekš mājaslapas būvēšanas)
-- [ ] - Lietotāji
+- [x] - Lietotāji
   - ID, Vārds, Uzvārds, E-pasts, Parole, Pozīcija 
-- [ ] - Inventārs
+- [x] - Inventārs
   - ID, Kategorija, Ražotājs, Nosaukums, Modelis, 
   - bilde, Apraksts,
   - atrašanās vieta,  piesaistītais
@@ -51,7 +51,7 @@ modified: '2020-10-02T23:04:48.044Z'
 ## Prasības
 - [ ] Reģistrācija notiek no administratora puses
   - Lietotājs ar administratora privilēģijām veido jaunu ierakstu datubāzē
-- [ ] Atverot mājaslapu parādas ielogošanās lapa
+- [x] Atverot mājaslapu parādas ielogošanās lapa
   - Vienkārša lapa ar tikai e-pastu un paroli
 - [ ] Mājas lapā lietotājs var
   - Apskatīt visu invetāru

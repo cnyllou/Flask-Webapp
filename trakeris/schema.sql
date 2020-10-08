@@ -37,7 +37,7 @@ CREATE TABLE t_lietotaji (
 
 CREATE TABLE t_biroji (
   biroj_id INTEGER PRIMARY KEY AUTOINCREMENT,
-  birojs TEXT NOT NULL,
+  birojs TEXT UNIQUE NOT NULL,
   pils_id INTEGER NOT NULL,
   FOREIGN KEY (pils_id) REFERENCES t_pilsetas (pils_id)
 );
@@ -115,8 +115,8 @@ CREATE TABLE t_pieprasijumi (
   piepras_id INTEGER PRIMARY KEY AUTOINCREMENT,
   liet_id INTEGER NOT NULL,
   vienum_id INTEGER NOT NULL,
-  piepr_laiks TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   koment TEXT,
+  piepr_laiks TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   FOREIGN KEY (liet_id) REFERENCES t_lietotaji (liet_id),
   FOREIGN KEY (vienum_id) REFERENCES t_vienumi (vienum_id)
 );

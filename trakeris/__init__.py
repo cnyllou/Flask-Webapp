@@ -16,7 +16,9 @@ def create_app(test_config=None):
         DATABASE=os.path.join(app.instance_path, 'trakeris.sqlite'),
 
         IMPORT_DATA='trakeris/import_data/',
+
         UPLOAD_FOLDER = 'trakeris/static/images/profile_pics/',
+        ITEM_IMGAES='trakeris/static/images/item_pics/'
     )
 
     #app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
