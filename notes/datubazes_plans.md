@@ -1,3 +1,9 @@
+---
+title: datubazes_plans
+created: '2020-10-05T20:15:14.323Z'
+modified: '2020-10-08T12:14:48.548Z'
+---
+
 # Tabulas
 t_lietotaji;
 t_biroji;
@@ -19,10 +25,4 @@ t_prioritate;
 # Vaicajumi
 
 # Darāmais
-pers_kods
-epasts
-tel_num
-nopirkt_dat DATE,
-bilde
-
 - Lauku lieluma limitācijas

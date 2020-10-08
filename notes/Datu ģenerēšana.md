@@ -1,7 +1,7 @@
 ---
 title: Datu ģenerēšana
 created: '2020-10-05T04:07:43.744Z'
-modified: '2020-10-08T11:14:08.153Z'
+modified: '2020-10-08T21:15:16.568Z'
 ---
 
 # Datu ģenerēšana
@@ -86,13 +86,22 @@ Saistīšana ar lietotāju tabulu ir vienkārša, katrā projektā 1 projekta va
 
 
 # Invetāra tabula `t_vienumi` un tam saistītās tabulas
-Lai uzzinātu, cik daudz invetārs ir vajadzīgs ir labi zināt, kas ir vajadzīgs 199 darbiniekiem programmēšanas/testēšanas uzņēmumā (Šīs datubāzes mērķauditorijai)
-Invetāra estimēšana:
-- Portātīvie datori
-- Telefoni (Testēšanai)
+**Svītrs kods**
+- Python skripts, kas uzģenerē 12 skaitļu virkni pēc nejaušības
+
+**Preču nosaukumi**
+- Ejot cauri interneta veikaliem un sarakstiem ar ražotāju precēm, manuāli savadīts
+- Priekš modelis laukiem arī tika izmantota Excel komanda `="CNN"&RANDBETWEEN(51;99)&"A/"&RANDBETWEEN(0;99)&"P"`, kuriem lauks bija tukšs, iespējams modeļa nosaukums
+
+**Ražotāju saraksts**
+- Tika meklēti saraksti ar mobilo telefonu ražotājiem un tam līdzīgi uz citiem invetāra tipiem
+
+**Kategorijas**
+- Loģiski apvienotas inventāra kategorijas, lai darbinieks varētu atrast, ko vajag bez problēmām
 
 
-
+**Birojs, kur atrodas**
+- Loģiski sakārtots pēc tā, cik cilvēki atrodas uz biroju
 
 
 # Izmantotie resursi

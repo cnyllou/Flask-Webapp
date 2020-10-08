@@ -67,27 +67,21 @@ CREATE TABLE t_vienumi (
   detalas TEXT NOT NULL,
   komentars TEXT,
   kateg_id INTEGER NOT NULL,
-  pils_id INTEGER NOT NULL,
+  biroj_id INTEGER NOT NULL,
   liet_id INTEGER NOT NULL,
   bilde_cels VARCHAR(10),
   nopirkt_dat DATE,
   izveid_dat TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   atjauninats TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   FOREIGN KEY (kateg_id) REFERENCES t_kategorijas (kateg_id),
-  FOREIGN KEY (pils_id) REFERENCES t_pilsetas (pils_id),
+  FOREIGN KEY (biroj_id) REFERENCES t_pilsetas (biroj_id),
   FOREIGN KEY (liet_id) REFERENCES t_lietotaji (liet_id),
   FOREIGN KEY (razot_id) REFERENCES t_razotaji (razot_id)
 );
 
-CREATE TABLE t_noliktavas (
-  noliktv_id INTEGER PRIMARY KEY AUTOINCREMENT,
-  nosauk TEXT UNIQUE NOT NULL,
-  pils_id INTEGER NOT NULL,
-  FOREIGN KEY (pils_id) REFERENCES t_pilsetas (pils_id)
-);
-
 CREATE TABLE t_ieraksti (
   ierakst_id INTEGER PRIMARY KEY AUTOINCREMENT,
+  vienum_id INTEGER NOT NULL,
   liet_id INTEGER NOT NULL,
   darb_id INTEGER NOT NULL,
   noris_laiks TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
