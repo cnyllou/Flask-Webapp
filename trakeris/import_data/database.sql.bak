@@ -5,7 +5,6 @@ DROP TABLE IF EXISTS t_projekti;
 DROP TABLE IF EXISTS t_pozicijas;
 
 DROP TABLE IF EXISTS t_vienumi;
-DROP TABLE IF EXISTS t_noliktavas;
 DROP TABLE IF EXISTS t_ieraksti;
 DROP TABLE IF EXISTS t_darbibas;
 DROP TABLE IF EXISTS t_kategorijas;

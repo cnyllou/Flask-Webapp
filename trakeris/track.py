@@ -16,19 +16,32 @@ def index():
     user_id = session.get('user_id')
     db = get_db()
 
-    user = db.execute(
-        'SELECT * FROM t_lietotaji WHERE liet_id = ?', (user_id,)
-    ).fetchone()
+    t_lietotaji = db.execute(
+                '''SELECT l.liet_id, vards, uzv, poz.pozicija, profil_bild_cels
+                FROM t_lietotaji l
+                JOIN t_pozicijas poz ON l.poz_id = poz.poz_id
+                WHERE l.liet_id = ?''',
+                (user_id,),
+                ).fetchone()
 
-    filename = db.execute(
-        'SELECT profil_bild_cels FROM t_lietotaji WHERE liet_id = ?', (user_id,)
-    ).fetchone()
 
     t_vienumi = db.execute(
-        "SELECT * FROM t_vienumi"
+                '''SELECT vienum_id, svitr_kods, vienum_nosauk, modelis,
+                   r.razotajs, iss_aprakst, detalas, komentars,
+                   k.kategorija, b.birojs, l.lietv, bilde_cels, nopirkt_dat
+                   FROM t_vienumi v
+                   JOIN t_razotaji r ON v.razot_id = r.razot_id
+                   JOIN t_kategorijas k ON v.kateg_id = k.kateg_id
+                   JOIN t_biroji b ON v.biroj_id = b.biroj_id
+                   JOIN t_lietotaji l ON v.liet_id = l.liet_id
+                   ORDER BY nopirkt_dat DESC'''
     ).fetchall()
 
-    return render_template('track/index.html', user=user, t_vienumi=t_vienumi, filename=filename)
+
+
+
+    return render_template('track/index.html',
+                            t_lietotaji=t_lietotaji, t_vienumi=t_vienumi)
 
 
 @bp.route("/add", methods=("GET", "POST"))

@@ -18,7 +18,6 @@
         <li class="nav-right"><a class="active logout" href="{{ url_for('auth.logout') }}"><i class="fas fa-sign-out-alt"></i> Izlogoties</a></li>
     </ul>
 </div>
-
 <div class="wrapper">
     <div class="sidebar" >
         <div class="user-bar">
@@ -26,8 +25,8 @@
                 <img src="{{ url_for('static', filename='images/profile_pics/' + g.user['profil_bild_cels']) }}">
             </div>
             <div class="pull-left info">
-                <p>{{ g.user['vards'] }} {{ g.user['uzv'] }}</p>
-                <a><i class="fa fa-icon icon fa-user  text-success"></i>{{ g.user['poz_id'] }}</a>
+                <p>{{ t_lietotaji['vards'] }} {{ t_lietotaji['uzv'] }}</p>
+                <a><i class="fa fa-icon icon fa-user  text-success"></i>{{ t_lietotaji['poz.pozicija'] }}</a>
             </div>
         </div>
         <ul>

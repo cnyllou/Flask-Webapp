@@ -1,3 +1,7 @@
+* {
+    box-sizing: border-box;
+}
+
 .container {
   margin: 12px;
 }
@@ -16,4 +20,50 @@
   border: 1px solid black;
   position: relative;
   width:
+}
+
+.item-list .list-item img{
+    max-width:70px;
+    height:auto;
+}
+
+.item-list{
+  list-style: none;
+  font-size: 13px;
+  text-align:left;
+  position:static;
+  padding: 0;
+}
+
+.list-item {
+  width: 20%;
+}
+
+.item-list {
+
+}
+.list-item {
+
+}
+.left-side {
+  width: 28%;
+  height: 100%;
+  float:left;
+  text-align: center;
+  padding: 0px;
+  margin-right: 10px;
+  border-right: 1px solid #cacaca;
+  background-color: $E7E7E7;
+}
+.right-side {
+  margin: 3px 10px;
+}
+.item-name {
+
+}
+.item-details {
+  font-size: 12px;
+}
+.item-id {
+  float: right;
 }

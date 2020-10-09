@@ -11,7 +11,7 @@
         <p>Trakeris</p>
     </div>
     {% if g.user %}
-      <span>Jūs jau esat ielogojies kā {{ g.user['lietv'] }}.</span>
+      <span>Jūs jau esat ielogojies kā {{ t_lietotaji['lietv'] }}.</span>
       <a href="{{ url_for('auth.logout') }}">Izrakstīties?</a>
       <br>
       <span>Atgriezties uz <a class="return-home" href="{{ url_for('index') }}"> Mājaslapu?</a></span>

@@ -86,7 +86,7 @@ def login():
         db = get_db()
         error = None
         user = db.execute(
-            'SELECT * FROM t_lietotaji WHERE lietv = ?', (lietv,)
+            'SELECT liet_id, lietv, parole FROM t_lietotaji WHERE lietv = ?', (lietv,)
         ).fetchone()
         flash(user['lietv'])
 
