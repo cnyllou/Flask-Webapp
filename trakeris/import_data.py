@@ -9,8 +9,8 @@ from trakeris.db import get_db
 
 
 def import_csv(file_path):
-    file = open(file_path)
-    fileRead = csv.reader(file)
+    file = open(file_path, encoding="utf8")
+    fileRead = csv.reader(file, delimiter='\t')
     fileData = list(fileRead)
     formatArray = []
     formatArrayRow = []
@@ -42,8 +42,10 @@ def import_csv(file_path):
 
 # preces.csv table col1,col2
 def instert_into_db(table, cols, data):
-    row = data[0]
-    values_string = ", ?" * ((len(row)) - 1)
+    col_count = len(cols.split(","))
+
+    values_string = ", ?" * ((col_count) - 1)
+    print()
     query = 'INSERT INTO {} ({}) VALUES (?{})'.format(
              table, cols, values_string)
 
@@ -65,27 +67,32 @@ def instert_into_db(table, cols, data):
             raise "Programmas darbība tiek pārtraukta..."
 
     db = get_db()
-    col_count = (len(row))
 
     for row in data:
-        #print("Row: ", row)
-        values = []
-        for val in row:
-            #print("Val: ", val)
-            values.append(val)
-        #print(', '.join(map(str, values)))
-        db.execute(query, (values))
-        db.commit()
+        if col_count == 1:
+            values = row
+        else:
+            values = []
+            for val in row:
+                values.append(val)
 
-        cursor = db.cursor()
-        cursor.execute("SELECT * FROM t_biroji")
+        if col_count == 1:
+            db.execute(query, [values])
+            db.commit()
+        else:
+            db.execute(query, (values))
+            db.commit()
 
-        result = cursor.fetchall()
 
-        for row in result:
-            for field in row:
-                print(field, end=" | ")
-            print("")
+    cursor = db.cursor()
+    cursor.execute("SELECT * FROM {}".format(table))
+
+    result = cursor.fetchall()
+
+    for row in result:
+        for field in row:
+            print(field, end=" | ")
+        print("")
 
 @click.command('import-data')
 @with_appcontext

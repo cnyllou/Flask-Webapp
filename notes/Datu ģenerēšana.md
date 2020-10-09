@@ -1,7 +1,7 @@
 ---
 title: Datu ģenerēšana
 created: '2020-10-05T04:07:43.744Z'
-modified: '2020-10-08T21:15:16.568Z'
+modified: '2020-10-09T12:19:18.563Z'
 ---
 
 # Datu ģenerēšana
@@ -102,6 +102,12 @@ Saistīšana ar lietotāju tabulu ir vienkārša, katrā projektā 1 projekta va
 
 **Birojs, kur atrodas**
 - Loģiski sakārtots pēc tā, cik cilvēki atrodas uz biroju
+
+## Ieraksti tabula
+Šī tabula uzglabā ierakstus ar lietotāju rīcībām, piemēram, kad lietotājs rediģē, pievieno, paņem, atgriež inventāru, tiek veikts jauns ieraksts, kur tiek ņemts vērā vienums, lietotājs, darbība un norises laiks (automātiski pievienojas no ieraksta izveidošanas)
+Kā noklusējumā importējot datus tiks piereģistrēts, ka root lietotājs pievienoja katru vienumu vienā laikā.
+
+
 
 
 # Izmantotie resursi
