@@ -33,13 +33,13 @@
     display: block;
     color: rgb(255, 255, 255);
     text-decoration: none;
-    
+
 }
 
 .topnav ul li .title{
     width: 225px;
     font-weight: bold;
-    text-transform: uppercase; 
+    text-transform: uppercase;
     font-size: 25px;
     background: #2e567a;
     padding: 5.5% 0px;
@@ -61,32 +61,54 @@
 body{
     background-color: #f2f7ff;
 }
+/* The sidebar menu */
+.sidenav {
+  height: 100%; /* Full-height: remove this if you want "auto" height */
+  width: 160px; /* Set the width of the sidebar */
+  position: fixed; /* Fixed Sidebar (stay in place on scroll) */
+  z-index: 1; /* Stay on top */
+  top: 0; /* Stay at the top */
+  left: 0;
+  background-color: #111; /* Black */
+  overflow-x: hidden; /* Disable horizontal scroll */
+  padding-top: 20px;
+}
 
+/* The navigation menu links */
+.sidenav a {
+  padding: 6px 8px 6px 16px;
+  text-decoration: none;
+  font-size: 25px;
+  color: #818181;
+  display: block;
+}
 
 /* Vertical navigation bar*/
 .wrapper{
     display: flex;
-    position: relative;
+    position: sticky;
 }
 
 .wrapper .sidebar{
     width: 225px;
     height: 100%;
     background: #2c2c2c;
-    position: fixed;
+    position: fixed; /* Fixed Sidebar (stay in place on scroll) */
+    left: 0;
+    overflow-x: hidden; /* Disable horizontal scroll */
     
 }
 .wrapper .sidebar .user-bar{
     color: #fff;
     text-transform: uppercase;
     height: 70px;
-    
+
 }
 
 .wrapper .sidebar .user-bar .pull-left{
     float: left;
     margin: 5% 0% 0% 7%;
-    
+
 }
 
 .wrapper .sidebar .user-bar .info {
@@ -108,8 +130,8 @@ body{
 }
 
 .wrapper .sidebar .user-bar img{
-    width: 50px; 
-    border-radius: 50px;  
+    width: 50px;
+    border-radius: 50px;
 }
 
 
@@ -119,7 +141,7 @@ body{
     padding: 5% 0% 5% 7%;
     font-size: 15px;
     border-left: 3px solid transparent;
-}    
+}
 
 .wrapper .sidebar ul li:hover{
     background-color: #292929;
@@ -150,28 +172,17 @@ body{
     padding: 3.5% 0px;
     text-transform: uppercase;
     height: 30px;
-} 
+}
 
+.wrapper .header {
+  padding-left: 240px;
+  position: absolute;
+  width: 100%;
+  margin-top: 5px;
+}
 
 .wrapper .main_content{
     width: 100%;
-    margin-left: 225px;
-}
+    margin: 50px 15px 0px 240px;
 
-.wrapper .main_content .header{
-    padding: 20px;
-    background: #fff;
-    color: #717171;
-    border-bottom: 1px solid #e0e4e8;
 }
-
-.wrapper .main_content .info{
-    margin: 20px;
-    color: #717171;
-    line-height: 25px;
-}
-
-.wrapper .main_content .info div{
-    margin-bottom: 20px;
-}
-

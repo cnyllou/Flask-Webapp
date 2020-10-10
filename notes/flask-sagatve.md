@@ -1,8 +1,8 @@
 ---
-tags: [Main]
+tags: [Base]
 title: flask-sagatve
 created: '2020-09-29T03:34:25.446Z'
-modified: '2020-10-01T05:09:03.350Z'
+modified: '2020-10-10T11:09:59.292Z'
 ---
 
 # Flask sagatavošana

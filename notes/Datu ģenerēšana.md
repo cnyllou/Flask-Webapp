@@ -1,7 +1,8 @@
 ---
+tags: [Datubāze]
 title: Datu ģenerēšana
 created: '2020-10-05T04:07:43.744Z'
-modified: '2020-10-09T12:19:18.563Z'
+modified: '2020-10-10T12:20:35.880Z'
 ---
 
 # Datu ģenerēšana
@@ -88,6 +89,9 @@ Saistīšana ar lietotāju tabulu ir vienkārša, katrā projektā 1 projekta va
 # Invetāra tabula `t_vienumi` un tam saistītās tabulas
 **Svītrs kods**
 - Python skripts, kas uzģenerē 12 skaitļu virkni pēc nejaušības
+## Kā tas tiek izdarīts no mājaslapas puses, kad lietotājs ievada to
+- Lietotājs šo lauku neaiztiek
+- Ar Python
 
 **Preču nosaukumi**
 - Ejot cauri interneta veikaliem un sarakstiem ar ražotāju precēm, manuāli savadīts

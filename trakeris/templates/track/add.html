@@ -2,11 +2,47 @@
 {% block title %}Pievienot{% endblock %}
 {% block content %}
 <div class="add-main_content">
-  <div class="add-header">Pievienot jaunu vienumu</div>
-  <form class="content" method="POST">
+  <div class="add-header">Papildināt invetāru</div>
+  <form class="content" method="POST" enctype="multipart/form-data">
     <div class="add-input">
-      <input name="item_name" id="item_name" placeholder="Ievadiet nosaukumu" required>
-      <input name="item_cat" id="item_cat" placeholder="Ievadiet kategoriju" required>
+      <label for="vienum_nosauk">Nosaukums</label>
+      <input name="vienum_nosauk" id="vienum_nosauk" required>
+      <label for="birojs">Atrašanās vieta</label>
+      <select id="birojs" name="birojs" required>
+        {% for birojs in t_biroji%}
+          <option value="{{ birojs['birojs'] }}">
+            {{ birojs['birojs'] }}
+          </option>
+        {% endfor %}
+      </select>
+      <label for="kategorija">Kategorija</label>
+      <select id="kategorija" name="kategorija" required>
+        {% for kategorija in t_kategorijas%}
+          <option value="{{ kategorija['kategorija'] }}">
+            {{ kategorija['kategorija'] }}
+          </option>
+        {% endfor %}
+      </select>
+      <label for="nopirkt_dat">Iegādāšanās datums</label>
+      <input type="date" name="nopirkt_dat" id="nopirkt_dat"
+               min="1900-01-01" max="{{ today_date }}">
+      <label for="iss_aprakst">Īss apraksts</label>
+      <input name="iss_aprakst" id="iss_aprakst">
+      <label for="razotajs">Ražotājs</label>
+      <input list="razotaji" name="razotajs" id="razotajs">
+      <datalist id="razotaji">
+        {% for razotajs in t_razotaji%}
+          <option value="{{ razotajs['razotajs'] }}">
+            {{ razotajs['razotajs'] }}
+          </option>
+        {% endfor %}
+      </datalist>
+      <label for="modelis">Modelis</label>
+      <input name="modelis" id="modelis">
+      <label for="bilde_cels">Bilde</label>
+      <input type="file" name="bilde_cels" id="bilde_cels">
+      <label for="detalas">Detalizēts apraksts</label>
+      <input name="detalas" id="detalas">
     </div>
     <br/><hr/>
     <div class="add-button">
@@ -15,3 +51,13 @@
   </form>
 </div>
 {% endblock %}
+
+<!--
+- [ ] Obligātie lauki
+    - Atbildīgais
+- [ ] neobligātie lauki
+    - Ražotājs <
+        - Automātiskie piedāvājumi
+        - Ja nav ievadītais sarakstā, tad tiek veidots jauns ieraksts t_razotaji
+    - Detaļas
+-->

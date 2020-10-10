@@ -1,7 +1,8 @@
 ---
+tags: [Datubāze]
 title: Nepieciešamais inventārs
 created: '2020-10-08T12:15:22.902Z'
-modified: '2020-10-08T20:29:16.017Z'
+modified: '2020-10-10T11:09:02.188Z'
 ---
 
 # Nepieciešamais inventārs

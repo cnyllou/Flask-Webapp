@@ -1,7 +1,8 @@
 ---
+tags: [Base, Flask]
 title: Sesijas
 created: '2020-10-01T04:54:34.490Z'
-modified: '2020-10-01T07:39:42.692Z'
+modified: '2020-10-10T11:10:37.135Z'
 ---
 
 # Sesijas

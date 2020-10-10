@@ -1,7 +1,8 @@
 ---
+tags: [Base, Flask]
 title: GET/POST
 created: '2020-09-30T18:28:40.495Z'
-modified: '2020-09-30T18:32:28.682Z'
+modified: '2020-10-10T11:10:42.690Z'
 ---
 
 # GET/POST

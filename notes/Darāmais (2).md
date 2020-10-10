@@ -1,8 +1,8 @@
 ---
 tags: [Base, To Do]
-title: Darāmais
-created: '2020-10-01T18:50:39.295Z'
-modified: '2020-10-10T21:16:26.047Z'
+title: Darāmais (2)
+created: '2020-10-10T21:16:33.204Z'
+modified: '2020-10-10T21:16:33.204Z'
 ---
 
 # Darāmais

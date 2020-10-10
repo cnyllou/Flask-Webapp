@@ -1,8 +1,9 @@
 ---
 attachments: [Clipboard_2020-10-09-17-47-48.png, Clipboard_2020-10-09-17-49-45.png]
+tags: [Datubāze]
 title: Datu importēšana ar import_data.py
 created: '2020-10-07T07:53:38.752Z'
-modified: '2020-10-09T15:32:07.036Z'
+modified: '2020-10-10T11:09:23.116Z'
 ---
 
 # Datu importēšana ar `import_data.py`

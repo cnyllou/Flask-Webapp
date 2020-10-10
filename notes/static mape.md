@@ -1,7 +1,8 @@
 ---
+tags: [Base, Flask]
 title: ./static mape
 created: '2020-10-01T12:19:04.078Z'
-modified: '2020-10-01T12:26:02.329Z'
+modified: '2020-10-10T11:10:52.196Z'
 ---
 
 # `./static` mape

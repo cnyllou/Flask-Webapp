@@ -1,7 +1,8 @@
 ---
+tags: [Datubāze, SQL]
 title: SQL vaicājumi un saites
 created: '2020-10-09T18:32:21.949Z'
-modified: '2020-10-09T19:17:09.237Z'
+modified: '2020-10-10T21:42:14.395Z'
 ---
 
 # SQL vaicājumi un saites
@@ -95,3 +96,50 @@ SELECT i.ierakst_id,
     - vienum_id - vienuma nosaukums
     - liet_id - lietotājvārds
     - darb_id - darbība
+
+
+---
+# Citi SQL vaicājumi, kurus man gadijās lietot
+Visu tabulas kolonnu pārvērš uz mazajiem burtiem
+```SQL
+UPDATE t_lietotaji
+   SET lietv = LOWER(lietv),
+       epasts = LOWER(epasts);
+```
+Lietotājam papildinot invetāru vajag unikālu svītrkodu
+- Tiek atgriezts lielākais skaitlis no kolonnas svitr_kods, pieskaitas 1
+```SQL
+SELECT MAX(svitr_kods)+1 AS lielakais_cip
+  FROM t_vienumi;
+```
+Iegūt kategoriju sarakstu no datubāzes
+```SQL
+SELECT kateg_id,
+       kategorija
+  FROM t_kategorijas;
+```
+Ievietot jaunus ierakstus, kur tiek dati ņemti no citām tabulām
+- Tabulu ID meklēšana
+```SQL
+SELECT * FROM t_biroji WHERE birojs = ?;
+SELECT * FROM t_kategorijas WHERE kategorija = ?;
+```
+- Tā kā lietotājs pats var ierakstīt ražotāju, atrastais tiks salīdzināts ar pārvēršot burtus uz mazajiem, lai neveidotos duplikāti
+- 
+```SQL
+SELECT * FROM t_razotaji WHERE LOWER(razotajs) = LOWER(?);
+```
+- Ja nav atrasts ieraksts, tad tiks izveidots jauns ieraksts ražotāju tabulā un saglabāts id, lai pēc tam varētu izveidot jaunu ierakstu ar tikko izveidoto ražotāju
+```SQL
+INSERT INTO t_razotaji (razotajs) VALUES (?);
+SELECT * FROM t_razotaji WHERE razotajs = ?
+```
+Ar nākošo vaicājumu, kur '?' vietā tiks ievietoti mainīgie, tiks izveidota jauna rinda tabulā t_vienumi
+```SQL
+INSERT INTO t_vienumi (svitr_kods,vienum_nosauk,modelis,razot_id,iss_aprakst,detalas,kateg_id,biroj_id,liet_id,bilde_cels,nopirkt_dat) 
+VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+```
+
+
+
+

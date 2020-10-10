@@ -1,7 +1,8 @@
 ---
+tags: [Datubāze]
 title: datubazes_plans
 created: '2020-10-05T20:15:14.323Z'
-modified: '2020-10-08T12:14:48.548Z'
+modified: '2020-10-10T11:09:12.099Z'
 ---
 
 # Tabulas

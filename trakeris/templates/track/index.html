@@ -1,41 +1,35 @@
 {% extends "base.html" %}
 {% block title %}Sākuma lapa{% endblock %}
 {% block content %}
-<div class="header">Visi vienumi.</div>
   <div class="filters">
     <p>Filtrēt/Šķirot</p>
   </div>
 
-  <div class="container">
-    {% for vienums in t_vienumi %}
-    <ul class="item-list">
-        <li class="list-item">
-          <div class="catalog-item">
-            <div class="left-side">
-              <div class="item-pic">
-                <img src="{{ url_for('static', filename='images/item_pics/' + vienums['bilde_cels']) }}">
+  <section class="container">
+    <hr>
+
+      {% for vienums in t_vienumi %}
+            <div class="catalog-item">
+              <div class="left-side">
+                <div class="item-pic">
+                  <span class="helper"></span><img src="{{ url_for('static', filename='images/item_pics/' + vienums['bilde_cels']) }}">
+                </div>
+              </div>
+              <div class="right-side">
+                <div class="item-name">
+                  <h5>{{ vienums['vienum_nosauk'] }}</h5>
+                </div>
+                <div class="item-details">
+                  <div class="details">{{ vienums['detalas'] }}</div>
+                  <div>{{ vienums['lietv'] }}</div>
+                  <div>{{ vienums['birojs'] }}</div>
+                </div>
+                <p class="id-num">#{{ vienums['vienum_id'] }}</p>
               </div>
             </div>
-            <div class="right-side">
-              <div class="item-name">
-                <span>{{ vienums['vienum_nosauk'] }}</span>
-              </div>
-              <div class="item-details">
-                <div>{{ vienums['detalas'] }}</div>
-              </div>
-              <div class="item-details">
-                <div>{{ vienums['lietv'] }}</div>
-              </div>
-              <div class="item-details">
-                <div>{{ vienums['birojs'] }}</div>
-              </div>
-              <div class="item-id">
-                <div>#{{ vienums['vienum_id'] }}</div>
-              </div>
-            </div>
-          </div>
-        </li>
-    </ul>
-    {% endfor %}
-  </div>
+      {% endfor %}
+
+
+
+  </section>
 {% endblock %}

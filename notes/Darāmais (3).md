@@ -1,14 +1,14 @@
 ---
 tags: [Base, To Do]
-title: Darāmais
-created: '2020-10-01T18:50:39.295Z'
-modified: '2020-10-10T21:16:26.047Z'
+title: Darāmais (3)
+created: '2020-10-10T21:16:34.370Z'
+modified: '2020-10-10T21:21:15.817Z'
 ---
 
 # Darāmais
 ## Priekšlapa
 - [x] Navigāciju augšā ar logout labajā pusē
-- [x] Kreisajā pusē galveno navigāciju ar izvēlēm
+- [x] Kreisajā pusē galveno navžŠigāciju ar izvēlēm
   - Virs visa ir lietotājs ar
     - profila bildi
     - Vārdu, Uzvārdu

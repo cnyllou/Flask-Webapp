@@ -108,13 +108,18 @@ def login():
 @bp.before_app_request
 def load_logged_in_user():
     user_id = session.get('user_id')
+    db = get_db()
 
     if user_id is None:
         g.user = None
     else:
-        g.user = get_db().execute(
-            'SELECT * FROM t_lietotaji WHERE liet_id = ?', (user_id,)
-        ).fetchone()
+        g.user = db.execute(
+                    '''SELECT l.liet_id, vards, uzv, poz.pozicija, profil_bild_cels
+                    FROM t_lietotaji l
+                    JOIN t_pozicijas poz ON l.poz_id = poz.poz_id
+                    WHERE l.liet_id = ?''',
+                    (user_id,),
+                    ).fetchone()
 
 
 
