@@ -1,35 +1,81 @@
 {% extends "base.html" %}
 {% block title %}Sākuma lapa{% endblock %}
 {% block content %}
-  <div class="filters">
+  <div class="filters" >
     <p>Filtrēt/Šķirot</p>
+    <div class="categories-filter">
+      <input type="checkbox" class="check-k filter" name="kategorija" value="kategorija_1" autocomplete="off">Portatīvie datori</input>
+      <input type="checkbox" class="check-k filter" name="kategorija" value="kategorija_2" autocomplete="off">Monitori</input>
+      <input type="checkbox" class="check-k filter" name="kategorija" value="kategorija_3" autocomplete="off">Telefoni/Planšetes</input>
+      <input type="checkbox" class="check-k filter" name="kategorija" value="kategorija_4" autocomplete="off">Tīkla testēšanas piederumi</input>
+      <input type="checkbox" class="check-k filter" name="kategorija" value="kategorija_5" autocomplete="off">Austiņas</input>
+      <input type="checkbox" class="check-k filter" name="kategorija" value="kategorija_8" autocomplete="off">Citi</input>
+      <input type="checkbox" class="check-k filter" name="kategorija" value="kategorija_6" autocomplete="off">SIM kartes</input>
+      <input type="checkbox" class="check-k filter" name="kategorija" value="kategorija_7" autocomplete="off">Printeri</input>
+    </div>
+    <div id="location-filter" class="location-filter">
+      <input type="checkbox" class="check-l filter" name="location" value="vieta_1" autocomplete="off">Rīga_1</input>
+      <input type="checkbox" class="check-l filter" name="location" value="vieta_2" autocomplete="off">Rīga_2</input>
+      <input type="checkbox" class="check-l filter" name="location" value="vieta_3" autocomplete="off">Rīga_3</input>
+      <input type="checkbox" class="check-l filter" name="location" value="vieta_4" autocomplete="off">Daugavpils_1</input>
+      <input type="checkbox" class="check-l filter" name="location" value="vieta_5" autocomplete="off">Liepāja_1</input>
+      <input type="checkbox" class="check-l filter" name="location" value="vieta_6" autocomplete="off">Jelgava_1</input>
+      <input type="checkbox" class="check-l filter" name="location" value="vieta_7" autocomplete="off">Jūrmala_1</input>
+      <input type="checkbox" class="check-l filter" name="location" value="vieta_8" autocomplete="off">Ventspils_1</input>
+      <input type="checkbox" class="check-l filter" name="location" value="vieta_9" autocomplete="off">Rēzekne_1</input>
+      <input type="checkbox" class="check-l filter" name="location" value="vieta_10" autocomplete="off">Valmiera_1</input>
+    <div class="Status-filter"> <!--If color {}: Hide else-->
+      <input type="radio" class="radio filter" name="status" value="show">Parādīt visus</input>
+      <input type="radio" class="radio filter" name="status" value="mans">Man piesaistītie</input>
+      <input type="radio" class="radio filter" name="status" value="aiznemts">Aizņemtie</input>
+      <input type="radio" class="radio filter" name="status" value="pieejams">Pieejamie</input>
+    </div>
+    <button type="button" name="button">Test this</button>
   </div>
 
-  <section class="container">
+    <input type="text" id="user_input" placeholder="Meklēt inventārā.." onkeyup="listen_input()">
+
+    <section id="container" class="container">
     <hr>
-
       {% for vienums in t_vienumi %}
-            <div class="catalog-item">
-              <div class="left-side">
-                <div class="item-pic">
-                  <span class="helper"></span><img src="{{ url_for('static', filename='images/item_pics/' + vienums['bilde_cels']) }}">
-                </div>
-              </div>
-              <div class="right-side">
-                <div class="item-name">
-                  <h5>{{ vienums['vienum_nosauk'] }}</h5>
-                </div>
-                <div class="item-details">
-                  <div class="details">{{ vienums['detalas'] }}</div>
-                  <div>{{ vienums['lietv'] }}</div>
-                  <div>{{ vienums['birojs'] }}</div>
-                </div>
-                <p class="id-num">#{{ vienums['vienum_id'] }}</p>
-              </div>
+        {% if user_id == vienums['liet_id'] %}
+          {% set status = "mans" %}
+        {% elif vienums['liet_id'] == None %}
+          {% set status = "pieejams" %}
+        {% else %}
+          {% set status = "aiznemts" %}
+        {% endif %}
+        <div class="catalog-item" data-category="show vieta_{{ vienums['biroj_id'] }} kategorija_{{ vienums['kateg_id'] }} {{status}}">
+          <div class="overlay">
+            <div class="overlay-list">
+                <ul>
+                  <li><a href="">Skatīt</a></li>
+                  <li><a href="">Rediģēt</a></li>
+                  <li><a href="">Piesaistīt</a></li>
+                </ul>
             </div>
+          </div>
+            <div class="left-side">
+
+              <div class="item-pic" >
+
+                <span class="helper"></span><img src="{{ url_for('static', filename='images/item_pics/' + vienums['bilde_cels']) }}">
+
+
+            </div>
+          </div>
+          <div class="right-side">
+            <div class="item-name">
+              <h5>{{ vienums['vienum_nosauk'] }}</h5>
+            </div>
+            <div class="item-details">
+              <div class="details">{{ vienums['detalas'] }}</div>
+              <div>{{ vienums['lietv'] }}</div>
+              <div>{{ vienums['birojs'] }}</div>
+            </div>
+            <p class="id-num">#{{ vienums['vienum_id'] }}</p>
+          </div>
+        </div>
       {% endfor %}
-
-
-
   </section>
 {% endblock %}

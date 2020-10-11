@@ -2,7 +2,7 @@
 tags: [Base, To Do]
 title: Darāmais
 created: '2020-10-01T18:50:39.295Z'
-modified: '2020-10-10T21:16:26.047Z'
+modified: '2020-10-11T20:16:31.411Z'
 ---
 
 # Darāmais
@@ -116,30 +116,69 @@ modified: '2020-10-10T21:16:26.047Z'
 
 
 ## Prasības
-- [ ] Reģistrācija notiek no administratora puses
-  - Lietotājs ar administratora privilēģijām veido jaunu ierakstu datubāzē
-- [x] Atverot mājaslapu parādas ielogošanās lapa
-  - Vienkārša lapa ar tikai e-pastu un paroli
+- [ ] Reģistrācija 
+    - Obligātie aizpildāmie lauku
+        - parole, vārds, uzvārds, personas kodas,
+        - pozīcija, projekts, birojs
+        - e-pasts, telefona numurs
+    - Neobligāti aizpildāmie lauku
+        - Lietotājvārds
+            - Ja lietotājvārds netiek dots, tas tiek automātiski ģenerēts
+        - Profila bilde
+    - Validācijas
+        - personas kods un telefona numurs 
+            - jābūt pareizi formatētai ievadei
+- [x] Atverot mājaslapu parādas pieteikšanās lapa
+    - Pieteikšanās ar lietotājvārdu un paroli
 - [ ] Mājas lapā lietotājs var
-  - Apskatīt visu invetāru
-      - Sīkāk apskatīt (komentāri, detalizēti info, darbību ieraksti)
-      - Vienumam mainas krāsa balstoties uz statusu
-  - Rediģēt inventāru
-      - Detaļas
-      - Īsu aprakstu
-      - Nosaukumu
-  - Apskatīt savu piesaistīto invetāru
-  - Var filtrēt inventāru
-  - Pievienot jaunu inventāru
-  - Virspusēji redzēt savu informāciju
-      - Vārds, uzvārds, profila bilde, pozīcija
-  - Izlogoties
+    - Apskatīt visu invetāru
+        - Sīkāk apskatīt (komentāri, detalizēti info, darbību ieraksti)
+        - Vienumam mainas krāsa balstoties uz statusu
+    - Rediģēt inventāru
+        - Detaļas
+        - Īsu aprakstu
+        - Nosaukumu
+    - Apskatīt savu piesaistīto invetāru
+    - Var filtrēt inventāru pēc
+        - Kategorijas
+        - Atrašanās vietas
+        - Statusa
+        - Noņemt filtrus poga
+    - Pievienot jaunu inventāru
+    - Virspusēji redzēt savu informāciju
+        - Vārds, uzvārds, profila bilde, pozīcija
+    - Izlogoties
+- [ ] Lietotāja profils
+    - Lietotājs var rediģēt savu informāciju
+        - projekts, pozīcija
 - [ ] Administratora profils
-  - Manto visu to, ko lietotājs var izdarīt
-  - Var rediģēt, pievienot, dzēst darbiniekus no datubāzes
+    - Manto visu to, ko lietotājs var izdarīt
+    - Var rediģēt, pievienot, dzēst darbiniekus no datubāzes
+- [ ] Inventāra sadaļa
+    - Katram vienumam automātiski piesaistas klase
+        - kategorija - kategorijas ID
+        - birojs - biroja ID
+        - status
+            - Pēc koda tiek noteikts status
+                - Aizņemts, Man piesaistīts, Pieejams
 
 # Darāmais saraksts
-- [ ] - Rediģēt reģistrācijas lapu priekš esošās datubāzes
+- [x] - Rediģēt reģistrācijas lapu priekš esošās datubāzes
 - [x] - Ieteikumi priekš ražotājiem
-- [ ] - \<label> tags priekš formām
-
+- [x] - \<label> tags priekš formām
+- [x] - Automātiska lietotājvārda ģenerēšana
+- [ ] - Personas koda validācija
+- [ ] - Telefona numura validācija
+- [x] - Neļaut lietotājam reģistrēties kā administratoram
+- [x] - Vārds, Uzvārds tiek ierakstīt ar pirmo lielo burtu neatkarīgi no lietotāja ievades
+- [x] - Lietotāvārds tiek ierakstīts ar mazajiem burtiem neatkarīgi no lietotāja ievades
+- [ ] - Profila bilde vienmēr vienā izmērā
+- [ ] - Filtri
+- [x] - Izvēlētie filtri tiek atgriezti uz noklusējumu pēc lapas pārlādes
+- [x] - Meklēšana
+- [x] - Uznirstošās iespējas
+- [ ] - Iespēja piesaistīt vienumu
+- [ ] - Iespēja sīkāk apskatīt vienumu
+- [ ] - Iespēja rediģēt vienumu
+- [ ] - Atsevišķa lapa priekš rediģēšanas
+- [ ] - Modal priekš rediģēšanas un apskatīšanas

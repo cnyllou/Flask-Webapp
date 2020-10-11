@@ -9,7 +9,7 @@
     <div class="auth-input">
       <div class="login-info">
         <label for="lietv">Pieteikšanās info:</label><br>
-        <input name="lietv" id="lietv" placeholder="Lietoājvārds" required>
+        <input name="lietv" id="lietv" placeholder="Lietotājvārds">
         <input type="password" name="parole" id="parole"
                 placeholder="Parole" required>
       </div>
@@ -21,10 +21,30 @@
                 placeholder="Personas kods" required>
       </div>
       <div class="work-info">
-        <label for="poz_id">Darba stāža:</label><br>
-        <input name="poz_id" id="poz_id" placeholder="Pozīcija" required>
-        <input name="proj_id" id="proj_id" placeholder="Projekts" required>
-        <input name="biroj_id" id="biroj_id" placeholder="Birojs" required>
+        <label for="pozicija">Darba stāža:</label><br>
+        <select id="pozicija" name="pozicija" required>
+          {% for pozicija in t_pozicijas %}
+            {% if pozicija['pozicija'] != 'Administrators' %}
+            <option value="{{ pozicija['pozicija'] }}">
+              {{ pozicija['pozicija'] }}
+            </option>
+            {% endif %}
+          {% endfor %}
+        </select>
+        <select id="projekts" name="projekts" required>
+          {% for projekts in t_projekti %}
+            <option value="{{ projekts['projekts'] }}">
+              {{ projekts['projekts'] }}
+            </option>
+          {% endfor %}
+        </select>
+        <select id="birojs" name="birojs" required>
+          {% for birojs in t_biroji %}
+            <option value="{{ birojs['birojs'] }}">
+              {{ birojs['birojs'] }}
+            </option>
+          {% endfor %}
+        </select>
       </div>
       <div class="contact-info">
         <label for="email">Kontakti:</label><br>
@@ -34,8 +54,8 @@
                 placeholder="Telefona numurs" required>
       </div>
       <div class="profile-pic">
-        <label for="file">Profila bilde:</label><br>
-        <input type="file" name="file">
+        <label for="profil_bild_cels">Profila bilde:</label><br>
+        <input type="file" name="profil_bild_cels">
       </div>
     </div>
     <br/><hr/>

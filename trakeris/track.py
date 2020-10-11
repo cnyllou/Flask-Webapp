@@ -25,20 +25,20 @@ def index():
     t_vienumi = db.execute(
                 '''SELECT vienum_id, svitr_kods, vienum_nosauk, modelis,
                    r.razotajs, iss_aprakst, detalas, komentars,
-                   k.kategorija, b.birojs, l.lietv, bilde_cels, atjauninats
+                   k.kateg_id, k.kategorija, b.biroj_id, b.birojs,
+                   l.liet_id, l.lietv, bilde_cels, atjauninats
                    FROM t_vienumi v
-                   JOIN t_razotaji r ON v.razot_id = r.razot_id
-                   JOIN t_kategorijas k ON v.kateg_id = k.kateg_id
-                   JOIN t_biroji b ON v.biroj_id = b.biroj_id
-                   JOIN t_lietotaji l ON v.liet_id = l.liet_id
+                   LEFT JOIN t_razotaji r ON v.razot_id = r.razot_id
+                   LEFT JOIN t_kategorijas k ON v.kateg_id = k.kateg_id
+                   LEFT JOIN t_biroji b ON v.biroj_id = b.biroj_id
+                   LEFT JOIN t_lietotaji l ON v.liet_id = l.liet_id
                    ORDER BY atjauninats DESC'''
     ).fetchall()
 
 
 
 
-    return render_template('track/index.html',
-                            t_vienumi=t_vienumi)
+    return render_template('track/index.html', user_id=user_id,t_vienumi=t_vienumi)
 
 
 @bp.route("/add", methods=("GET", "POST"))

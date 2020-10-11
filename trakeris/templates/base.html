@@ -4,11 +4,17 @@
   <title>{% block title %}{% endblock %} - Trakeris</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+
   <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}">
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
   <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
   <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/add_item.css') }}">
   <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/index_body.css') }}">
+
+  <script src="{{url_for('static', filename='js/user_input.js')}}"></script>
+  <script src="{{url_for('static', filename='js/jquery.js')}}"></script>
+  <script src="{{url_for('static', filename='js/jq_filters.js')}}"></script>
+  <script src="{{url_for('static', filename='js/overlay.js')}}"></script>
   <script src="https://kit.fontawesome.com/b99e675b6e.js"></script>
 </head>
 <body>
@@ -19,7 +25,7 @@
     </ul>
 </div>
 <div class="wrapper">
-    <div class="sidebar" >
+    <div class="sidebar">
         <div class="user-bar">
             <div class="pull-left image">
                 <img src="{{ url_for('static', filename='images/profile_pics/' + g.user['profil_bild_cels']) }}">
