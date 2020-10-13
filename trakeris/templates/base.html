@@ -10,6 +10,7 @@
   <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
   <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/add_item.css') }}">
   <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/index_body.css') }}">
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/edit_view.css') }}">
 
   <script src="{{url_for('static', filename='js/user_input.js')}}"></script>
   <script src="{{url_for('static', filename='js/jquery.js')}}"></script>
@@ -40,9 +41,6 @@
             <li><a href="{{ url_for('track.index') }}"><i class="fas fa-box"></i>Viss inventārs</a></li>
             <li><a href="{{ url_for('track.add') }}"><i class="fa fa-plus"></i>Pievienot jaunu vienumu</a></li>
         </ul>
-    </div>
-    <div>
-      <h1 class="header">Koplietojamais inventārs</h1>
     </div>
     <div class="main_content">
       {% for message in get_flashed_messages() %}

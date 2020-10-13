@@ -5,7 +5,7 @@ function listen_input() {
  input = document.getElementById('user_input');
  filter = input.value.toUpperCase();
  container = document.getElementById("container");
- item = container.getElementsByClassName('shown');
+ item = container.getElementsByClassName('catalog-item');
 
 
  // Loop through all list items, and hide those who don't match the search query

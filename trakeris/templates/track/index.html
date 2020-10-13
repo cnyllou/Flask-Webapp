@@ -1,6 +1,9 @@
 {% extends "base.html" %}
 {% block title %}Sākuma lapa{% endblock %}
 {% block content %}
+  <section class="content-header">
+    <h1>Koplietojamais inventārs</h1>
+  </section>
   <div class="filters" >
     <p>Filtrēt/Šķirot</p>
     <div class="categories-filter">
@@ -48,11 +51,10 @@
         <div class="catalog-item" data-category="show vieta_{{ vienums['biroj_id'] }} kategorija_{{ vienums['kateg_id'] }} {{status}}">
           <div class="overlay">
             <div class="overlay-list">
-                <ul>
-                  <li><a href="">Skatīt</a></li>
-                  <li><a href="">Rediģēt</a></li>
-                  <li><a href="">Piesaistīt</a></li>
-                </ul>
+                  <a href="{{ url_for('track.view', item_id=vienums['vienum_id']) }}"><i class="far fa-eye "></i> SKATĪT</a>
+                  <a href=""><i class="fas fa-edit "></i> REDIĢĒT</a>
+                  <a class="add-me" href=""><i class="fas fa-user-plus"></i> PIESAISTĪT</a>
+
             </div>
           </div>
             <div class="left-side">

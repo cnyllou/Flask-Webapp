@@ -2,7 +2,7 @@
 tags: [Base, To Do]
 title: Darāmais
 created: '2020-10-01T18:50:39.295Z'
-modified: '2020-10-11T20:16:31.411Z'
+modified: '2020-10-13T04:25:20.545Z'
 ---
 
 # Darāmais
@@ -173,12 +173,19 @@ modified: '2020-10-11T20:16:31.411Z'
 - [x] - Vārds, Uzvārds tiek ierakstīt ar pirmo lielo burtu neatkarīgi no lietotāja ievades
 - [x] - Lietotāvārds tiek ierakstīts ar mazajiem burtiem neatkarīgi no lietotāja ievades
 - [ ] - Profila bilde vienmēr vienā izmērā
-- [ ] - Filtri
+- [x] - Filtri
 - [x] - Izvēlētie filtri tiek atgriezti uz noklusējumu pēc lapas pārlādes
 - [x] - Meklēšana
 - [x] - Uznirstošās iespējas
 - [ ] - Iespēja piesaistīt vienumu
-- [ ] - Iespēja sīkāk apskatīt vienumu
+- [x] - Iespēja sīkāk apskatīt vienumu
 - [ ] - Iespēja rediģēt vienumu
 - [ ] - Atsevišķa lapa priekš rediģēšanas
+
+
+# Atlikt uz pašām beigām
 - [ ] - Modal priekš rediģēšanas un apskatīšanas
+- [ ] - Vienlaicīgs filtrs no meklēšanas un no kastītēm
+- [ ] - Dizaina uzlabošana
+- [ ] - Izvietošana serverī
+- [ ] - Salabot, labo navigācijas pusi (Vai pārtaisīt visu navigācijas sadaļu)

@@ -2,7 +2,7 @@
 tags: [Datubāze, SQL]
 title: SQL vaicājumi un saites
 created: '2020-10-09T18:32:21.949Z'
-modified: '2020-10-10T21:42:14.395Z'
+modified: '2020-10-12T06:59:03.817Z'
 ---
 
 # SQL vaicājumi un saites
@@ -139,7 +139,19 @@ Ar nākošo vaicājumu, kur '?' vietā tiks ievietoti mainīgie, tiks izveidota 
 INSERT INTO t_vienumi (svitr_kods,vienum_nosauk,modelis,razot_id,iss_aprakst,detalas,kateg_id,biroj_id,liet_id,bilde_cels,nopirkt_dat) 
 VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
 ```
-
+Parādīt informācīju par kādu vienu vienumu
+```SQL
+SELECT vienum_id, svitr_kods, vienum_nosauk, modelis,
+                   r.razotajs, iss_aprakst, detalas, komentars,
+                   k.kategorija, b.birojs, l.lietv, bilde_cels,
+                   v.nopirkt_dat, v.izveid_dat, v.atjauninats
+                   FROM t_vienumi v
+                   LEFT JOIN t_razotaji r ON v.razot_id = r.razot_id
+                   LEFT JOIN t_kategorijas k ON v.kateg_id = k.kateg_id
+                   LEFT JOIN t_biroji b ON v.biroj_id = b.biroj_id
+                   LEFT JOIN t_lietotaji l ON v.liet_id = l.liet_id
+                   WHERE v.vienum_id = ?
+```
 
 
 

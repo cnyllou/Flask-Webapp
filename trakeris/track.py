@@ -38,7 +38,30 @@ def index():
 
 
 
-    return render_template('track/index.html', user_id=user_id,t_vienumi=t_vienumi)
+    return render_template('track/index.html',
+                            user_id=user_id,t_vienumi=t_vienumi)
+
+
+def get_item(item_id):
+    db = get_db()
+    item = db.execute(
+                '''SELECT vienum_id, svitr_kods, vienum_nosauk, modelis,
+                   r.razotajs, iss_aprakst, detalas, komentars,
+                   k.kategorija, b.birojs, l.lietv, bilde_cels,
+                   v.nopirkt_dat, v.izveid_dat, v.atjauninats
+                   FROM t_vienumi v
+                   LEFT JOIN t_razotaji r ON v.razot_id = r.razot_id
+                   LEFT JOIN t_kategorijas k ON v.kateg_id = k.kateg_id
+                   LEFT JOIN t_biroji b ON v.biroj_id = b.biroj_id
+                   LEFT JOIN t_lietotaji l ON v.liet_id = l.liet_id
+                   WHERE v.vienum_id = ?''',
+                   (item_id,),
+    ).fetchone()
+
+    if item is None:
+        abort(404, "Item id {0} doesn't exist.".format(item_id))
+
+    return item
 
 
 @bp.route("/add", methods=("GET", "POST"))
@@ -160,3 +183,14 @@ def add():
     return render_template('track/add.html', today_date=today_date,
                             t_kategorijas=t_kategorijas, t_biroji=t_biroji,
                             t_razotaji=t_razotaji)
+
+
+@bp.route("/<int:item_id>/view", methods=("GET", "POST"))
+@login_required
+def view(item_id):
+    db = get_db()
+    item = get_item(item_id)
+
+
+
+    return render_template("track/view.html", item=item)

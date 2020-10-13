@@ -1,0 +1,12 @@
+.content-header{
+  position: relative;
+  background: rgb(220, 210, 240);
+  border-bottom: 3px solid black;
+
+}
+
+.content {
+  margin: 10px;
+  background: rgb(227, 219, 250);
+
+}
