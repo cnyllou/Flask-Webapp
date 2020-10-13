@@ -2,7 +2,7 @@
 tags: [Base, To Do]
 title: Darāmais
 created: '2020-10-01T18:50:39.295Z'
-modified: '2020-10-13T04:25:20.545Z'
+modified: '2020-10-13T19:11:59.394Z'
 ---
 
 # Darāmais
@@ -180,8 +180,10 @@ modified: '2020-10-13T04:25:20.545Z'
 - [ ] - Iespēja piesaistīt vienumu
 - [x] - Iespēja sīkāk apskatīt vienumu
 - [ ] - Iespēja rediģēt vienumu
-- [ ] - Atsevišķa lapa priekš rediģēšanas
-
+- [x] - Atsevišķa lapa priekš rediģēšanas
+- [ ] - Noklusējumā ir izvēlēta pareizā kategorija, birojs
+- [x] - Atjaunināšanas laiks mainas pēc jauninājuma
+- [ ] - Lietotājs nemainas
 
 # Atlikt uz pašām beigām
 - [ ] - Modal priekš rediģēšanas un apskatīšanas
@@ -189,3 +191,4 @@ modified: '2020-10-13T04:25:20.545Z'
 - [ ] - Dizaina uzlabošana
 - [ ] - Izvietošana serverī
 - [ ] - Salabot, labo navigācijas pusi (Vai pārtaisīt visu navigācijas sadaļu)
+

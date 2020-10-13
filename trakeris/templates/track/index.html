@@ -52,7 +52,7 @@
           <div class="overlay">
             <div class="overlay-list">
                   <a href="{{ url_for('track.view', item_id=vienums['vienum_id']) }}"><i class="far fa-eye "></i> SKATĪT</a>
-                  <a href=""><i class="fas fa-edit "></i> REDIĢĒT</a>
+                  <a href="{{ url_for('track.edit', item_id=vienums['vienum_id']) }}"><i class="fas fa-edit "></i> REDIĢĒT</a>
                   <a class="add-me" href=""><i class="fas fa-user-plus"></i> PIESAISTĪT</a>
 
             </div>

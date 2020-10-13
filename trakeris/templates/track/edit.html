@@ -1,5 +1,122 @@
 {% extends "base.html" %}
 {% block title %}Rediģēt{% endblock %}
 {% block content %}
+  <section class="content-header">
+    <h1>Rediģēt vienumu</h1>
+  </section>
+  <section class="content">
+    <div class="row">
+      <div class="col_1 item-info">
+        <div class="box box-info">
+          <div class="box-header">
+            <h3 class="box-title">Informācija</h3>
+          </div>
+          <form class="form-horizontal" method="post" enctype="multipart/form-data">
+            <div class="box-body">
+              <div style="padding: 10px 0px; text-align: center;">
+                <h4>Invetāra dati</h4>
+              </div>
+                <div class="form-group">
+                  <label class="col">ID</label>
+                  <span class="data">{{ item['vienum_id'] }}</span>
+                </div>
+                <div class="form-group">
+                  <label class="col">Svītrkods</label>
+                  <span class="data">{{ item['svitr_kods'] }}</span>
+                </div>
+                <div class="form-group">
+                  <label class="col">Birojs</label>
+                  <select id="birojs" name="birojs" class="data" value="{{ item['birojs'] }}">
+                    {% for birojs in t_biroji%}
+                      <option value="{{ birojs['birojs'] }}">
+                        {{ birojs['birojs'] }}
+                      </option>
+                    {% endfor %}
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label class="col">Atbildīgais lietotājs</label>
+                  <input list="lietotaji" name="lietv" class="data" value="{{ item['lietv'] or request.form['lietv']}}" >
+                  <datalist id="lietotaji">
+                    {% for lietotaji in t_lietotaji%}
+                      <option value="{{ lietotaji['lietv'] }}">
+                        {{ lietotaji['lietv'] }}
+                      </option>
+                    {% endfor %}
+                  </datalist>
+                </div>
+                <div class="form-group">
+                  <label class="col">Pirkšanas datums</label>
+                  <input type="date" name="nopirkt_dat" class="data" min="1900-01-01" max="{{ today_date }}" value="{{ item['nopirkt_dat'] or request.form['nopirkt_dat']}}">
+                </div>
+                <div class="form-group">
+                  <label class="col">Atjaunināts ieraksts</label>
+                  <span class="data">{{ item['atjauninats'] }}</span>
+                </div>
+              <div style="padding: 10px 0px; text-align: center;">
+                <h4>Detalizēta informācija</h4>
+              </div>
+              <div class="form-group">
+                <label class="col">Īss apraksts</label>
+                <input type="text" name="iss_aprakst" class="data" value="{{ item['iss_aprakst'] or request.form['iss_aprakst']}}">
+              </div>
+              <div class="form-group">
+                <label class="col">Kategorija</label>
 
+                <select id="kategorija" name="kategorija">
+                  {% for kategorija in t_kategorijas%}
+                    <option value="{{ kategorija['kategorija'] }}">
+                      {{ kategorija['kategorija'] }}
+                    </option>
+                  {% endfor %}
+                </select>
+              </div>
+              <div class="form-group">
+                <label class="col">Ražotājs</label>
+                <span class="data"></span>
+                <input list="razotaji" name="razotajs" id="razotajs" value="{{item['razotajs'] or request.form['razotajs']}}" autocomplete="off">
+                <datalist id="razotaji">
+                  {% for razotajs in t_razotaji%}
+                    <option value="{{ razotajs['razotajs'] }}">
+                      {{ razotajs['razotajs'] }}
+                    </option>
+                  {% endfor %}
+              </div>
+              <div class="form-group">
+                <label class="col">Nosaukums</label>
+                <input type="text" name="vienum_nosauk" class="data" value="{{ item['vienum_nosauk'] or request.form['vienum_nosauk']}}">
+              </div>
+              <div class="form-group">
+                <label class="col">Modelis</label>
+                <input name="modelis" class="data" value="{{item['modelis'] or request.form['modelis'] }}">
+              <div class="form-group">
+                <label class="col">bilde</label>
+                {% if item['bilde_cels'] == 'default_item.png' %}
+                  <span class="data"> - </span>
+                {% else %}
+                  <img src="{{ url_for('static', filename='images/item_pics/' + item['bilde_cels']) }}">
+                {% endif %}
+                <input type="file" class="bilde" name="bilde_cels" id="bilde_cels" style="visibility:shown;">
+              </div>
+                <div class="form-group">
+                  <label class="col">Detalizēta informācija</label>
+                  <textarea name="detalas" rows="2" cols="30" class="data">{{ item['detalas'] or request.form['detalas']}}</textarea>
+                </div>
+                <div class="submit">
+                  <button type="submit" class="submit-button" onclick="return confirm('Turpināt?');">Apstiprināt izmaiņas</button>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+      <div class="col-2 comments">
+      </div>
+    </div>
+  </section>
+  <section class="history">
+    <h2>Vēsture</h2>
+    <div class="ieraksti">
+    </div>
+  </section>
 {% endblock %}

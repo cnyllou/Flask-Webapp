@@ -6,85 +6,86 @@
   </section>
   <section class="content">
     <div class="row">
-      <div class="col-1 item-info">
+      <div class="col_1 item-info">
         <div class="box box-info">
           <div class="box-header">
             <h3 class="box-title">Informācija</h3>
           </div>
-          <form class="form-horizontal">
+          <form class="form-horizontal" method="post">
             <div class="box-body">
               <div style="padding: 10px 0px; text-align: center;">
                 <h4>Invetāra dati</h4>
               </div>
                 <div class="form-group">
-                  <h5 class="col">ID</h5>
-                  <div class="data">{{ item['vienum_id'] }}</div>
+                  <label class="col">ID</label>
+                  <span class="data">{{ item['vienum_id'] }}</span>
                 </div>
                 <div class="form-group">
-                  <h5 class="col">Svītrkods</h5>
-                  <div class="data">{{ item['svitr_kods'] }}</div>
+                  <label class="col">Svītrkods</label>
+                  <span class="data">{{ item['svitr_kods'] }}</span>
                 </div>
                 <div class="form-group">
-                  <h5 class="col">Birojs</h5>
-                  <div class="data">{{ item['birojs'] }}</div>
+                  <label class="col">Birojs</label>
+                  <span class="data">{{ item['birojs'] }}</span>
                 </div>
                 <div class="form-group">
-                  <h5 class="col">Lietotājs</h5>
-                  <div class="data">{{ item['lietv'] }}</div>
+                  <label class="col">Lietotājs</label>
+                  <span class="data">{{ item['lietv'] }}</span>
                 </div>
                 <div class="form-group">
-                  <h5 class="col">Pirkšanas datums</h5>
-                  <div class="data">{{ item['nopirkt_dat'] if item['nopirkt_dat'] != "" and item['nopirkt_dat'] != None  else "-"}}</div>
+                  <label class="col">Pirkšanas datums</label>
+                  <span class="data">{{ item['nopirkt_dat'] if item['nopirkt_dat'] != "" and item['nopirkt_dat'] != None  else "-"}}</span>
                 </div>
                 <div class="form-group">
-                  <h5 class="col">Izveidots ieraksts</h5>
-                  <div class="data">{{ item['izveid_dat'] }}</div>
+                  <label class="col">Izveidots ieraksts</label>
+                  <span class="data">{{ item['izveid_dat'] }}</span>
                 </div>
                 <div class="form-group">
-                  <h5 class="col">Atjaunināts ieraksts</h5>
-                  <div class="data">{{ item['atjauninats'] }}</div>
+                  <label class="col">Atjaunināts ieraksts</label>
+                  <span class="data">{{ item['atjauninats'] }}</span>
                 </div>
               <div style="padding: 10px 0px; text-align: center;">
                 <h4>Detalizēta informācija</h4>
               </div>
               <div class="form-group">
-                <h5 class="col">Īss apraksts</h5>
-                <div class="data">{{ item['iss_aprakst'] if item['iss_aprakst'] != "" and item['iss_aprakst'] != None else "-"}}</div>
+                <label class="col">Īss apraksts</label>
+                <span class="data">{{ item['iss_aprakst'] if item['iss_aprakst'] != "" and item['iss_aprakst'] != None else "-"}}</span>
               </div>
               <div class="form-group">
-                <h5 class="col">Kategorija</h5>
-                <div class="data">{{ item['kategorija'] }}</div>
+                <label class="col">Kategorija</label>
+                <span>{{ item['kategorija'] if item['kategorija'] != '' and item['kategorija'] != None else '-'}}</span>
+                
               </div>
               <div class="form-group">
-                <h5 class="col">Ražotājs</h5>
-                <div class="data">{{ item['razotajs'] if item['razotajs'] != "" and item['razotajs'] != None else "-"}}</div>
+                <label class="col">Ražotājs</label>
+                <span class="data">{{ item['razotajs'] if item['razotajs'] != '' and item['razotajs'] != None else '-'}}</span>
               </div>
               <div class="form-group">
-                <h5 class="col">Nosaukums</h5>
-                <div class="data">{{ item['vienum_nosauk'] }}</div>
+                <label class="col">Nosaukums</label>
+                <span class="data">{{ item['vienum_nosauk'] }}</span>
               </div>
               <div class="form-group">
-                <h5 class="col">Modelis</h5>
-                <div class="data">{{ item['modelis'] if item['modelis'] != "" and item['modelis'] != None else "-"}}</div>
+                <label class="col">Modelis</label>
+                <span class="data">{{ item['modelis'] if item['modelis'] != "" and item['modelis'] != None else "-"}}</span>
                 <div class="form-group">
-                  <h5 class="col">Pilnais nosaukums</h5>
+                  <label class="col">Pilnais nosaukums</label>
                   {% if item['modelis'] == "" and item['modelis'] != None %}
-                    <div class="data">{{ item['vienum_nosauk'] }}</div>
+                    <span class="data">{{ item['vienum_nosauk'] }}</span>
                   {% else %}
-                    <div class="data">{{ item['vienum_nosauk']}} ( {{ item['modelis'] }} )</div>
+                    <span class="data">{{ item['vienum_nosauk']}} ( {{ item['modelis'] }} )</span>
                   {% endif %}
                 </div>
                 <div class="form-group">
-                  <h5 class="col">bilde</h5>
+                  <label class="col">bilde</label>
                   {% if item['bilde_cels'] == 'default_item.png' %}
-                    <div class="data"> - </div>
+                    <span class="data"> - </span>
                   {% else %}
                     <img src="{{ url_for('static', filename='images/item_pics/' + item['bilde_cels']) }}">
                   {% endif %}
                 </div>
                 <div class="form-group">
-                  <h5 class="col">Detalizēta informācija</h5>
-                  <div class="data">{{ item['detalas'] if item['detalas'] != "" and item['detalas'] != None else "-"}}</div>
+                  <label class="col">Detalizēta informācija</label>
+                  <span class="data">{{ item['detalas'] if item['detalas'] != "" and item['detalas'] != None else "-"}}</span>
                 </div>
               </div>
             </div>
