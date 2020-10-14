@@ -2,7 +2,7 @@
 tags: [Datubāze, SQL]
 title: SQL vaicājumi un saites
 created: '2020-10-09T18:32:21.949Z'
-modified: '2020-10-12T06:59:03.817Z'
+modified: '2020-10-14T19:12:02.417Z'
 ---
 
 # SQL vaicājumi un saites
@@ -151,6 +151,14 @@ SELECT vienum_id, svitr_kods, vienum_nosauk, modelis,
                    LEFT JOIN t_biroji b ON v.biroj_id = b.biroj_id
                    LEFT JOIN t_lietotaji l ON v.liet_id = l.liet_id
                    WHERE v.vienum_id = ?
+```
+Lai redigētu ierakstus datubāzē
+```SQL
+UPDATE t_vienumi
+                       SET vienum_nosauk = ?, modelis = ?, razot_id = ?,
+                       iss_aprakst = ?, detalas = ?, kateg_id = ?,
+                       biroj_id = ?, liet_id = ?, bilde_cels = ?,
+                       nopirkt_dat = ?, atjauninats = ? WHERE vienum_id = ?
 ```
 
 

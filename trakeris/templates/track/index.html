@@ -5,6 +5,7 @@
     <h1>Koplietojamais inventārs</h1>
   </section>
   <div class="filters" >
+
     <p>Filtrēt/Šķirot</p>
     <div class="categories-filter">
       <input type="checkbox" class="check-k filter" name="kategorija" value="kategorija_1" autocomplete="off">Portatīvie datori</input>
@@ -51,21 +52,16 @@
         <div class="catalog-item" data-category="show vieta_{{ vienums['biroj_id'] }} kategorija_{{ vienums['kateg_id'] }} {{status}}">
           <div class="overlay">
             <div class="overlay-list">
-                  <a href="{{ url_for('track.view', item_id=vienums['vienum_id']) }}"><i class="far fa-eye "></i> SKATĪT</a>
-                  <a href="{{ url_for('track.edit', item_id=vienums['vienum_id']) }}"><i class="fas fa-edit "></i> REDIĢĒT</a>
-                  <a class="add-me" href=""><i class="fas fa-user-plus"></i> PIESAISTĪT</a>
-
+              <a href="{{ url_for('track.view', item_id=vienums['vienum_id']) }}"><i class="far fa-eye "></i> SKATĪT</a>
+              <a href="{{ url_for('track.edit', item_id=vienums['vienum_id']) }}"><i class="fas fa-edit "></i> REDIĢĒT</a>
+              <a class="add-me" href="{{ url_for('track.addme', item_id=vienums['vienum_id'], user_id=g.user['liet_id']) }}" ><i class="fas fa-user-plus"></i> PIESAISTĪT</a>
             </div>
           </div>
             <div class="left-side">
-
               <div class="item-pic" >
-
                 <span class="helper"></span><img src="{{ url_for('static', filename='images/item_pics/' + vienums['bilde_cels']) }}">
-
-
+              </div>
             </div>
-          </div>
           <div class="right-side">
             <div class="item-name">
               <h5>{{ vienums['vienum_nosauk'] }}</h5>

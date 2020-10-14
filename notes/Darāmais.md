@@ -2,7 +2,7 @@
 tags: [Base, To Do]
 title: Darāmais
 created: '2020-10-01T18:50:39.295Z'
-modified: '2020-10-13T19:11:59.394Z'
+modified: '2020-10-14T17:26:34.387Z'
 ---
 
 # Darāmais
@@ -183,7 +183,13 @@ modified: '2020-10-13T19:11:59.394Z'
 - [x] - Atsevišķa lapa priekš rediģēšanas
 - [ ] - Noklusējumā ir izvēlēta pareizā kategorija, birojs
 - [x] - Atjaunināšanas laiks mainas pēc jauninājuma
+
+
+# Problēmas
 - [ ] - Lietotājs nemainas
+    - [ ] Programmai kaut kas nepatik
+- [ ] - NULL tiek ierakstīts komentāros
+- [ ] - Pirkšanas datums ir tukšs
 
 # Atlikt uz pašām beigām
 - [ ] - Modal priekš rediģēšanas un apskatīšanas

@@ -35,9 +35,6 @@ def index():
                    ORDER BY atjauninats DESC'''
     ).fetchall()
 
-
-
-
     return render_template('track/index.html',
                             user_id=user_id,t_vienumi=t_vienumi)
 
@@ -228,6 +225,7 @@ def edit(item_id):
         vienum_nosauk = request.form['vienum_nosauk']
         birojs = request.form['birojs']
         kategorija = request.form['kategorija']
+        print("Kategorija: {}".format(kategorija))
         nopirkt_dat = request.form['nopirkt_dat']
         iss_aprakst = request.form['iss_aprakst']
         razotajs = request.form['razotajs']
@@ -265,7 +263,7 @@ def edit(item_id):
                     (lietv,)
         ).fetchone()
 
-        print("lietotajs: %s" % lietv)
+        print(type(liet_id['liet_id']))
 
 
 
@@ -280,14 +278,7 @@ def edit(item_id):
                         (razotajs,)
             ).fetchone()
 
-        # check if the post request has the file part
-        if 'bilde_cels' not in request.files:
-            flash('Request.files: '+ request.files)
-
         file = request.files['bilde_cels']
-
-        if file.filename == '':
-            flash('No selected file... Using default.')
 
         if file and allowed_file(file.filename):
             filename = ("{}_{}".format(
@@ -314,6 +305,7 @@ def edit(item_id):
         if error is not None:
             flash(error)
         else:
+            print("Liet_id: " + str(filename['bilde_cels']))
             db.execute(
                     '''UPDATE t_vienumi
                        SET vienum_nosauk = ?, modelis = ?, razot_id = ?,
@@ -322,7 +314,8 @@ def edit(item_id):
                        nopirkt_dat = ?, atjauninats = ? WHERE vienum_id = ?''',
                     (vienum_nosauk, modelis, razot_id['razot_id'],iss_aprakst,
                     detalas,kateg_id['kateg_id'],biroj_id['biroj_id'],
-                    liet_id['liet_id'],filename,nopirkt_dat,timestamp,item_id)
+                    liet_id['liet_id'],filename['bilde_cels'],
+                    nopirkt_dat,timestamp,item_id)
             )
             db.commit()
             return redirect(url_for("track.index"))
@@ -331,3 +324,18 @@ def edit(item_id):
                             t_kategorijas=t_kategorijas, t_biroji=t_biroji,
                             t_razotaji=t_razotaji, t_lietotaji=t_lietotaji,
                             today_date=today_date)
+
+@bp.route("/addme/")
+def addme():
+    item_id = request.args.get('item_id')
+    user_id = request.args.get('user_id')
+
+    flash("item={}, user={}".format(item_id, user_id))
+    db = get_db()
+    db.execute('''UPDATE t_vienumi
+                  SET liet_id = ?
+                  WHERE vienum_id = ?''',
+              (user_id, item_id))
+    db.commit()
+
+    return redirect(url_for("track.index"))

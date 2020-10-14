@@ -28,9 +28,15 @@
                   <label class="col">Birojs</label>
                   <select id="birojs" name="birojs" class="data" value="{{ item['birojs'] }}">
                     {% for birojs in t_biroji%}
+                      {% if birojs['birojs'] == item['birojs']%}
+                      <option value="{{ birojs['birojs'] }}" selected>
+                        {{ birojs['birojs'] }}
+                      </option>
+                      {% else %}
                       <option value="{{ birojs['birojs'] }}">
                         {{ birojs['birojs'] }}
                       </option>
+                      {% endif %}
                     {% endfor %}
                   </select>
                 </div>
@@ -62,12 +68,17 @@
               </div>
               <div class="form-group">
                 <label class="col">Kategorija</label>
-
                 <select id="kategorija" name="kategorija">
                   {% for kategorija in t_kategorijas%}
-                    <option value="{{ kategorija['kategorija'] }}">
-                      {{ kategorija['kategorija'] }}
-                    </option>
+                    {% if kategorija['kategorija'] == item['kategorija']%}
+                      <option value="{{ kategorija['kategorija'] }}" selected>
+                        {{ kategorija['kategorija'] }}
+                      </option>
+                    {% else %}
+                      <option value="{{ kategorija['kategorija'] }}">
+                        {{ kategorija['kategorija'] }}
+                      </option>
+                    {% endif %}
                   {% endfor %}
                 </select>
               </div>
