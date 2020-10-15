@@ -24,7 +24,7 @@ def index():
 
     t_vienumi = db.execute(
                 '''SELECT vienum_id, svitr_kods, vienum_nosauk, modelis,
-                   r.razotajs, iss_aprakst, detalas, komentars,
+                   r.razotajs, iss_aprakst, detalas, koment_id,
                    k.kateg_id, k.kategorija, b.biroj_id, b.birojs,
                    l.liet_id, l.lietv, bilde_cels, atjauninats
                    FROM t_vienumi v
@@ -43,7 +43,7 @@ def get_item(item_id):
     db = get_db()
     item = db.execute(
                 '''SELECT vienum_id, svitr_kods, vienum_nosauk, modelis,
-                   r.razotajs, iss_aprakst, detalas, komentars,
+                   r.razotajs, iss_aprakst, detalas, koment_id,
                    k.kategorija, b.birojs, l.lietv, bilde_cels,
                    v.nopirkt_dat, v.izveid_dat, v.atjauninats
                    FROM t_vienumi v
@@ -189,6 +189,21 @@ def view(item_id):
     item = get_item(item_id)
 
     return render_template("track/view.html", item=item)
+
+@bp.route("/<int:item_id>/view/comment", methods=("GET", "POST"))
+def comment(item_id, liet_id, comment):
+    #item_id = request.args.get('item_id')
+    #user_id = request.args.get('user_id')
+
+    flash("item={}, user={}".format(item_id, user_id))
+    db = get_db()
+    db.execute('''UPDATE t_vienumi
+                  SET liet_id = ?
+                  WHERE vienum_id = ?''',
+              (user_id, item_id))
+    db.commit()
+
+    return redirect(url_for("track.index"))
 
 
 @bp.route("/<int:item_id>/edit", methods=("GET", "POST"))

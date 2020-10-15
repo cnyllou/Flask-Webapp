@@ -70,8 +70,10 @@
 }
 
 .left-side img{
-  max-width: 92%;
-  max-height: 95%;
+  vertical-align: middle;
+  width: 95%;
+  max-height: 98%;
+
   border: 1px solid rgba(#5e8281, 0.48);
   border-radius: 1px;
 

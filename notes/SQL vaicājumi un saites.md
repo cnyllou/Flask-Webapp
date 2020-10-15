@@ -2,7 +2,7 @@
 tags: [Datubāze, SQL]
 title: SQL vaicājumi un saites
 created: '2020-10-09T18:32:21.949Z'
-modified: '2020-10-14T19:12:02.417Z'
+modified: '2020-10-15T19:25:01.231Z'
 ---
 
 # SQL vaicājumi un saites
@@ -92,12 +92,14 @@ SELECT i.ierakst_id,
     - kateg_id - kategorija
     - biroj_id - birojs
     - liet_id - lietotājvārds
+    - koment_id - komentārs
 - **t_ieraksti** saites:
     - vienum_id - vienuma nosaukums
     - liet_id - lietotājvārds
     - darb_id - darbība
-
-
+- **t_komentari
+    - Vienum_id - vienums
+    - liet_id - lietotājs
 ---
 # Citi SQL vaicājumi, kurus man gadijās lietot
 Visu tabulas kolonnu pārvērš uz mazajiem burtiem

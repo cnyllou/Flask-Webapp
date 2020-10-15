@@ -2,7 +2,7 @@
 tags: [Datubāze]
 title: datubazes_plans
 created: '2020-10-05T20:15:14.323Z'
-modified: '2020-10-10T11:09:12.099Z'
+modified: '2020-10-15T19:23:56.253Z'
 ---
 
 # Tabulas
@@ -15,6 +15,7 @@ t_pozicijas;
 t_vienumi;
 t_noliktavas;
 t_ieraksti;
+t_komentari
 t_darbibas;
 t_kategorijas;
 t_razotaji;
