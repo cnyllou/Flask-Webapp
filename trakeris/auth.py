@@ -172,7 +172,7 @@ def load_logged_in_user():
         g.user = None
     else:
         g.user = db.execute(
-                    '''SELECT l.liet_id, vards, uzv, poz.pozicija, profil_bild_cels
+                    '''SELECT l.liet_id, l.lietv, vards, uzv, poz.pozicija, profil_bild_cels
                     FROM t_lietotaji l
                     JOIN t_pozicijas poz ON l.poz_id = poz.poz_id
                     WHERE l.liet_id = ?''',

@@ -24,7 +24,7 @@ def index():
 
     t_vienumi = db.execute(
                 '''SELECT vienum_id, svitr_kods, vienum_nosauk, modelis,
-                   r.razotajs, iss_aprakst, detalas, koment_id,
+                   r.razotajs, iss_aprakst, detalas,
                    k.kateg_id, k.kategorija, b.biroj_id, b.birojs,
                    l.liet_id, l.lietv, bilde_cels, atjauninats
                    FROM t_vienumi v
@@ -43,8 +43,8 @@ def get_item(item_id):
     db = get_db()
     item = db.execute(
                 '''SELECT vienum_id, svitr_kods, vienum_nosauk, modelis,
-                   r.razotajs, iss_aprakst, detalas, koment_id,
-                   k.kategorija, b.birojs, l.lietv, bilde_cels,
+                   r.razotajs, iss_aprakst, detalas,
+                   k.kategorija, b.birojs, l.liet_id, l.lietv, bilde_cels,
                    v.nopirkt_dat, v.izveid_dat, v.atjauninats
                    FROM t_vienumi v
                    LEFT JOIN t_razotaji r ON v.razot_id = r.razot_id
@@ -59,6 +59,35 @@ def get_item(item_id):
         abort(404, "Item id {0} doesn't exist.".format(item_id))
 
     return item
+
+def get_comments(item_id):
+    db = get_db()
+    comments = db.execute(
+                '''SELECT k.koment_id, k.komentars,
+                   v.vienum_nosauk, l.lietv, k.noris_laiks
+                   FROM t_komentari k
+                   JOIN t_vienumi v ON k.vienum_id = v.vienum_id
+                   JOIN t_lietotaji l ON k.liet_id = l.liet_id
+                   WHERE v.vienum_id = ?''',
+                   (item_id,),
+    ).fetchall()
+
+    return comments
+
+def get_history(item_id):
+    db = get_db()
+    history = db.execute(
+                '''SELECT i.ierakst_id, v.vienum_nosauk, l.lietv,
+                          d.darbiba, i.noris_laiks
+                   FROM t_ieraksti i
+                   JOIN t_vienumi v ON i.vienum_id = v.vienum_id
+                   JOIN t_lietotaji l ON i.liet_id = l.liet_id
+                   JOIN t_darbibas d ON i.darb_id = d.darb_id
+                   WHERE v.vienum_id = ?''',
+                   (item_id,),
+    ).fetchall()
+
+    return history
 
 
 @bp.route("/add", methods=("GET", "POST"))
@@ -187,23 +216,33 @@ def add():
 def view(item_id):
     db = get_db()
     item = get_item(item_id)
+    comments = get_comments(item_id)
+    history = get_history(item_id)
 
-    return render_template("track/view.html", item=item)
+    if request.method == 'POST':
+        komentars = request.form['komentars']
+        liet_id = g.user['liet_id']
+        error = None
 
-@bp.route("/<int:item_id>/view/comment", methods=("GET", "POST"))
-def comment(item_id, liet_id, comment):
-    #item_id = request.args.get('item_id')
-    #user_id = request.args.get('user_id')
+        if komentars is None:
+            error = "Komentārs ir tukšs"
 
-    flash("item={}, user={}".format(item_id, user_id))
-    db = get_db()
-    db.execute('''UPDATE t_vienumi
-                  SET liet_id = ?
-                  WHERE vienum_id = ?''',
-              (user_id, item_id))
-    db.commit()
+        if error is not None:
+            flash(error)
+        else:
+            db.execute('''INSERT INTO t_komentari(
+                                      komentars,
+                                      vienum_id,
+                                      liet_id)
+                          VALUES (?, ?, ?)''',
+                          (komentars, item_id, liet_id,)
+                      )
+            db.commit()
 
-    return redirect(url_for("track.index"))
+            return redirect(url_for("track.view", item_id=item_id))
+
+    return render_template("track/view.html",
+                            item=item, comments=comments, history=history)
 
 
 @bp.route("/<int:item_id>/edit", methods=("GET", "POST"))
@@ -237,15 +276,16 @@ def edit(item_id):
 
     if request.method == 'POST':
         lietv = request.form['lietv'] # Rule for it
+        print("lietv: [{}]".format(lietv))
         vienum_nosauk = request.form['vienum_nosauk']
         birojs = request.form['birojs']
         kategorija = request.form['kategorija']
-        print("Kategorija: {}".format(kategorija))
         nopirkt_dat = request.form['nopirkt_dat']
         iss_aprakst = request.form['iss_aprakst']
         razotajs = request.form['razotajs']
         modelis = request.form['modelis']
         detalas = request.form['detalas']
+        darb_id = 2
 
         svitr_kods = db.execute(
                     '''SELECT svitr_kods
@@ -277,10 +317,6 @@ def edit(item_id):
                     '''SELECT liet_id FROM t_lietotaji WHERE LOWER(lietv) = LOWER(?)''',
                     (lietv,)
         ).fetchone()
-
-        print(type(liet_id['liet_id']))
-
-
 
         if razot_id is None:
             db.execute(
@@ -320,7 +356,7 @@ def edit(item_id):
         if error is not None:
             flash(error)
         else:
-            print("Liet_id: " + str(filename['bilde_cels']))
+            print("file: " + str(filename))
             db.execute(
                     '''UPDATE t_vienumi
                        SET vienum_nosauk = ?, modelis = ?, razot_id = ?,
@@ -330,8 +366,11 @@ def edit(item_id):
                     (vienum_nosauk, modelis, razot_id['razot_id'],iss_aprakst,
                     detalas,kateg_id['kateg_id'],biroj_id['biroj_id'],
                     liet_id['liet_id'],filename['bilde_cels'],
-                    nopirkt_dat,timestamp,item_id)
+                    nopirkt_dat,timestamp,item_id,)
             )
+
+            update_history(item_id, session.get('user_id'), darb_id)
+
             db.commit()
             return redirect(url_for("track.index"))
 
@@ -340,17 +379,31 @@ def edit(item_id):
                             t_razotaji=t_razotaji, t_lietotaji=t_lietotaji,
                             today_date=today_date)
 
+
+def update_history(item_id, liet_id, darb_id):
+    db = get_db()
+
+    db.execute('''INSERT INTO t_ieraksti(vienum_id, liet_id, darb_id)
+                        VALUES (?, ?, ?)''',
+                        (item_id, liet_id, darb_id))
+
+
 @bp.route("/addme/")
 def addme():
+    timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     item_id = request.args.get('item_id')
     user_id = request.args.get('user_id')
+    darb_id = 3
 
     flash("item={}, user={}".format(item_id, user_id))
     db = get_db()
     db.execute('''UPDATE t_vienumi
-                  SET liet_id = ?
+                  SET liet_id = ?,
+                  atjauninats = ?
                   WHERE vienum_id = ?''',
-              (user_id, item_id))
+              (user_id, timestamp, item_id))
+
+    update_history(item_id, user_id, darb_id)
     db.commit()
 
     return redirect(url_for("track.index"))

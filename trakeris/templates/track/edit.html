@@ -1,6 +1,12 @@
 {% extends "base.html" %}
 {% block title %}Rediģēt{% endblock %}
 {% block content %}
+  <script>
+    function change(value){
+      event.preventDefault();
+      document.getElementById("lietv").value=value;
+    }
+  </script>
   <section class="content-header">
     <h1>Rediģēt vienumu</h1>
   </section>
@@ -42,7 +48,7 @@
                 </div>
                 <div class="form-group">
                   <label class="col">Atbildīgais lietotājs</label>
-                  <input list="lietotaji" name="lietv" class="data" value="{{ item['lietv'] or request.form['lietv']}}" >
+                  <input list="lietotaji" id="lietv" name="lietv" class="data" value="{{ item['lietv'] or request.form['lietv']}}" >
                   <datalist id="lietotaji">
                     {% for lietotaji in t_lietotaji%}
                       <option value="{{ lietotaji['lietv'] }}">
@@ -50,6 +56,12 @@
                       </option>
                     {% endfor %}
                   </datalist>
+                  {{g.user['lietv']}}
+                  {% if g.user['liet_id'] == item['liet_id'] %}
+                    <button type="submit" onclick="change('')" class="atrakstities">Atrakstīties</button>
+                  {% else %}
+                    <a onclick="change({{g.user['lietv']}})" class="piesaistit">Piesaistīt sev</a>
+                  {% endif %}
                 </div>
                 <div class="form-group">
                   <label class="col">Pirkšanas datums</label>

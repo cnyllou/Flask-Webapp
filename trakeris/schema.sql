@@ -67,7 +67,6 @@ CREATE TABLE t_vienumi (
   razot_id INTEGER NOT NULL,
   iss_aprakst TEXT,
   detalas TEXT NOT NULL,
-  koment_id INTEGER NOT NULL,
   kateg_id INTEGER NOT NULL,
   biroj_id INTEGER NOT NULL,
   liet_id INTEGER NOT NULL,
@@ -75,7 +74,6 @@ CREATE TABLE t_vienumi (
   nopirkt_dat DATE,
   izveid_dat TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   atjauninats TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  FOREIGN KEY (koment_id) REFERENCES t_komentari (koment_id),
   FOREIGN KEY (kateg_id) REFERENCES t_kategorijas (kateg_id),
   FOREIGN KEY (biroj_id) REFERENCES t_pilsetas (biroj_id),
   FOREIGN KEY (liet_id) REFERENCES t_lietotaji (liet_id),
@@ -94,6 +92,7 @@ CREATE TABLE t_ieraksti (
 
 CREATE TABLE t_komentari (
   koment_id INTEGER PRIMARY KEY AUTOINCREMENT,
+  komentars TEXT NOT NULL,
   vienum_id INTEGER NOT NULL,
   liet_id INTEGER NOT NULL,
   noris_laiks TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,

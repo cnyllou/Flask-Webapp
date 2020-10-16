@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 {% block title %}Apskatīt{% endblock %}
 {% block content %}
+  <script src="{{url_for('static', filename='js/view.js')}}"></script>
   <section class="content-header">
     <h1>Apskatīt vienumu</h1>
   </section>
@@ -92,29 +93,41 @@
           </form>
         </div>
       </div>
-      <div class="col-2 comments">
-        <div class="box box-info">
-          <div class="box-header">
-            <h3 class="box-title">Komentāri</h3>
+      <div class="container-container">
+        <div class="box-header">
+          <h3 class="box-title">Komentāri</h3>
+        </div>
+        <div id="comments" class="comments">
+          <div class="comment-box">
+              {% for comment in comments %}
+                <div class="comment-box">
+                  <h4 class="author">{{ comment['lietv'] }}</h4>
+                  <p class="comment">{{ comment['komentars'] }}</p>
+                  <small class="date">{{ comment['noris_laiks'] }}</small>
+                </div>
+              {% endfor %}
           </div>
-          <div class="box-body">
-
-          </div>
-          <div class="footer">
-            <form method="post">
-              <input type="text" name="komentars" value="komentars">
-              <button type="submit" name="button"></button>
-            </form>
-          </div>
-
+        </div>
+        <div class="footer">
+          <form method="post">
+            <input type="text" name="komentars" placeholder="Iekomentēt">
+            <button type="submit" name="button">Apstiprināt</button>
+          </form>
         </div>
       </div>
+
     </div>
   </section>
   <section class="history">
     <h2>Vēsture</h2>
     <div class="ieraksti">
-
+      {% for ieraksts in history %}
+        <div class="ieraksts">
+          <span class="lietv">{{ ieraksts['lietv'] }}</span>
+          <span class="darbiba">{{ ieraksts['darbiba'] }}</span>
+          <span class="noris_laiks">{{ ieraksts['noris_laiks'] }}</span>
+        </div>
+      {% endfor %}
     </div>
   </section>
 {% endblock %}

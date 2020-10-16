@@ -34,3 +34,23 @@
   display: inline-block;
 
 }
+
+.comments{
+  overflow: hidden;
+  overflow-y: scroll;
+  width: 400px;
+  height: 600px;
+}
+
+.comment-box {
+
+  background: rgba(237, 255, 249, 0.4);
+}
+
+.comment-container {
+
+}
+
+.comment-box {
+  border: 1px solid black;
+}
