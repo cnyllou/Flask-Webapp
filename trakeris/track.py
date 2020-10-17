@@ -221,14 +221,6 @@ def view(item_id):
     comments = get_comments(item_id)
     history = get_history(item_id)
 
-    t_vienumi = db.execute('''SELECT * FROM t_vienumi''').fetchone()
-
-    for value in t_vienumi:
-        # Create new array with all values
-        # Compare this array with the updated one
-        # Update history based on this logic
-        flash("Type: '{}' - Value: '{}'".format(type("t_vienumi"), value))
-
     if request.method == 'POST':
         komentars = request.form['komentars']
         liet_id = g.user['liet_id']
@@ -262,6 +254,19 @@ def edit(item_id):
     db = get_db()
     item = get_item(item_id)
     today_date = date.today()
+    old_vienumi_array = []
+    new_vienumi_array = []
+
+    old_vienumi = db.execute('''SELECT liet_id, biroj_id, nopirkt_dat,
+                                iss_aprakst, kateg_id, razot_id, vienum_nosauk,
+                                modelis, bilde_cels, detalas
+                                FROM t_vienumi
+                                WHERE vienum_id = ?''',
+                            (item_id,)).fetchone()
+
+    for i, value in enumerate(old_vienumi):
+        old_vienumi_array.extend([i, value])
+        print("old_value[{}]: '{}'".format(i, value))
 
     t_biroji = db.execute(
                 '''SELECT biroj_id, birojs
@@ -285,6 +290,7 @@ def edit(item_id):
 
 
     if request.method == 'POST':
+        print("--- POST Requested detected.")
         lietv = request.form['lietv'] # Rule for it
         print("lietv: [{}]".format(lietv))
         vienum_nosauk = request.form['vienum_nosauk']
@@ -322,6 +328,8 @@ def edit(item_id):
                     '''SELECT * FROM t_razotaji WHERE LOWER(razotajs) = LOWER(?)''',
                     (razotajs,)
         ).fetchone()
+
+        print("--- Data Fetched.")
 
         if lietv is not "":
             liet_id = db.execute('''SELECT liet_id FROM t_lietotaji
@@ -368,8 +376,10 @@ def edit(item_id):
 
         if error is not None:
             flash(error)
-        #else:
+        else:
             #t_vienumi = db.execute
+
+            print("--- Error is None .")
 
             db.execute('''UPDATE t_vienumi
                           SET vienum_nosauk = ?, modelis = ?, razot_id = ?,
@@ -381,14 +391,34 @@ def edit(item_id):
                       liet_id['liet_id'],filename['bilde_cels'],
                       nopirkt_dat,timestamp,item_id,))
 
+            print("--- Query executed.")
+
             if liet_id['liet_id'] is "":
                 update_history(item_id, session.get('user_id'), 4)
             elif liet_id['liet_id'] == session.get('user_id'):
                 update_history(item_id, session.get('user_id'), 3)
 
-            update_history(item_id, session.get('user_id'), darb_id)
+            print("--- New vienumi starting...")
+            new_vienumi = db.execute('''SELECT liet_id, biroj_id, nopirkt_dat,
+                                        iss_aprakst, kateg_id, razot_id, vienum_nosauk,
+                                        modelis, bilde_cels, detalas
+                                        FROM t_vienumi
+                                        WHERE vienum_id = ?''',
+                                    (item_id,)).fetchone()
 
-            db.commit()
+            print("--- New Vienumi fetched.")
+            for i, value in enumerate(new_vienumi):
+                new_vienumi_array.extend([i, value])
+                print(" new_value[{}]: '{}'".format(i, value))
+
+            array_difference = (set(new_vienumi_array) - set(old_vienumi_array))
+            flash("Changed values are - {}".format(array_difference))
+
+            #update_history(item_id, session.get('user_id'), darb_id)
+
+            print("--- DB ready for commit.")
+            #db.commit()
+            print("--- Commit successfull.")
             return redirect(url_for("track.index"))
 
     return render_template("track/edit.html", item=item, timestamp=timestamp,
