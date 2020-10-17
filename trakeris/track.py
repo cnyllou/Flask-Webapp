@@ -121,41 +121,43 @@ def add():
         modelis = request.form['modelis']
         detalas = request.form['detalas']
         filename = 'default_item.png'
+        darb_id = 1
 
-        svitr_kods = db.execute(
-                    '''SELECT MAX(svitr_kods)+1 AS lielakais_cip
-                    FROM t_vienumi'''
+        vienum_id = db.execute('''SELECT MAX(vienum_id)+1
+                                  AS jaunakais_id
+                                  FROM t_vienumi'''
+        ).fetchone()
+        jaunakais_id = vienum_id['jaunakais_id']
+
+        svitr_kods = db.execute('''SELECT MAX(svitr_kods)+1
+                                   AS lielakais_cip
+                                   FROM t_vienumi'''
         ).fetchone()
 
-        # Values to get
-        # biroj_id
-        # kateg_id
-        # razot_id
-
-        biroj_id = db.execute(
-                    '''SELECT * FROM t_biroji WHERE birojs = ?''',
-                    (birojs,)
+        biroj_id = db.execute('''SELECT * FROM t_biroji
+                                 WHERE birojs = ?''',
+                             (birojs,)
         ).fetchone()
 
-        kateg_id = db.execute(
-                    '''SELECT * FROM t_kategorijas WHERE kategorija = ?''',
-                    (kategorija,)
+        kateg_id = db.execute('''SELECT * FROM t_kategorijas
+                                 WHERE kategorija = ?''',
+                             (kategorija,)
         ).fetchone()
 
-        razot_id = db.execute(
-                    '''SELECT * FROM t_razotaji WHERE LOWER(razotajs) = LOWER(?)''',
-                    (razotajs,)
+        razot_id = db.execute('''SELECT * FROM t_razotaji
+                                 WHERE LOWER(razotajs) = LOWER(?)''',
+                             (razotajs,)
         ).fetchone()
 
         if razot_id is None:
-            db.execute(
-            '''INSERT INTO t_razotaji (razotajs) VALUES (?)''',
-            (razotajs,))
+            db.execute('''INSERT INTO t_razotaji (razotajs)
+                          VALUES (?)''',
+                      (razotajs,))
             db.commit()
 
-            razot_id = db.execute(
-                        '''SELECT * FROM t_razotaji WHERE razotajs = ?''',
-                        (razotajs,)
+            razot_id = db.execute('''SELECT * FROM t_razotaji
+                                     WHERE razotajs = ?''',
+                                 (razotajs,)
             ).fetchone()
 
         # check if the post request has the file part
@@ -191,17 +193,17 @@ def add():
         if error is not None:
             flash(error)
         else:
-            db.execute(
-                    '''INSERT INTO t_vienumi (
-                                   svitr_kods,vienum_nosauk,modelis,razot_id,
-                                   iss_aprakst,detalas,kateg_id,
-                                   biroj_id,liet_id,bilde_cels,nopirkt_dat)
-                       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)''',
-                    (svitr_kods['lielakais_cip'],vienum_nosauk, modelis,
-                    razot_id['razot_id'],iss_aprakst,detalas,
-                    kateg_id['kateg_id'],biroj_id['biroj_id'],
-                    g.user['liet_id'],filename,nopirkt_dat,)
-            )
+            db.execute('''INSERT INTO t_vienumi (
+                            svitr_kods,vienum_nosauk,modelis,razot_id,
+                            iss_aprakst,detalas,kateg_id,
+                            biroj_id,liet_id,bilde_cels,nopirkt_dat)
+                          VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)''',
+                      (svitr_kods['lielakais_cip'],vienum_nosauk, modelis,
+                      razot_id['razot_id'],iss_aprakst,detalas,
+                      kateg_id['kateg_id'],biroj_id['biroj_id'],
+                      g.user['liet_id'],filename,nopirkt_dat,))
+
+            update_history(jaunakais_id, g.user['liet_id'], darb_id)
             db.commit()
 
             return redirect(url_for("track.index"))
@@ -218,6 +220,14 @@ def view(item_id):
     item = get_item(item_id)
     comments = get_comments(item_id)
     history = get_history(item_id)
+
+    t_vienumi = db.execute('''SELECT * FROM t_vienumi''').fetchone()
+
+    for value in t_vienumi:
+        # Create new array with all values
+        # Compare this array with the updated one
+        # Update history based on this logic
+        flash("Type: '{}' - Value: '{}'".format(type("t_vienumi"), value))
 
     if request.method == 'POST':
         komentars = request.form['komentars']
@@ -248,9 +258,9 @@ def view(item_id):
 @bp.route("/<int:item_id>/edit", methods=("GET", "POST"))
 @login_required
 def edit(item_id):
+    timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     db = get_db()
     item = get_item(item_id)
-    timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     today_date = date.today()
 
     t_biroji = db.execute(
@@ -313,15 +323,17 @@ def edit(item_id):
                     (razotajs,)
         ).fetchone()
 
-        liet_id = db.execute(
-                    '''SELECT liet_id FROM t_lietotaji WHERE LOWER(lietv) = LOWER(?)''',
-                    (lietv,)
-        ).fetchone()
+        if lietv is not "":
+            liet_id = db.execute('''SELECT liet_id FROM t_lietotaji
+                                    WHERE LOWER(lietv) = LOWER(?)''',
+                                (lietv,)).fetchone()
+        else:
+            liet_id = {"liet_id": ""}
 
         if razot_id is None:
-            db.execute(
-            '''INSERT INTO t_razotaji (razotajs) VALUES (?)''',
-            (razotajs,))
+            db.execute('''INSERT INTO t_razotaji (razotajs)
+                          VALUES (?)''',
+                      (razotajs,))
             db.commit()
 
             razot_id = db.execute(
@@ -344,6 +356,7 @@ def edit(item_id):
                   current_app.config['ITEM_IMGAES'] +
                   filename)
 
+        print("file: " + str(filename))
         error = None
 
         if vienum_nosauk is None:
@@ -355,19 +368,23 @@ def edit(item_id):
 
         if error is not None:
             flash(error)
-        else:
-            print("file: " + str(filename))
-            db.execute(
-                    '''UPDATE t_vienumi
-                       SET vienum_nosauk = ?, modelis = ?, razot_id = ?,
-                       iss_aprakst = ?, detalas = ?, kateg_id = ?,
-                       biroj_id = ?, liet_id = ?, bilde_cels = ?,
-                       nopirkt_dat = ?, atjauninats = ? WHERE vienum_id = ?''',
-                    (vienum_nosauk, modelis, razot_id['razot_id'],iss_aprakst,
-                    detalas,kateg_id['kateg_id'],biroj_id['biroj_id'],
-                    liet_id['liet_id'],filename['bilde_cels'],
-                    nopirkt_dat,timestamp,item_id,)
-            )
+        #else:
+            #t_vienumi = db.execute
+
+            db.execute('''UPDATE t_vienumi
+                          SET vienum_nosauk = ?, modelis = ?, razot_id = ?,
+                          iss_aprakst = ?, detalas = ?, kateg_id = ?,
+                          biroj_id = ?, liet_id = ?, bilde_cels = ?,
+                          nopirkt_dat = ?, atjauninats = ? WHERE vienum_id = ?''',
+                      (vienum_nosauk, modelis, razot_id['razot_id'],iss_aprakst,
+                      detalas,kateg_id['kateg_id'],biroj_id['biroj_id'],
+                      liet_id['liet_id'],filename['bilde_cels'],
+                      nopirkt_dat,timestamp,item_id,))
+
+            if liet_id['liet_id'] is "":
+                update_history(item_id, session.get('user_id'), 4)
+            elif liet_id['liet_id'] == session.get('user_id'):
+                update_history(item_id, session.get('user_id'), 3)
 
             update_history(item_id, session.get('user_id'), darb_id)
 
