@@ -4,43 +4,46 @@
   <section class="content-header">
     <h1>Koplietojamais inventārs</h1>
   </section>
-  <div class="filters" >
+  <div class="filters">
+    <p class="filter-title">Filtrēt/Šķirot</p>
+    <div class="filter-wrapper">
+      <div class="categories-filter col1">
+        <input type="checkbox" class="check-k filter" name="kategorija" value="kategorija_1" autocomplete="off"> Portatīvie datori</input><br>
+        <input type="checkbox" class="check-k filter" name="kategorija" value="kategorija_2" autocomplete="off"> Monitori</input><br>
+        <input type="checkbox" class="check-k filter" name="kategorija" value="kategorija_3" autocomplete="off"> Telefoni/Planšetes</input><br>
+        <input type="checkbox" class="check-k filter" name="kategorija" value="kategorija_4" autocomplete="off"> Tīkla testēšanas piederumi</input><br>
+        <input type="checkbox" class="check-k filter" name="kategorija" value="kategorija_5" autocomplete="off"> Austiņas</input><br>
+        <input type="checkbox" class="check-k filter" name="kategorija" value="kategorija_8" autocomplete="off"> Citi</input><br>
+        <input type="checkbox" class="check-k filter" name="kategorija" value="kategorija_6" autocomplete="off"> SIM kartes</input><br>
+        <input type="checkbox" class="check-k filter" name="kategorija" value="kategorija_7" autocomplete="off"> Printeri</input><br>
+      </div>
+      <div id="location-filter" class="location-filter col1">
+        <input type="checkbox" class="check-l filter" name="location" value="vieta_1" autocomplete="off"> Rīga_1</input><br>
+        <input type="checkbox" class="check-l filter" name="location" value="vieta_2" autocomplete="off"> Rīga_2</input><br>
+        <input type="checkbox" class="check-l filter" name="location" value="vieta_3" autocomplete="off"> Rīga_3</input><br>
+        <input type="checkbox" class="check-l filter" name="location" value="vieta_4" autocomplete="off"> Daugavpils_1</input><br>
+        <input type="checkbox" class="check-l filter" name="location" value="vieta_5" autocomplete="off"> Liepāja_1</input><br>
+        <input type="checkbox" class="check-l filter" name="location" value="vieta_6" autocomplete="off"> Jelgava_1</input><br>
+        <input type="checkbox" class="check-l filter" name="location" value="vieta_7" autocomplete="off"> Jūrmala_1</input><br>
+        <input type="checkbox" class="check-l filter" name="location" value="vieta_8" autocomplete="off"> Ventspils_1</input><br>
+        <input type="checkbox" class="check-l filter" name="location" value="vieta_9" autocomplete="off"> Rēzekne_1</input><br>
+        <input type="checkbox" class="check-l filter" name="location" value="vieta_10" autocomplete="off"> Valmiera_1</input><br>
+      </div>
+      <div class="status-filter col1 radio">
+        <input type="radio" class="radio filter" name="status" value="show"> Parādīt visus</input><br>
+        <input type="radio" class="radio filter" name="status" value="mans"> Man piesaistītie</input><br>
+        <input type="radio" class="radio filter" name="status" value="aiznemts"> Aizņemtie</input><br>
+        <input type="radio" class="radio filter" name="status" value="pieejams"> Pieejamie</input><br>
+      </div>
+    </div>
 
-    <p>Filtrēt/Šķirot</p>
-    <div class="categories-filter">
-      <input type="checkbox" class="check-k filter" name="kategorija" value="kategorija_1" autocomplete="off">Portatīvie datori</input>
-      <input type="checkbox" class="check-k filter" name="kategorija" value="kategorija_2" autocomplete="off">Monitori</input>
-      <input type="checkbox" class="check-k filter" name="kategorija" value="kategorija_3" autocomplete="off">Telefoni/Planšetes</input>
-      <input type="checkbox" class="check-k filter" name="kategorija" value="kategorija_4" autocomplete="off">Tīkla testēšanas piederumi</input>
-      <input type="checkbox" class="check-k filter" name="kategorija" value="kategorija_5" autocomplete="off">Austiņas</input>
-      <input type="checkbox" class="check-k filter" name="kategorija" value="kategorija_8" autocomplete="off">Citi</input>
-      <input type="checkbox" class="check-k filter" name="kategorija" value="kategorija_6" autocomplete="off">SIM kartes</input>
-      <input type="checkbox" class="check-k filter" name="kategorija" value="kategorija_7" autocomplete="off">Printeri</input>
-    </div>
-    <div id="location-filter" class="location-filter">
-      <input type="checkbox" class="check-l filter" name="location" value="vieta_1" autocomplete="off">Rīga_1</input>
-      <input type="checkbox" class="check-l filter" name="location" value="vieta_2" autocomplete="off">Rīga_2</input>
-      <input type="checkbox" class="check-l filter" name="location" value="vieta_3" autocomplete="off">Rīga_3</input>
-      <input type="checkbox" class="check-l filter" name="location" value="vieta_4" autocomplete="off">Daugavpils_1</input>
-      <input type="checkbox" class="check-l filter" name="location" value="vieta_5" autocomplete="off">Liepāja_1</input>
-      <input type="checkbox" class="check-l filter" name="location" value="vieta_6" autocomplete="off">Jelgava_1</input>
-      <input type="checkbox" class="check-l filter" name="location" value="vieta_7" autocomplete="off">Jūrmala_1</input>
-      <input type="checkbox" class="check-l filter" name="location" value="vieta_8" autocomplete="off">Ventspils_1</input>
-      <input type="checkbox" class="check-l filter" name="location" value="vieta_9" autocomplete="off">Rēzekne_1</input>
-      <input type="checkbox" class="check-l filter" name="location" value="vieta_10" autocomplete="off">Valmiera_1</input>
-    <div class="Status-filter"> <!--If color {}: Hide else-->
-      <input type="radio" class="radio filter" name="status" value="show">Parādīt visus</input>
-      <input type="radio" class="radio filter" name="status" value="mans">Man piesaistītie</input>
-      <input type="radio" class="radio filter" name="status" value="aiznemts">Aizņemtie</input>
-      <input type="radio" class="radio filter" name="status" value="pieejams">Pieejamie</input>
-    </div>
-    <button type="button" name="button">Test this</button>
   </div>
 
-    <input type="text" id="user_input" placeholder="Meklēt inventārā.." onkeyup="listen_input()">
+
 
     <section id="container" class="container">
-    <hr>
+    <input type="text" id="user_input" placeholder="Meklēt inventārā.." onkeyup="listen_input()">
+
       {% for vienums in t_vienumi %}
         {% if user_id == vienums['liet_id'] %}
           {% set status = "mans" %}
@@ -49,7 +52,7 @@
         {% else %}
           {% set status = "aiznemts" %}
         {% endif %}
-        <div class="catalog-item" data-category="show vieta_{{ vienums['biroj_id'] }} kategorija_{{ vienums['kateg_id'] }} {{status}}">
+        <div class="catalog-item {{status}}" data-category="show vieta_{{ vienums['biroj_id'] }} kategorija_{{ vienums['kateg_id'] }} {{status}}">
           <div class="overlay">
             <div class="overlay-list">
               <a href="{{ url_for('track.view', item_id=vienums['vienum_id']) }}"><i class="far fa-eye "></i> SKATĪT</a>
@@ -68,7 +71,11 @@
             </div>
             <div class="item-details">
               <div class="details">{{ vienums['detalas'] }}</div>
-              <div>{{ vienums['lietv'] }}</div>
+              {% if vienums['lietv'] != None %}
+                <div>{{ vienums['lietv'] }}</div>
+              {% else %}
+                <div>Pieejams vienums</div>
+              {% endif %}
               <div>{{ vienums['birojs'] }}</div>
             </div>
             <p class="id-num">#{{ vienums['vienum_id'] }}</p>

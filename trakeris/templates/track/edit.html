@@ -10,16 +10,13 @@
   <section class="content-header">
     <h1>Rediģēt vienumu</h1>
   </section>
-  <section class="content">
+  <section class="content edit-content">
     <div class="row">
       <div class="col_1 item-info">
         <div class="box box-info">
-          <div class="box-header">
-            <h3 class="box-title">Informācija</h3>
-          </div>
           <form id="edit-form" class="form-horizontal" method="post" enctype="multipart/form-data">
             <div class="box-body">
-              <div style="padding: 10px 0px; text-align: center;">
+              <div class="section-header">
                 <h4>Invetāra dati</h4>
               </div>
                 <div class="form-group">
@@ -56,7 +53,6 @@
                       </option>
                     {% endfor %}
                   </datalist>
-                  {{g.user['lietv']}}
                   {% if g.user['liet_id'] == item['liet_id'] %}
                     <button type="button" onclick="change('')" class="atrakstities">Atrakstīties</button>
                   {% else %}
@@ -71,7 +67,7 @@
                   <label class="col">Atjaunināts ieraksts</label>
                   <span class="data">{{ item['atjauninats'] }}</span>
                 </div>
-              <div style="padding: 10px 0px; text-align: center;">
+              <div class="section-header">
                 <h4>Detalizēta informācija</h4>
               </div>
               <div class="form-group">
@@ -113,9 +109,9 @@
                 <label class="col">Modelis</label>
                 <input name="modelis" class="data" value="{{item['modelis'] or request.form['modelis'] }}">
               <div class="form-group">
-                <label class="col">bilde</label>
+                <label class="col">Bilde</label>
                 {% if item['bilde_cels'] == 'default_item.png' %}
-                  <span class="data"> - </span>
+                  <span class="data"></span>
                 {% else %}
                   <img src="{{ url_for('static', filename='images/item_pics/' + item['bilde_cels']) }}">
                 {% endif %}
@@ -133,13 +129,6 @@
           </form>
         </div>
       </div>
-      <div class="col-2 comments">
-      </div>
-    </div>
-  </section>
-  <section class="history">
-    <h2>Vēsture</h2>
-    <div class="ieraksti">
     </div>
   </section>
 {% endblock %}

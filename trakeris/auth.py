@@ -13,6 +13,27 @@ ALLOWED_EXTENSIONS = {'txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'}
 
 bp = Blueprint('auth', __name__, url_prefix='/auth')
 
+
+def login_required(view):
+    @functools.wraps(view)
+    def wrapped_view(**kwargs):
+        if g.user is None:
+            return redirect(url_for('auth.login'))
+
+        return view(**kwargs)
+    return wrapped_view
+
+
+def admin_required(view):
+    @functools.wraps(view)
+    def wrapped_view(**kwargs):
+        if g.user['pozicija'] != 'Administrators':
+            return redirect(url_for('track.index'))
+
+        return view(**kwargs)
+    return wrapped_view
+
+
 @bp.route('../static/images/profile_pics/<filename>')
 def uploaded_file(filename):
     return send_from_directory(current_app.config['UPLOAD_FOLDER'],
@@ -20,6 +41,7 @@ def uploaded_file(filename):
 
 
 @bp.route('/register', methods=('GET', 'POST'))
+@admin_required
 def register():
     db = get_db()
 
@@ -83,7 +105,6 @@ def register():
 
         error = None
 
-
         if not lietv:
             # Ģenerēt lietotājvārdu
             lietv = ("{}.{}".format(vards, uzv)).lower()
@@ -128,7 +149,7 @@ def register():
                  pers_kods, epasts, tel_num, filename)
             )
             db.commit()
-            return redirect(url_for('auth.login'))
+            return redirect(url_for('track.index'))
 
         flash(error)
 
@@ -189,15 +210,3 @@ def logout():
 
 def allowed_file(filename):
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
-
-
-
-def login_required(view):
-    @functools.wraps(view)
-    def wrapped_view(**kwargs):
-        if g.user is None:
-            return redirect(url_for('auth.login'))
-
-        return view(**kwargs)
-
-    return wrapped_view

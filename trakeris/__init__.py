@@ -4,8 +4,6 @@ from flask import Flask, flash, request, redirect, url_for
 from werkzeug.utils import secure_filename
 
 
-
-
 def create_app(test_config=None):
     """Create and configure an instance of the Flask application."""
     app = Flask(__name__, instance_relative_config=True)
@@ -14,8 +12,11 @@ def create_app(test_config=None):
         SECRET_KEY="dev",
         # store the database in the instance folder
         DATABASE=os.path.join(app.instance_path, 'trakeris.sqlite'),
+        DATABASE_NAME='trakeris',
 
         IMPORT_DATA='trakeris/import_data/tabulas_excel/',
+        REPORTING_FOLDER='track/reporting/',
+        BACKUP_FOLDER='trakeris/backups/',
 
         UPLOAD_FOLDER = 'trakeris/static/images/profile_pics/',
         ITEM_IMGAES='trakeris/static/images/item_pics/'
@@ -31,7 +32,6 @@ def create_app(test_config=None):
         app.config.update(test_config)
 
     # ensure the instance folder exists
-
     try:
         os.makedirs(app.instance_path)
     except OSError:

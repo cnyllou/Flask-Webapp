@@ -1,5 +1,7 @@
 import time, functools, os
+import pytz
 from datetime import datetime, date
+import pandas as pd
 
 from flask import Blueprint, flash
 from flask import g, request, session
@@ -9,12 +11,12 @@ from flask import send_from_directory, current_app
 from werkzeug.exceptions import abort
 from werkzeug.utils import secure_filename
 
-from trakeris.auth import login_required, allowed_file
-from trakeris.db import get_db
+from trakeris.auth import login_required, admin_required, allowed_file
+from trakeris.db import get_db, backup_db
 
 
 bp = Blueprint('track', __name__)
-
+TIMEZONE = pytz.timezone('Europe/Riga')
 
 @bp.route("/")
 @login_required
@@ -60,11 +62,12 @@ def get_item(item_id):
 
     return item
 
+
 def get_comments(item_id):
     db = get_db()
     comments = db.execute(
-                '''SELECT k.koment_id, k.komentars,
-                   v.vienum_nosauk, l.lietv, k.noris_laiks
+                '''SELECT koment_id, k.komentars,
+                   v.vienum_nosauk, l.lietv, noris_laiks
                    FROM t_komentari k
                    JOIN t_vienumi v ON k.vienum_id = v.vienum_id
                    JOIN t_lietotaji l ON k.liet_id = l.liet_id
@@ -73,6 +76,7 @@ def get_comments(item_id):
     ).fetchall()
 
     return comments
+
 
 def get_history(item_id):
     db = get_db()
@@ -88,6 +92,81 @@ def get_history(item_id):
     ).fetchall()
 
     return history
+
+
+def get_table(table):
+    db = get_db()
+
+    query = "SELECT * FROM {}".format(table)
+    #columns = db.execute("SELECT * FROM {}".format(table)).fetchall()
+
+    df = pd.read_sql_query(query, db)
+
+    return df
+
+
+def get_all_tables():
+    db = get_db()
+    all_tables = ["t_lietotaji",
+                  "t_biroji",
+                  "t_pilsetas",
+                  "t_projekti",
+                  "t_pozicijas",
+                  "t_vienumi",
+                  "t_ieraksti",
+                  "t_komentari",
+                  "t_darbibas",
+                  "t_kategorijas",
+                  "t_razotaji"]
+    combined_html = []
+
+    for table in all_tables:
+        print(">> Table: {}".format(table))
+        query = "SELECT * FROM {}".format(table)
+        df = pd.read_sql_query(query, db)
+
+        combined_html.append(str(df.to_html(index=False)))
+
+
+    return " ".join(combined_html)
+
+
+def export_tables():
+    timestamp = datetime.now(tz=TIMEZONE).strftime("%Y%m%d.%H%M%S")
+    db = get_db()
+    all_tables = ["t_lietotaji",
+                  "t_biroji",
+                  "t_pilsetas",
+                  "t_projekti",
+                  "t_pozicijas",
+                  "t_vienumi",
+                  "t_ieraksti",
+                  "t_komentari",
+                  "t_darbibas",
+                  "t_kategorijas",
+                  "t_razotaji"]
+
+    directory_name = "backup_" + timestamp
+    directory = os.path.join(current_app.config['BACKUP_FOLDER'],
+                             directory_name)
+    os.mkdir(directory)
+    print(directory)
+
+    for table in all_tables:
+        print(">> Table: {}".format(table))
+        query = "SELECT * FROM {}".format(table)
+        filename = "{}_{}.csv".format(timestamp, table)
+        file_path = os.path.join(directory, filename)
+
+        df = pd.read_sql_query(query, db)
+        csv = df.to_csv(index=False)
+
+        print(csv)
+
+        file = open(file_path, 'w', encoding="utf-16")
+        file.write(csv)
+        file.close()
+        flash("File located at: {}".format(file_path))
 
 
 @bp.route("/add", methods=("GET", "POST"))
@@ -162,12 +241,12 @@ def add():
 
         # check if the post request has the file part
         if 'bilde_cels' not in request.files:
-            flash('Request.files: '+ request.files)
+            print('Request.files: '+ request.files)
 
         file = request.files['bilde_cels']
 
         if file.filename == '':
-            flash('No selected file... Using default.')
+            print('No selected file... Using default.')
         if file and allowed_file(file.filename):
             filename = ("{}_{}".format(
                                 svitr_kods['lielakais_cip'],
@@ -177,7 +256,7 @@ def add():
             file.save(os.path.join(
                       current_app.config['ITEM_IMGAES'],
                       filename))
-            flash("File saved in: " +
+            print("File saved in: " +
                   current_app.config['ITEM_IMGAES'] +
                   filename)
 
@@ -247,10 +326,68 @@ def view(item_id):
                             item=item, comments=comments, history=history)
 
 
+@bp.route("/tables", methods=("GET", "POST"))
+@admin_required
+def tables():
+    if request.method == 'POST':
+        timestamp = datetime.now(tz=TIMEZONE).strftime("%Y%m%d.%H%M%S")
+        db = get_db()
+        table = request.form['table']
+
+
+        print(table)
+
+
+        if table == "all":
+            html = get_all_tables()
+
+        elif table == "export_csv":
+            export_tables()
+            return render_template("track/tables.html")
+
+        elif table == "backup":
+            backup_db()
+            return render_template("track/tables.html")
+
+        else:
+            df = get_table(table)
+
+            html = df.to_html(index=False)
+
+        filename = "tables/tabula-{}.html".format(table)
+        full_path = os.path.join(current_app.config['REPORTING_FOLDER'],
+                                 filename)
+        file_path = os.path.join('trakeris/templates/',full_path)
+
+        file = open(file_path, 'w', encoding="utf-16")
+        file.write(html)
+        file.close()
+        flash("File located at: {}".format(os.path.abspath(full_path)))
+        return render_template(full_path)
+
+
+    return render_template("track/tables.html")
+
+
+@bp.route("/queries", methods=("GET", "POST"))
+@admin_required
+def queries():
+    db = get_db()
+
+    return render_template("track/queries.html")
+
+
+@bp.route("/reports", methods=("GET", "POST"))
+@admin_required
+def reports():
+    db = get_db()
+
+    return render_template("track/reports.html")
+
 @bp.route("/<int:item_id>/edit", methods=("GET", "POST"))
 @login_required
 def edit(item_id):
-    timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    timestamp = datetime.now(tz=TIMEZONE).strftime("%Y-%m-%d %H:%M:%S")
     db = get_db()
     item = get_item(item_id)
     today_date = date.today()
@@ -265,7 +402,7 @@ def edit(item_id):
                             (item_id,)).fetchone()
 
     for i, value in enumerate(old_vienumi):
-        old_vienumi_array.extend([i, value])
+        old_vienumi_array.append(value)
         print("old_value[{}]: '{}'".format(i, value))
 
     t_biroji = db.execute(
@@ -290,9 +427,9 @@ def edit(item_id):
 
 
     if request.method == 'POST':
-        print("--- POST Requested detected.")
+        print("--> POST Requested detected.")
         lietv = request.form['lietv'] # Rule for it
-        print("lietv: [{}]".format(lietv))
+        print("--> lietv: [{}]".format(lietv))
         vienum_nosauk = request.form['vienum_nosauk']
         birojs = request.form['birojs']
         kategorija = request.form['kategorija']
@@ -301,6 +438,7 @@ def edit(item_id):
         razotajs = request.form['razotajs']
         modelis = request.form['modelis']
         detalas = request.form['detalas']
+        user_id = session.get('user_id')
         darb_id = 2
 
         svitr_kods = db.execute(
@@ -329,9 +467,9 @@ def edit(item_id):
                     (razotajs,)
         ).fetchone()
 
-        print("--- Data Fetched.")
+        print("--> Data Fetched.")
 
-        if lietv is not "":
+        if lietv != "":
             liet_id = db.execute('''SELECT liet_id FROM t_lietotaji
                                     WHERE LOWER(lietv) = LOWER(?)''',
                                 (lietv,)).fetchone()
@@ -360,11 +498,11 @@ def edit(item_id):
             file.save(os.path.join(
                       current_app.config['ITEM_IMGAES'],
                       filename))
-            flash("File saved in: " +
+            print("File saved in: " +
                   current_app.config['ITEM_IMGAES'] +
                   filename)
 
-        print("file: " + str(filename))
+        print("--> file: " + str(filename))
         error = None
 
         if vienum_nosauk is None:
@@ -377,9 +515,7 @@ def edit(item_id):
         if error is not None:
             flash(error)
         else:
-            #t_vienumi = db.execute
-
-            print("--- Error is None .")
+            print("--> Error is None .")
 
             db.execute('''UPDATE t_vienumi
                           SET vienum_nosauk = ?, modelis = ?, razot_id = ?,
@@ -391,14 +527,8 @@ def edit(item_id):
                       liet_id['liet_id'],filename['bilde_cels'],
                       nopirkt_dat,timestamp,item_id,))
 
-            print("--- Query executed.")
-
-            if liet_id['liet_id'] is "":
-                update_history(item_id, session.get('user_id'), 4)
-            elif liet_id['liet_id'] == session.get('user_id'):
-                update_history(item_id, session.get('user_id'), 3)
-
-            print("--- New vienumi starting...")
+            print("--> Query executed.")
+            print("--> New vienumi starting...")
             new_vienumi = db.execute('''SELECT liet_id, biroj_id, nopirkt_dat,
                                         iss_aprakst, kateg_id, razot_id, vienum_nosauk,
                                         modelis, bilde_cels, detalas
@@ -406,19 +536,57 @@ def edit(item_id):
                                         WHERE vienum_id = ?''',
                                     (item_id,)).fetchone()
 
-            print("--- New Vienumi fetched.")
+            print("--> New vienumi fetched.")
             for i, value in enumerate(new_vienumi):
-                new_vienumi_array.extend([i, value])
+                new_vienumi_array.append(value)
                 print(" new_value[{}]: '{}'".format(i, value))
 
-            array_difference = (set(new_vienumi_array) - set(old_vienumi_array))
-            flash("Changed values are - {}".format(array_difference))
+            array_change_before = list(set(old_vienumi_array) -
+                                  set(new_vienumi_array))
 
-            #update_history(item_id, session.get('user_id'), darb_id)
+            array_change_after = list(set(new_vienumi_array) -
+                                 set(old_vienumi_array))
 
-            print("--- DB ready for commit.")
-            #db.commit()
-            print("--- Commit successfull.")
+            array_changed_count = len(set(new_vienumi_array) -
+                                  set(old_vienumi_array))
+
+            if (array_change_before == []):
+                array_change_before = array_change_before.append("")
+                array_changed_count += 1
+            elif (array_change_after == []):
+                array_change_after = array_change_after.append("")
+                array_changed_count += 1
+
+            if (array_changed_count > 0):
+                print("--> If changed 1 or 0 fulfilled.")
+                if (
+                        old_vienumi_array[0] == user_id and
+                        new_vienumi_array[0] == ""
+                   ):
+                    print("--> User has returned the item.")
+                    darb_id = 4
+                elif new_vienumi_array[0] == user_id:
+                    print("--> User has taken the item.")
+                    darb_id = 3
+                else:
+                    print("--> Array before - {}.".format(old_vienumi_array[0]))
+                    print(array_change_before)
+                    print("--> Array after - {}.".format(new_vienumi_array[0]))
+                    print(array_change_after)
+
+                if (array_changed_count > 1):
+                    update_history(item_id, user_id, 2)
+                    print("--> Item was also editted.")
+
+            print("--> Changed values({}) are - {}".
+                  format(array_changed_count, array_change_after))
+
+            update_history(item_id, user_id, darb_id)
+            print("--> History table updated.")
+
+            db.commit()
+            print("--> Commit successfull.")
+
             return redirect(url_for("track.index"))
 
     return render_template("track/edit.html", item=item, timestamp=timestamp,
@@ -437,12 +605,12 @@ def update_history(item_id, liet_id, darb_id):
 
 @bp.route("/addme/")
 def addme():
-    timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    timestamp = datetime.now(tz=TIMEZONE).strftime("%Y-%m-%d %H:%M:%S")
     item_id = request.args.get('item_id')
     user_id = request.args.get('user_id')
     darb_id = 3
 
-    flash("item={}, user={}".format(item_id, user_id))
+    print("item={}, user={}".format(item_id, user_id))
     db = get_db()
     db.execute('''UPDATE t_vienumi
                   SET liet_id = ?,

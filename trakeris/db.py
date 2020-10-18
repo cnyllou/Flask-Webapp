@@ -1,9 +1,10 @@
-import sqlite3
+import sqlite3, io, click, pytz, os
 
-import click
-from flask import current_app, g
+from datetime import datetime, date
+from flask import current_app, g, flash
 from flask.cli import with_appcontext
 
+TIMEZONE = pytz.timezone('Europe/Riga')
 
 def get_db():
     """Connect to the application's configured database. The connection
@@ -27,9 +28,29 @@ def close_db(e=None):
         db.close()
 
 
-def init_db():
-    """Clear existing data and create new tables."""
+def backup_db():
+    timestamp = datetime.now(tz=TIMEZONE).strftime("%Y%m%d.%H%M%S")
     db = get_db()
+    database_name = current_app.config['DATABASE_NAME']
+
+    backup_folder = os.path.join(current_app.config['BACKUP_FOLDER'], 'sqlite_database/')
+    print(backup_folder)
+
+
+    filename = "{}_{}_{}.sql".format(timestamp, database_name, "backup")
+    file_path = os.path.join(backup_folder, filename)
+
+    with io.open(file_path, 'w', encoding='utf-16') as f:
+       for linha in db.iterdump():
+           f.write('%s\n' % linha)
+    print('Backup performed successfully.')
+    flash('Datubāzes kopija saglabāta: {}'.format(file_path))
+    db.close()
+
+
+def init_db():
+    db = get_db()
+
 
     with current_app.open_resource("schema.sql") as f:
         db.executescript(f.read().decode("utf8"))

@@ -2,11 +2,13 @@
 {% block title %}Pievienot{% endblock %}
 {% block content %}
 <div class="add-main_content">
-  <div class="add-header">Papildināt invetāru</div>
+  <section class="content-header">
+    <h1>Papildināt inventāru</h1>
+  </section>
   <form class="content" method="POST" enctype="multipart/form-data">
     <div class="add-input">
       <label for="vienum_nosauk">Nosaukums</label>
-      <input name="vienum_nosauk" id="vienum_nosauk" required>
+      <input name="vienum_nosauk" id="vienum_nosauk" required><br>
       <label for="birojs">Atrašanās vieta</label>
       <select id="birojs" name="birojs" required>
         {% for birojs in t_biroji%}
@@ -14,7 +16,7 @@
             {{ birojs['birojs'] }}
           </option>
         {% endfor %}
-      </select>
+      </select><br>
       <label for="kategorija">Kategorija</label>
       <select id="kategorija" name="kategorija" required>
         {% for kategorija in t_kategorijas%}
@@ -22,12 +24,12 @@
             {{ kategorija['kategorija'] }}
           </option>
         {% endfor %}
-      </select>
+      </select><br>
       <label for="nopirkt_dat">Iegādāšanās datums</label>
       <input type="date" name="nopirkt_dat" id="nopirkt_dat"
-               min="1900-01-01" max="{{ today_date }}">
+               min="1900-01-01" max="{{ today_date }}"><br>
       <label for="iss_aprakst">Īss apraksts</label>
-      <input name="iss_aprakst" id="iss_aprakst">
+      <input name="iss_aprakst" id="iss_aprakst"><br>
       <label for="razotajs">Ražotājs</label>
       <input list="razotaji" name="razotajs" id="razotajs">
       <datalist id="razotaji">
@@ -36,13 +38,13 @@
             {{ razotajs['razotajs'] }}
           </option>
         {% endfor %}
-      </datalist>
+      </datalist><br>
       <label for="modelis">Modelis</label>
-      <input name="modelis" id="modelis">
+      <input name="modelis" id="modelis"><br>
       <label for="bilde_cels">Bilde</label>
-      <input type="file" name="bilde_cels" id="bilde_cels">
+      <input type="file" name="bilde_cels" id="bilde_cels"><br>
       <label for="detalas">Detalizēts apraksts</label>
-      <input name="detalas" id="detalas">
+      <input name="detalas" id="detalas"><br>
     </div>
     <br/><hr/>
     <div class="add-button">

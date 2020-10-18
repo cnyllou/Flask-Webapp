@@ -30,7 +30,7 @@ CREATE TABLE t_lietotaji (
   epasts TEXT NOT NULL,
   tel_num INTEGER NOT NULL,
   profil_bild_cels VARCHAR(10),
-  izveid_dat TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  izveid_dat TIMESTAMP DEFAULT (datetime('now','localtime')),
   FOREIGN KEY (poz_id) REFERENCES t_pozicijas (poz_id),
   FOREIGN KEY (proj_id) REFERENCES t_pozicijas (proj_id),
   FOREIGN KEY (biroj_id) REFERENCES t_biroji (biroj_id)
@@ -72,8 +72,8 @@ CREATE TABLE t_vienumi (
   liet_id INTEGER NOT NULL,
   bilde_cels VARCHAR(10),
   nopirkt_dat DATE,
-  izveid_dat TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  atjauninats TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  izveid_dat TIMESTAMP DEFAULT (datetime('now','localtime')),
+  atjauninats TIMESTAMP DEFAULT (datetime('now','localtime')),
   FOREIGN KEY (kateg_id) REFERENCES t_kategorijas (kateg_id),
   FOREIGN KEY (biroj_id) REFERENCES t_pilsetas (biroj_id),
   FOREIGN KEY (liet_id) REFERENCES t_lietotaji (liet_id),
@@ -85,7 +85,7 @@ CREATE TABLE t_ieraksti (
   vienum_id INTEGER NOT NULL,
   liet_id INTEGER NOT NULL,
   darb_id INTEGER NOT NULL,
-  noris_laiks TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  noris_laiks TIMESTAMP DEFAULT (datetime('now','localtime')),
   FOREIGN KEY (liet_id) REFERENCES t_lietotaji (liet_id),
   FOREIGN KEY (darb_id) REFERENCES t_darbibas (darb_id)
 );
@@ -95,7 +95,7 @@ CREATE TABLE t_komentari (
   komentars TEXT NOT NULL,
   vienum_id INTEGER NOT NULL,
   liet_id INTEGER NOT NULL,
-  noris_laiks TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  noris_laiks TIMESTAMP DEFAULT (datetime('now','localtime')),
   FOREIGN KEY (vienum_id) REFERENCES t_vienumi (vienum_id),
   FOREIGN KEY (liet_id) REFERENCES t_lietotaji (liet_id)
 );
@@ -121,7 +121,7 @@ CREATE TABLE t_pieprasijumi (
   liet_id INTEGER NOT NULL,
   vienum_id INTEGER NOT NULL,
   koment TEXT,
-  piepr_laiks TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  piepr_laiks TIMESTAMP DEFAULT (datetime('now','localtime')),
   FOREIGN KEY (liet_id) REFERENCES t_lietotaji (liet_id),
   FOREIGN KEY (vienum_id) REFERENCES t_vienumi (vienum_id)
 );

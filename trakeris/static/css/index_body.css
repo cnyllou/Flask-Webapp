@@ -2,36 +2,71 @@
    display: block;
 }
 
-
 .filters {
-  height: 100px;
   background: white;
   padding: 12px;
-  border-top: 1px solid rgb(40, 40, 40);
+  border-top: 1px solid rgba(40, 40, 40, 0.07);
   box-shadow: 5px 5px 15px rgba(17, 19, 45, 0.20);
 }
 
-#user_input {
+.filter-title {
+  border-bottom: 1px solid black;
+  font-weight: bold;
+}
 
+.filter-wrapper {
+
+}
+
+.col1 {
+  padding: 0 0 0 10px;
+  vertical-align: top;
+  width: 300px;
+}
+
+input[type='checkbox'] {
+  text-align: left;
+  display: inline-block;
+}
+
+.categories-filter {
+  display: inline-block;
+  height: 100%;
+}
+
+.location-filter {
+  display: inline-block;
+  height: 100%;
+  width: 250px;
+}
+
+.status-filter {
+  display: inline-block;
+  height: 100%;
+}
+
+.radio {
+  padding: 0 0 0 1px;
+}
+
+#user_input {
   background-position: 10px 12px; /* Position the search icon */
   background-repeat: no-repeat; /* Do not repeat the icon image */
   width: 100%; /* Full-width */
   font-size: 16px; /* Increase font-size */
   padding: 12px 20px 12px 40px; /* Add some padding */
   border: 1px solid #ddd; /* Add a grey border */
-  margin-top: 12px; /* Add some space below the input */
+  margin: 12px 0 10px 0; /* Add some space below the input */
 }
-
 
 .container {
   list-style: none;
-  display: inline-block;
   font-size: 13px;
   text-align:center;
   background: rgba(250, 254, 255, 0.86);
-  width: 100%;
-  height: 100%;
-  padding: 0px 0px 0 0px;
+  max-width: 960px;
+
+  padding: 20px 0px 0 20px;
   box-shadow: 5px 5px 15px rgba(17, 19, 45, 0.20);
 }
 
@@ -45,9 +80,6 @@
   height: 100px;
   overflow: hidden;
 }
-
-
-
 
 .left-side {
   width: 65px;
@@ -120,12 +152,8 @@
 }
 
 .overlay .add-me{
-
   font-size: 9px;
-
 }
-
-
 
 .right-side {
   width: 100%;
@@ -160,9 +188,7 @@
 .id-num {
   position: absolute;
   bottom: 0;
-  right: 0;
-}
-
-p {
+  right: 2px;
+  color: rgb(105, 105, 105);
   margin-bottom: 0;
 }

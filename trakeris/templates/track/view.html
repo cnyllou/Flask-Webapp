@@ -6,14 +6,11 @@
   </section>
   <section class="content">
     <div class="row">
-      <div class="col_1 item-info">
+      <div class="column view-item-info">
         <div class="box box-info">
-          <div class="box-header">
-            <h3 class="box-title">Informācija</h3>
-          </div>
           <form class="form-horizontal" method="post">
             <div class="box-body">
-              <div style="padding: 10px 0px; text-align: center;">
+              <div class="section-header">
                 <h4>Invetāra dati</h4>
               </div>
                 <div class="form-group">
@@ -44,7 +41,7 @@
                   <label class="col">Atjaunināts ieraksts</label>
                   <span class="data">{{ item['atjauninats'] }}</span>
                 </div>
-              <div style="padding: 10px 0px; text-align: center;">
+              <div class="section-header">
                 <h4>Detalizēta informācija</h4>
               </div>
               <div class="form-group">
@@ -92,29 +89,28 @@
           </form>
         </div>
       </div>
-      <div class="container-container">
-        <div class="box-header">
-          <h3 class="box-title">Komentāri</h3>
-        </div>
-        <div id="comments" class="comments">
-          <div class="comment-box">
-              {% for comment in comments %}
-                <div class="comment-box">
-                  <h4 class="author">{{ comment['lietv'] }}</h4>
-                  <p class="comment">{{ comment['komentars'] }}</p>
-                  <small class="date">{{ comment['noris_laiks'] }}</small>
-                </div>
-              {% endfor %}
+      <div class="column">
+        <div class="comment-container">
+          <div class="box-header">
+            <h3 class="box-title">Komentāri</h3>
+          </div>
+          <div id="comments" class="comments">
+                {% for comment in comments %}
+                  <div class="comment-box">
+                    <h4 class="author">{{ comment['lietv'] }}</h4>
+                    <p class="comment">{{ comment['komentars'] }}</p>
+                    <small class="date">{{ comment['noris_laiks'] }}</small>
+                  </div>
+                {% endfor %}
+          </div>
+          <div class="footer">
+            <form method="post">
+              <input type="text" name="komentars" placeholder="Iekomentēt">
+              <button type="submit" name="button">Apstiprināt</button>
+            </form>
           </div>
         </div>
-        <div class="footer">
-          <form method="post">
-            <input type="text" name="komentars" placeholder="Iekomentēt">
-            <button type="submit" name="button">Apstiprināt</button>
-          </form>
-        </div>
       </div>
-
     </div>
   </section>
   <section class="history">
@@ -122,9 +118,10 @@
     <div class="ieraksti">
       {% for ieraksts in history %}
         <div class="ieraksts">
-          <span class="lietv">{{ ieraksts['lietv'] }}</span>
+          <i class="fas fa-indent"></i>
+          <span class="lietv"> {{ ieraksts['lietv'] }}</span>
           <span class="darbiba">{{ ieraksts['darbiba'] }}</span>
-          <span class="noris_laiks">{{ ieraksts['noris_laiks'] }}</span>
+          <span class="noris_laiks">[ {{ ieraksts['noris_laiks'] }} ]</span>
         </div>
       {% endfor %}
     </div>

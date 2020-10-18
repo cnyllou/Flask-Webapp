@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block title %}Tabulas{% endblock %}
+{% block content %}
+  <section class="content-header">
+    <h1>Tabulas</h1>
+  </section>
+  <form class="content" method="POST">
+    <button name="table" class="table-btn" type="submit" value='all'>Visas tabulas</button>
+    <button name="table" class="table-btn" type="submit" value='t_lietotaji'>Lietotāji</button>
+    <button name="table" class="table-btn" type="submit" value='t_biroji'>Biroji</button>
+    <button name="table" class="table-btn" type="submit" value='t_projekti'>Projekti</button>
+    <button name="table" class="table-btn" type="submit" value='t_pilsetas'>Pilsētas</button>
+    <button name="table" class="table-btn" type="submit" value='t_pozicijas'>Pozīcijas</button>
+    <button name="table" class="table-btn" type="submit" value='t_vienumi'>Vienumi</button>
+    <button name="table" class="table-btn" type="submit" value='t_ieraksti'>Ieraksti</button>
+    <button name="table" class="table-btn" type="submit" value='t_komentari'>Komentāri</button>
+    <button name="table" class="table-btn" type="submit" value='t_darbibas'>Darbības</button>
+    <button name="table" class="table-btn" type="submit" value='t_kategorijas'>Kategorijas</button>
+    <button name="table" class="table-btn" type="submit" value='t_razotaji'>Ražotāji</button>
+  </form>
+<h1 style="border-bottom: 2px solid black; padding-left: 15px;">Datu eksportēšana</h1>
+  <form class="content" method="POST">
+    <button name="table" class="table-btn" type="submit" value='export_csv'>Exportēt datus uz CSV</button>
+    <button name="table" class="table-btn" type="submit" value='backup'>Exportēt visu datubāzi</button>
+  </form>
+{% endblock %}
