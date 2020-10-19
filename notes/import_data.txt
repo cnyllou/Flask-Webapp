@@ -1,0 +1,14 @@
+t_pilsetas.csv t_pilsetas pils_id,pilseta
+t_projekti.csv t_projekti proj_id,projekts
+t_pozicijas.csv t_pozicijas poz_id,pozicija
+t_darbibas.csv t_darbibas darb_id,darbiba
+t_kategorijas.csv t_kategorijas kateg_id,kategorija
+t_razotaji.csv t_razotaji razot_id,razotajs
+
+t_lietotaji.csv t_lietotaji liet_id,lietv,parole,vards,uzv,poz_id,proj_id,biroj_id,pers_kods,epasts,tel_num,profil_bild_cels
+
+t_biroji.csv t_biroji biroj_id,birojs,pils_id
+t_vienumi.csv t_vienumi vienum_id,svitr_kods,vienum_nosauk,modelis,razot_id,iss_aprakst,detalas,kateg_id,biroj_id,liet_id,bilde_cels,nopirkt_dat
+t_ieraksti.csv t_ieraksti ierakst_id,vienum_id,liet_id,darb_id
+
+
