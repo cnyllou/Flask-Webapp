@@ -1,96 +1,96 @@
 {% extends "base.html" %}
 {% block title %}Vaicājumi{% endblock %}
 {% block content %}
+
   <section class="content-header">
     <h1>Vaicājumi</h1>
   </section>
+  <h1 style="border-bottom: 2px solid black; padding: 7px 0 0 15px;">Tabulas ar saistītiem datiem</h1>
   <form class="content" method="POST">
-    <button name="table" class="table-btn" type="submit" value='all'>Visas tabulas</button>
     <button name="table" class="table-btn" type="submit" value='t_lietotaji'>Lietotāji</button>
     <button name="table" class="table-btn" type="submit" value='t_biroji'>Biroji</button>
-    <button name="table" class="table-btn" type="submit" value='t_projekti'>Projekti</button>
-    <button name="table" class="table-btn" type="submit" value='t_pilsetas'>Pilsētas</button>
-    <button name="table" class="table-btn" type="submit" value='t_pozicijas'>Pozīcijas</button>
     <button name="table" class="table-btn" type="submit" value='t_vienumi'>Vienumi</button>
     <button name="table" class="table-btn" type="submit" value='t_ieraksti'>Ieraksti</button>
     <button name="table" class="table-btn" type="submit" value='t_komentari'>Komentāri</button>
-    <button name="table" class="table-btn" type="submit" value='t_darbibas'>Darbības</button>
-    <button name="table" class="table-btn" type="submit" value='t_kategorijas'>Kategorijas</button>
-    <button name="table" class="table-btn" type="submit" value='t_razotaji'>Ražotāji</button>
   </form>
-  <h1 style="border-bottom: 2px solid black; padding-left: 15px;">Tabulas ar saistītiem datiem</h1>
+  <h1 style="border-bottom: 2px solid black; padding-left: 15px;">Vienumu skaits uz ...</h1>
   <form class="content" method="POST">
-    <button name="table" class="table-btn" type="submit" value='all'>Visas tabulas</button>
-    <button name="table" class="table-btn" type="submit" value='t_lietotaji'>Lietotāji</button>
-    <button name="table" class="table-btn" type="submit" value='t_biroji'>Biroji</button>
-    <button name="table" class="table-btn" type="submit" value='t_projekti'>Projekti</button>
-    <button name="table" class="table-btn" type="submit" value='t_pilsetas'>Pilsētas</button>
-    <button name="table" class="table-btn" type="submit" value='t_pozicijas'>Pozīcijas</button>
-    <button name="table" class="table-btn" type="submit" value='t_vienumi'>Vienumi</button>
-    <button name="table" class="table-btn" type="submit" value='t_ieraksti'>Ieraksti</button>
-    <button name="table" class="table-btn" type="submit" value='t_komentari'>Komentāri</button>
-    <button name="table" class="table-btn" type="submit" value='t_darbibas'>Darbības</button>
-    <button name="table" class="table-btn" type="submit" value='t_kategorijas'>Kategorijas</button>
-    <button name="table" class="table-btn" type="submit" value='t_razotaji'>Ražotāji</button>
+    <button name="table" class="table-btn" type="submit" value='vc_pilsetas'>Pilsētām</button>
+    <button name="table" class="table-btn" type="submit" value='vc_birojs'>Birojiem</button>
+    <button name="table" class="table-btn" type="submit" value='vc_lietotaji'>Lietotājiem</button>
+    <button name="table" class="table-btn" type="submit" value='vc_projekti'>Projektiem</button>
+    <button name="table" class="table-btn" type="submit" value='vc_kategorijas'>Kategorijām</button>
+    <button name="table" class="table-btn" type="submit" value='vc_razotaji'>Rāzotājiem</button>
   </form>
-  <h1 style="border-bottom: 2px solid black; padding-left: 15px;">Invetārs</h1>
+  <h1 style="border-bottom: 2px solid black; padding-left: 15px;">Vienumi grupēti pa ...</h1>
   <form class="content" method="POST">
-    <button name="table" class="table-btn" type="submit" value='all'>Visas tabulas</button>
-    <button name="table" class="table-btn" type="submit" value='t_lietotaji'>Lietotāji</button>
-    <button name="table" class="table-btn" type="submit" value='t_biroji'>Biroji</button>
-    <button name="table" class="table-btn" type="submit" value='t_projekti'>Projekti</button>
-    <button name="table" class="table-btn" type="submit" value='t_pilsetas'>Pilsētas</button>
-    <button name="table" class="table-btn" type="submit" value='t_pozicijas'>Pozīcijas</button>
-    <button name="table" class="table-btn" type="submit" value='t_vienumi'>Vienumi</button>
-    <button name="table" class="table-btn" type="submit" value='t_ieraksti'>Ieraksti</button>
-    <button name="table" class="table-btn" type="submit" value='t_komentari'>Komentāri</button>
-    <button name="table" class="table-btn" type="submit" value='t_darbibas'>Darbības</button>
-    <button name="table" class="table-btn" type="submit" value='t_kategorijas'>Kategorijas</button>
-    <button name="table" class="table-btn" type="submit" value='t_razotaji'>Ražotāji</button>
+    <button name="table" class="table-btn" type="submit" value='vg_pilsetas'>Pilsētām</button>
+    <button name="table" class="table-btn" type="submit" value='vg_biroji'>Birojiem</button>
+    <button name="table" class="table-btn" type="submit" value='vg_kategorijas'>Kategorijām</button>
   </form>
-  <h1 style="border-bottom: 2px solid black; padding-left: 15px;">Lietotāji</h1>
+  <h1 style="border-bottom: 2px solid black; padding-left: 15px;">Uzskaite</h1>
   <form class="content" method="POST">
-    <button name="table" class="table-btn" type="submit" value='all'>Visas tabulas</button>
-    <button name="table" class="table-btn" type="submit" value='t_lietotaji'>Lietotāji</button>
-    <button name="table" class="table-btn" type="submit" value='t_biroji'>Biroji</button>
-    <button name="table" class="table-btn" type="submit" value='t_projekti'>Projekti</button>
-    <button name="table" class="table-btn" type="submit" value='t_pilsetas'>Pilsētas</button>
-    <button name="table" class="table-btn" type="submit" value='t_pozicijas'>Pozīcijas</button>
-    <button name="table" class="table-btn" type="submit" value='t_vienumi'>Vienumi</button>
-    <button name="table" class="table-btn" type="submit" value='t_ieraksti'>Ieraksti</button>
-    <button name="table" class="table-btn" type="submit" value='t_komentari'>Komentāri</button>
-    <button name="table" class="table-btn" type="submit" value='t_darbibas'>Darbības</button>
-    <button name="table" class="table-btn" type="submit" value='t_kategorijas'>Kategorijas</button>
-    <button name="table" class="table-btn" type="submit" value='t_razotaji'>Ražotāji</button>
+    <label class='count'>Kopējais darbinieku skaits: </label><span>{{ darb_sk }}</span><br>
+    <label class='count'>Kopējais vienumu skaits: </label><span>{{ vienum_sk }}</span><br>
+    <label class='count'>Kopējais projektu skaits: </label><span>{{ proj_sk }}</span><br>
+    <label class='count'>Vienumi brīvi: </label><span>{{ briv_vienum_sk }}/{{ vienum_sk }}</span><br>
   </form>
-  <h1 style="border-bottom: 2px solid black; padding-left: 15px;">Biroji</h1>
+
+  <h1 style="border-bottom: 2px solid black; padding-left: 15px;">Filtrēt pēc nosaukuma</h1>
   <form class="content" method="POST">
-    <button name="table" class="table-btn" type="submit" value='all'>Visas tabulas</button>
-    <button name="table" class="table-btn" type="submit" value='t_lietotaji'>Lietotāji</button>
-    <button name="table" class="table-btn" type="submit" value='t_biroji'>Biroji</button>
-    <button name="table" class="table-btn" type="submit" value='t_projekti'>Projekti</button>
-    <button name="table" class="table-btn" type="submit" value='t_pilsetas'>Pilsētas</button>
-    <button name="table" class="table-btn" type="submit" value='t_pozicijas'>Pozīcijas</button>
-    <button name="table" class="table-btn" type="submit" value='t_vienumi'>Vienumi</button>
-    <button name="table" class="table-btn" type="submit" value='t_ieraksti'>Ieraksti</button>
-    <button name="table" class="table-btn" type="submit" value='t_komentari'>Komentāri</button>
-    <button name="table" class="table-btn" type="submit" value='t_darbibas'>Darbības</button>
-    <button name="table" class="table-btn" type="submit" value='t_kategorijas'>Kategorijas</button>
-    <button name="table" class="table-btn" type="submit" value='t_razotaji'>Ražotāji</button>
+    <label for="lietotajs">Lietotājs</label>
+    <input list="lietotaji" name="lietotajs" id="lietotajs" autocomplete="off">
+    <datalist id="lietotaji">
+      {% for lietotajs in t_lietotaji%}
+        <option value="{{ lietotajs['lietv'] }}">
+          {{ lietotajs['lietv'] }}
+        </option>
+      {% endfor %}
+    </datalist>
+    <button name="table" value="f_lietotaji">Atlasīt</button><br>
+
+    <label for="projekts">Projekts</label>
+    <input list="projekti" name="projekts" id="projekts" autocomplete="off">
+    <datalist id="projekti">
+      {% for projekts in t_projekti %}
+        <option value="{{ projekts['projekts'] }}">
+          {{ projekts['projekts'] }}
+        </option>
+      {% endfor %}
+    </datalist>
+    <button name="table" value="f_projekti">Atlasīt</button><br>
+
+    <label for="razotajs">Ražotājs</label>
+    <input list="razotaji" name="razotajs" id="razotajs" autocomplete="off">
+    <datalist id="razotaji">
+      {% for razotajs in t_razotaji%}
+        <option value="{{ razotajs['razotajs'] }}">
+          {{ razotajs['razotajs'] }}
+        </option>
+      {% endfor %}
+    </datalist>
+    <button name="table" value="f_razotaji">Atlasīt</button><br>
+
+    <label for="birojs">Birojs</label>
+    <input list="biroji" name="birojs" id="birojs" autocomplete="off">
+    <datalist id="biroji">
+      {% for birojs in t_biroji%}
+        <option value="{{ birojs['birojs'] }}">
+          {{ birojs['birojs'] }}
+        </option>
+      {% endfor %}
+    </datalist>
+    <button name="table" value="f_biroji">Atlasīt</button><br>
   </form>
-  <h1 style="border-bottom: 2px solid black; padding-left: 15px;">Vaicājumi ar nosacijumiem</h1>
-  <form class="content" method="POST">
-    <button name="table" class="table-btn" type="submit" value='all'>Visas tabulas</button>
-    <button name="table" class="table-btn" type="submit" value='t_lietotaji'>Lietotāji</button>
-    <button name="table" class="table-btn" type="submit" value='t_biroji'>Biroji</button>
-    <button name="table" class="table-btn" type="submit" value='t_projekti'>Projekti</button>
-    <button name="table" class="table-btn" type="submit" value='t_pilsetas'>Pilsētas</button>
-    <button name="table" class="table-btn" type="submit" value='t_pozicijas'>Pozīcijas</button>
-    <button name="table" class="table-btn" type="submit" value='t_vienumi'>Vienumi</button>
-    <button name="table" class="table-btn" type="submit" value='t_ieraksti'>Ieraksti</button>
-    <button name="table" class="table-btn" type="submit" value='t_komentari'>Komentāri</button>
-    <button name="table" class="table-btn" type="submit" value='t_darbibas'>Darbības</button>
-    <button name="table" class="table-btn" type="submit" value='t_kategorijas'>Kategorijas</button>
-    <button name="table" class="table-btn" type="submit" value='t_razotaji'>Ražotāji</button>
-  </form>
+
+<style>
+  span {
+    padding-left: 5px;
+  }
+
+  .count {
+    border-bottom: 1px solid black;
+  }
+</style>
+
 {% endblock %}

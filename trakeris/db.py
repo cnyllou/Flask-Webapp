@@ -32,10 +32,8 @@ def backup_db():
     timestamp = datetime.now(tz=TIMEZONE).strftime("%Y%m%d.%H%M%S")
     db = get_db()
     database_name = current_app.config['DATABASE_NAME']
-
     backup_folder = os.path.join(current_app.config['BACKUP_FOLDER'], 'sqlite_database/')
     print(backup_folder)
-
 
     filename = "{}_{}_{}.sql".format(timestamp, database_name, "backup")
     file_path = os.path.join(backup_folder, filename)
@@ -50,8 +48,6 @@ def backup_db():
 
 def init_db():
     db = get_db()
-
-
     with current_app.open_resource("schema.sql") as f:
         db.executescript(f.read().decode("utf8"))
 

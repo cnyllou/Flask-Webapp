@@ -13,6 +13,7 @@ from werkzeug.utils import secure_filename
 
 from trakeris.auth import login_required, admin_required, allowed_file
 from trakeris.db import get_db, backup_db
+from trakeris.queries import get_query #, query_all_tables
 
 
 bp = Blueprint('track', __name__)
@@ -373,8 +374,60 @@ def tables():
 @admin_required
 def queries():
     db = get_db()
+    t_lietotaji = db.execute('''SELECT liet_id, lietv
+                                FROM t_lietotaji'''
+                            ).fetchall()
+    t_projekti = db.execute('''SELECT proj_id, projekts
+                                FROM t_projekti'''
+                            ).fetchall()
+    t_razotaji = db.execute('''SELECT razot_id, razotajs
+                                FROM t_razotaji'''
+                            ).fetchall()
+    t_biroji = db.execute('''SELECT biroj_id, birojs
+                              FROM t_biroji'''
+                            ).fetchall()
 
-    return render_template("track/queries.html")
+    darb_sk = db.execute('''SELECT count(liet_id) AS 'darb_sk'
+                            FROM t_lietotaji''').fetchone()
+    darb_sk = darb_sk['darb_sk']
+
+    vienum_sk = db.execute('''SELECT count(vienum_id) AS 'vienum_sk'
+                            FROM t_vienumi''').fetchone()
+    vienum_sk = vienum_sk['vienum_sk']
+
+    proj_sk = db.execute('''SELECT count(proj_id) AS 'proj_sk'
+                            FROM t_projekti''').fetchone()
+    proj_sk = proj_sk['proj_sk']
+
+    briv_vienum_sk = db.execute('''SELECT count(vienum_id) AS 'briv_vienum_sk'
+                                   FROM t_vienumi
+                                   WHERE liet_id == '';''').fetchone()
+    briv_vienum_sk = briv_vienum_sk['briv_vienum_sk']
+
+
+    if request.method == 'POST':
+        query = request.form['table']
+        try:
+            f_lietotajs = request.form['lietotajs']
+            f_projekts = request.form['projekts']
+            f_razotajs = request.form['razotajs']
+            f_birojs = request.form['birojs']
+        except:
+            f_lietotajs = None
+            f_projekts = None
+            f_razotajs = None
+            f_birojs = None
+            print("Doing the buttons.")
+
+        full_path = get_query(query, f_lietotajs, f_projekts, f_razotajs, f_birojs)
+
+        return render_template(full_path)
+
+    return render_template("track/queries.html",
+                            t_lietotaji=t_lietotaji, t_razotaji=t_razotaji,
+                            t_projekti=t_projekti, t_biroji=t_biroji,
+                            darb_sk=darb_sk, vienum_sk=vienum_sk,
+                            proj_sk=proj_sk, briv_vienum_sk=briv_vienum_sk)
 
 
 @bp.route("/reports", methods=("GET", "POST"))

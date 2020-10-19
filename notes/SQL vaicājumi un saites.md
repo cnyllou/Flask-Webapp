@@ -2,7 +2,7 @@
 tags: [Datubāze, SQL]
 title: SQL vaicājumi un saites
 created: '2020-10-09T18:32:21.949Z'
-modified: '2020-10-15T19:25:01.231Z'
+modified: '2020-10-19T20:37:17.728Z'
 ---
 
 # SQL vaicājumi un saites
@@ -48,7 +48,6 @@ SELECT vienum_id,
        r.razotajs,
        iss_aprakst,
        detalas,
-       komentars,
        k.kategorija,
        b.birojs,
        l.lietv,
@@ -134,34 +133,98 @@ SELECT * FROM t_razotaji WHERE LOWER(razotajs) = LOWER(?);
 - Ja nav atrasts ieraksts, tad tiks izveidots jauns ieraksts ražotāju tabulā un saglabāts id, lai pēc tam varētu izveidot jaunu ierakstu ar tikko izveidoto ražotāju
 ```SQL
 INSERT INTO t_razotaji (razotajs) VALUES (?);
-SELECT * FROM t_razotaji WHERE razotajs = ?
+     SELECT * FROM t_razotaji WHERE razotajs = ?
 ```
 Ar nākošo vaicājumu, kur '?' vietā tiks ievietoti mainīgie, tiks izveidota jauna rinda tabulā t_vienumi
 ```SQL
 INSERT INTO t_vienumi (svitr_kods,vienum_nosauk,modelis,razot_id,iss_aprakst,detalas,kateg_id,biroj_id,liet_id,bilde_cels,nopirkt_dat) 
-VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+     VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
 ```
 Parādīt informācīju par kādu vienu vienumu
 ```SQL
 SELECT vienum_id, svitr_kods, vienum_nosauk, modelis,
-                   r.razotajs, iss_aprakst, detalas, komentars,
-                   k.kategorija, b.birojs, l.lietv, bilde_cels,
-                   v.nopirkt_dat, v.izveid_dat, v.atjauninats
-                   FROM t_vienumi v
-                   LEFT JOIN t_razotaji r ON v.razot_id = r.razot_id
-                   LEFT JOIN t_kategorijas k ON v.kateg_id = k.kateg_id
-                   LEFT JOIN t_biroji b ON v.biroj_id = b.biroj_id
-                   LEFT JOIN t_lietotaji l ON v.liet_id = l.liet_id
-                   WHERE v.vienum_id = ?
+       r.razotajs, iss_aprakst, detalas, komentars,
+       k.kategorija, b.birojs, l.lietv, bilde_cels,
+       v.nopirkt_dat, v.izveid_dat, v.atjauninats
+FROM t_vienumi v
+       LEFT JOIN t_razotaji r ON v.razot_id = r.razot_id
+       LEFT JOIN t_kategorijas k ON v.kateg_id = k.kateg_id
+       LEFT JOIN t_biroji b ON v.biroj_id = b.biroj_id
+       LEFT JOIN t_lietotaji l ON v.liet_id = l.liet_id
+WHERE v.vienum_id = ?
 ```
 Lai redigētu ierakstus datubāzē
 ```SQL
 UPDATE t_vienumi
-                       SET vienum_nosauk = ?, modelis = ?, razot_id = ?,
-                       iss_aprakst = ?, detalas = ?, kateg_id = ?,
-                       biroj_id = ?, liet_id = ?, bilde_cels = ?,
-                       nopirkt_dat = ?, atjauninats = ? WHERE vienum_id = ?
+       SET vienum_nosauk = ?, modelis = ?, razot_id = ?,
+       iss_aprakst = ?, detalas = ?, kateg_id = ?,
+       biroj_id = ?, liet_id = ?, bilde_cels = ?,
+       nopirkt_dat = ?, atjauninats = ? WHERE vienum_id = ?
 ```
 
 
 
+# Vaicajumi
+---
+```SQL
+SELECT count(b.birojs) AS 'Vienumu sk.', b.birojs
+               FROM t_vienumi v
+                    LEFT JOIN t_biroji b ON v.biroj_id = b.biroj_id
+               GROUP by b.birojs
+               ORDER BY count(b.birojs) DESC
+```
+Vienumi uz kategorijām
+```SQL
+SELECT count(k.kategorija) AS 'Vienumu sk.', k.kategorija
+               FROM t_vienumi v
+                    LEFT JOIN t_kategorijas k ON v.kateg_id = k.kateg_id
+               GROUP by k.kategorija
+               ORDER BY count(k.kategorija) DESC
+```
+Vienumu sk. uz pilsētām
+```SQL
+SELECT count(p.pilseta) AS 'Vienumu sk.', p.pilseta
+               FROM t_vienumi v
+               JOIN t_biroji b ON v.biroj_id = b.biroj_id
+               JOIN t_pilsetas p ON b.pils_id = p.pils_id
+                   
+               GROUP by p.pilseta
+               ORDER BY count(p.pilseta) DESC
+```
+Vienumu sk. uz lietotājiem
+```SQL
+SELECT count(l.lietv) AS 'Vienumu sk.', l.lietv
+               FROM t_vienumi v
+                    LEFT JOIN t_lietotaji l ON v.liet_id = l.liet_id
+               GROUP by l.lietv
+               ORDER BY count(l.lietv) DESC
+               
+```
+Vienumu sk. uz projektiem
+```SQL
+SELECT count(p.projekts) AS 'Vienumu sk.', p.projekts
+               FROM t_vienumi v
+                    LEFT JOIN t_projekti p ON v.liet_id = p.proj_id
+               GROUP by p.projekts
+               ORDER BY count(p.projekts) DESC
+```
+Vienumu sk. uz pozīcijām
+```SQL
+SELECT count(poz.pozicija) AS 'Vienumu sk.', poz.pozicija
+  FROM t_vienumi v
+       JOIN t_lietotaji l ON v.liet_id = l.liet_id
+       JOIN t_pozicijas poz ON l.poz_id = poz.poz_id
+   GROUP by poz.pozicija
+   ORDER by count(poz.pozicija) DESC
+```
+Vienumu sk. uz ražotājiem
+```SQL
+SELECT count(r.razotajs) AS 'Vienumu sk.', r.razotajs
+               FROM t_vienumi v
+                    LEFT JOIN t_razotaji r ON v.razot_id = r.razot_id
+               GROUP by r.razotajs
+               ORDER BY count(r.razotajs) DESC
+```
+
+## Vienumu grupet pēc ...
+Birojiem

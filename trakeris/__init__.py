@@ -22,8 +22,6 @@ def create_app(test_config=None):
         ITEM_IMGAES='trakeris/static/images/item_pics/'
     )
 
-    #app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
-
     if test_config is None:
         # load the instance config, if it exists, when not testing
         app.config.from_pyfile('config.py', silent=True)
@@ -50,7 +48,6 @@ def create_app(test_config=None):
     from trakeris import import_data
 
     import_data.init_app(app)
-
 
     # Pielietot Blueprint lietotnei
     from trakeris import auth, track
