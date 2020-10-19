@@ -167,7 +167,7 @@ def login():
         user = db.execute(
             'SELECT liet_id, lietv, parole FROM t_lietotaji WHERE lietv = ?', (lietv,)
         ).fetchone()
-        flash(user['lietv'])
+        #flash(user['lietv'])
 
         if user is None:
             error = 'Nepareizs lietotajs.'
