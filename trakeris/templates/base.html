@@ -44,14 +44,14 @@
             <li><a href="{{ url_for('track.index') }}"><i class="fas fa-box"></i>Viss inventārs</a></li>
             <li><a href="{{ url_for('track.add') }}"><i class="fa fa-plus"></i>Pievienot jaunu vienumu</a></li>
         </ul>
-        {% if g.user['lietv'] == 'root' %}
+        {% if g.user['pozicija'] == 'Administrators' %}
         <ul>
             <li class="main-nav">Administrācija panelis</li>
             <li><a href="{{ url_for('auth.register') }}"><i class="fas fa-user-plus"></i>Reģistrēt lietotāju</a></li>
             <li><a href="{{ url_for('track.tables') }}"><i class="fas fa-table"></i>Tabulas</a></li>
             <li><a href="{{ url_for('track.queries') }}"><i class="fas fa-database"></i>Vaicājumi</a></li>
             <li><a href="{{ url_for('track.reports') }}"><i class="fas fa-file-invoice"></i>Atskaites</a></li>
-            {% for a in range(1,10)%}
+            {% for a in range(1,30)%}
               <br>
             {% endfor %}
         </ul>

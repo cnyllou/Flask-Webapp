@@ -167,8 +167,6 @@ def login():
         user = db.execute(
             'SELECT liet_id, lietv, parole FROM t_lietotaji WHERE lietv = ?', (lietv,)
         ).fetchone()
-        #flash(user['lietv'])
-
         if user is None:
             error = 'Nepareizs lietotajs.'
         elif not check_password_hash(user['parole'], parole):
@@ -177,7 +175,7 @@ def login():
         if error is None:
             session.clear()
             session['user_id'] = user['liet_id']
-            return redirect(url_for('index'))
+            return redirect(url_for('track.index'))
 
         flash(error)
 

@@ -359,7 +359,7 @@ def tables():
                                  filename)
         file_path = os.path.join('trakeris/templates/',full_path)
 
-        file = open(file_path, 'w', encoding="utf-16")
+        file = open(file_path, 'w', encoding="utf-8", errors='ignore')
         file.write(html)
         file.close()
         flash("File located at: {}".format(os.path.abspath(full_path)))
