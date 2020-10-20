@@ -142,7 +142,7 @@ def get_all_tables():
         df = pd.read_sql_query(query, db)
 
         combined_html.append(str(df.to_html(index=False)))
-        
+
     html = " ".join(combined_html)
     html = TABLE_STYLE + "\n" + html
 
@@ -444,12 +444,12 @@ def queries():
                             proj_sk=proj_sk, briv_vienum_sk=briv_vienum_sk)
 
 
-@bp.route("/reports", methods=("GET", "POST"))
-@admin_required
-def reports():
-    db = get_db()
-
-    return render_template("track/reports.html")
+# @bp.route("/reports", methods=("GET", "POST"))
+# @admin_required
+# def reports():
+#     db = get_db()
+#
+#     return render_template("track/reports.html")
 
 
 @bp.route("/relations", methods=("GET", "POST"))
@@ -516,14 +516,17 @@ def edit(item_id):
         user_id = session.get('user_id')
         darb_id = 2
 
-        svitr_kods = db.execute(
-                    '''SELECT svitr_kods
+        filename = db.execute(
+                    '''SELECT bilde_cels
                     FROM t_vienumi WHERE vienum_id = ?''',
                     (item_id,)
         ).fetchone()
 
-        filename = db.execute(
-                    '''SELECT bilde_cels FROM t_vienumi WHERE vienum_id = ?''',
+        filename = filename['bilde_cels']
+
+        svitr_kods = db.execute(
+                    '''SELECT svitr_kods
+                    FROM t_vienumi WHERE vienum_id = ?''',
                     (item_id,)
         ).fetchone()
 
@@ -577,7 +580,6 @@ def edit(item_id):
                   current_app.config['ITEM_IMGAES'] +
                   filename)
 
-        print("--> file: " + str(filename))
         error = None
 
         if vienum_nosauk is None:
@@ -591,6 +593,7 @@ def edit(item_id):
             flash(error)
         else:
             print("--> Error is None .")
+            print(filename)
 
             db.execute('''UPDATE t_vienumi
                           SET vienum_nosauk = ?, modelis = ?, razot_id = ?,
@@ -599,7 +602,7 @@ def edit(item_id):
                           nopirkt_dat = ?, atjauninats = ? WHERE vienum_id = ?''',
                       (vienum_nosauk, modelis, razot_id['razot_id'],iss_aprakst,
                       detalas,kateg_id['kateg_id'],biroj_id['biroj_id'],
-                      liet_id['liet_id'],filename['bilde_cels'],
+                      liet_id['liet_id'],filename,
                       nopirkt_dat,timestamp,item_id,))
 
             print("--> Query executed.")
