@@ -1,11 +1,11 @@
 ---
 tags: [Base, To Do]
-title: Darāmais
+title: Darāmais (Nav aktuāls)
 created: '2020-10-01T18:50:39.295Z'
-modified: '2020-10-14T17:26:34.387Z'
+modified: '2020-10-20T08:26:56.783Z'
 ---
 
-# Darāmais
+# Darāmais (Nav aktuāls)
 ## Priekšlapa
 - [x] Navigāciju augšā ar logout labajā pusē
 - [x] Kreisajā pusē galveno navigāciju ar izvēlēm
@@ -186,8 +186,8 @@ modified: '2020-10-14T17:26:34.387Z'
 
 
 # Problēmas
-- [ ] - Lietotājs nemainas
-    - [ ] Programmai kaut kas nepatik
+- [x] - Lietotājs nemainas
+    - [x] Programmai kaut kas nepatik
 - [ ] - NULL tiek ierakstīts komentāros
 - [ ] - Pirkšanas datums ir tukšs
 

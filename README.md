@@ -1,5 +1,3 @@
-# Datubāze
----
 Inventāra pārvaldības/izsekošanas sistēmas datubāze
 
 # Projekta mērķis
@@ -15,12 +13,16 @@ Inventāra pārvaldības/izsekošanas sistēmas datubāze
 
 # DEMO!
 ---
+# Ieguldītais laiks
+- Katru reizi uzskaitiju laiku un pierakstiju padarīto Excel tabulā
+- Ieguldītais laiks: 138h
+- Dienas, strādāju: 20 dienas
 
 # Izmantotie Rīki
 - SQLite studio, Excel(Datu pārskatam)
 - SQLite3
 - Flask
-- Git
+- Git, Trello
 - Python
 - HTML, JavaScript, CSS
 - Citi:

@@ -408,31 +408,3 @@ def get_query(query, f_lietotajs=None, f_projekts=None, f_razotajs=None, f_biroj
     flash("File located at: {}".format(os.path.abspath(full_path)))
 
     return full_path
-
-
-
-# def query_all_tables():
-#     db = get_db()
-#     all_tables = ["t_lietotaji",
-#                   "t_biroji",
-#                   "t_pilsetas",
-#                   "t_projekti",
-#                   "t_pozicijas",
-#                   "t_vienumi",
-#                   "t_ieraksti",
-#                   "t_komentari",
-#                   "t_darbibas",
-#                   "t_kategorijas",
-#                   "t_razotaji"]
-#     combined_html = []
-#
-#     for table in all_tables:
-#         print(">> Table: {}".format(table))
-#         query = "SELECT * FROM {}".format(table)
-#         df = pd.read_sql_query(query, db)
-#
-#         combined_html.append(str(df.to_html(index=False)))
-#
-#
-#     return " ".join(combined_html)
-#

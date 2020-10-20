@@ -2,7 +2,7 @@
 tags: [Datubāze, SQL]
 title: SQL vaicājumi un saites
 created: '2020-10-09T18:32:21.949Z'
-modified: '2020-10-20T07:50:46.336Z'
+modified: '2020-10-20T08:24:04.037Z'
 ---
 
 # SQL vaicājumi un saites
@@ -226,5 +226,58 @@ SELECT count(r.razotajs) AS 'Vienumu sk.', r.razotajs
                ORDER BY count(r.razotajs) DESC
 ```
 
-## Vienumu grupet pēc ...
-Birojiem
+## Grupēšana
+Pēc pilsētām:
+```SQL
+SELECT vienum_id, svitr_kods, vienum_nosauk, modelis,
+                        r.razotajs, iss_aprakst, detalas,
+                        k.kategorija, b.birojs, p.pilseta,
+                        l.lietv, bilde_cels, atjauninats
+                 FROM t_vienumi v
+                      LEFT JOIN t_razotaji r ON v.razot_id = r.razot_id
+                      LEFT JOIN t_kategorijas k ON v.kateg_id = k.kateg_id
+                      LEFT JOIN t_biroji b ON v.biroj_id = b.biroj_id
+                      LEFT JOIN t_lietotaji l ON v.liet_id = l.liet_id
+                      LEFT JOIN t_pilsetas p ON b.pils_id = p.pils_id
+              WHERE p.pilseta == ?;
+```
+
+Birojiem:
+```SQL
+SELECT vienum_id, svitr_kods, vienum_nosauk, modelis,
+                        r.razotajs, iss_aprakst, detalas,
+                        k.kategorija, b.birojs, p.pilseta,
+                        l.lietv, bilde_cels, atjauninats
+                 FROM t_vienumi v
+                      LEFT JOIN t_razotaji r ON v.razot_id = r.razot_id
+                      LEFT JOIN t_kategorijas k ON v.kateg_id = k.kateg_id
+                      LEFT JOIN t_biroji b ON v.biroj_id = b.biroj_id
+                      LEFT JOIN t_lietotaji l ON v.liet_id = l.liet_id
+                      LEFT JOIN t_pilsetas p ON b.pils_id = p.pils_id
+              WHERE b.birojs == ?;
+```
+
+## Filtrēšana
+Darbinieku uz projektiem:
+```SQL
+SELECT l.liet_id, lietv, parole, vards, uzv, poz.pozicija,
+                        pro.projekts, b.birojs, pers_kods, epasts, tel_num,
+                        profil_bild_cels
+                  FROM t_lietotaji l
+                       JOIN t_pozicijas poz ON l.poz_id = poz.poz_id
+                       JOIN t_projekti pro ON l.proj_id = pro.proj_id
+                       JOIN t_biroji b ON l.biroj_id = b.biroj_id
+                  WHERE pro.projekts == ?;
+```
+
+Darbinieki uz birojiem
+```SQL
+SELECT l.liet_id, lietv, parole, vards, uzv, poz.pozicija,
+                        pro.projekts, b.birojs, pers_kods, epasts, tel_num,
+                        profil_bild_cels
+                  FROM t_lietotaji l
+                       JOIN t_pozicijas poz ON l.poz_id = poz.poz_id
+                       JOIN t_projekti pro ON l.proj_id = pro.proj_id
+                       JOIN t_biroji b ON l.biroj_id = b.biroj_id
+                  WHERE b.birojs == ?;
+```
