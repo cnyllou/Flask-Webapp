@@ -20,6 +20,7 @@ Inventāra pārvaldības/izsekošanas sistēmas datubāze
 - SQLite studio, Excel(Datu pārskatam)
 - SQLite3
 - Flask
+- Git
 - Python
 - HTML, JavaScript, CSS
 - Citi:
