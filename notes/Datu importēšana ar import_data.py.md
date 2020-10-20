@@ -1,9 +1,8 @@
 ---
-attachments: [Clipboard_2020-10-09-17-47-48.png, Clipboard_2020-10-09-17-49-45.png]
 tags: [Datubāze]
 title: Datu importēšana ar import_data.py
 created: '2020-10-07T07:53:38.752Z'
-modified: '2020-10-10T11:09:23.116Z'
+modified: '2020-10-20T08:25:44.889Z'
 ---
 
 # Datu importēšana ar `import_data.py`
@@ -54,12 +53,11 @@ Nobeigumā, pēc šīs operācijas, dati tiek ievadīti datubāzē un tiek izvad
 SELECT * FROM tabula
 ```
 
-# Importa secība
+# Importa secība (Nav tik ļoti svarīga)
 - Vispirms tabulas bez `FOREIGN KEY` un šīm referencēm
 - Pēc tam pārējās, lai nekas nenojuktu ar saitēm
 - Eksportēt visas tabulas kā `.csv`
 1. Bez `FOREIGN KEY` tabulas
-
 - t_pilsetas
 pils_id,pilseta
 - t_projekti
@@ -77,7 +75,6 @@ stat_id,status
 
 
 2. Tagad droši varu importēt datus priekš tabulām ar relācijām
-
 - t_lietotaji
 liet_id,lietv,parole,vards,uzv,poz_id,proj_id,biroj_id,pers_kods,epasts,tel_num,profil_bild_cels
 - t_biroji

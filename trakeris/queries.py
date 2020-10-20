@@ -10,6 +10,25 @@ from flask import send_from_directory, current_app
 from trakeris.auth import login_required, admin_required, allowed_file
 from trakeris.db import get_db
 
+TABLE_STYLE = '''<style>
+                    table {
+                      border-collapse: collapse;
+                      width: auto;
+                    }
+
+                    th, td {
+                      text-align: left;
+                      padding: 8px;
+                    }
+
+                    tr:nth-child(even){background-color: #f2f2f2}
+
+                    th {
+                      background-color: #6c5ce7;
+                      color: white;
+                    }
+                </style>'''
+
 # t_lietotaji
 t_lietotaji = '''SELECT l.liet_id, lietv, parole, vards, uzv, poz.pozicija,
                         pro.projekts, b.birojs, pers_kods, epasts, tel_num,
@@ -376,7 +395,7 @@ def get_query(query, f_lietotajs=None, f_projekts=None, f_razotajs=None, f_biroj
         df = pd.read_sql_query(query, db)
         html = df.to_html(index=False)
 
-
+    html = TABLE_STYLE + "\n" + html
 
     filename = "queries/query-{}.html".format(query_name)
     full_path = os.path.join(current_app.config['REPORTING_FOLDER'],
@@ -389,31 +408,3 @@ def get_query(query, f_lietotajs=None, f_projekts=None, f_razotajs=None, f_biroj
     flash("File located at: {}".format(os.path.abspath(full_path)))
 
     return full_path
-
-
-
-# def query_all_tables():
-#     db = get_db()
-#     all_tables = ["t_lietotaji",
-#                   "t_biroji",
-#                   "t_pilsetas",
-#                   "t_projekti",
-#                   "t_pozicijas",
-#                   "t_vienumi",
-#                   "t_ieraksti",
-#                   "t_komentari",
-#                   "t_darbibas",
-#                   "t_kategorijas",
-#                   "t_razotaji"]
-#     combined_html = []
-#
-#     for table in all_tables:
-#         print(">> Table: {}".format(table))
-#         query = "SELECT * FROM {}".format(table)
-#         df = pd.read_sql_query(query, db)
-#
-#         combined_html.append(str(df.to_html(index=False)))
-#
-#
-#     return " ".join(combined_html)
-#

@@ -18,6 +18,24 @@ from trakeris.queries import get_query #, query_all_tables
 
 bp = Blueprint('track', __name__)
 TIMEZONE = pytz.timezone('Europe/Riga')
+TABLE_STYLE = '''<style>
+                    table {
+                      border-collapse: collapse;
+                      width: 100%;
+                    }
+
+                    th, td {
+                      text-align: left;
+                      padding: 8px;
+                    }
+
+                    tr:nth-child(even){background-color: #f2f2f2}
+
+                    th {
+                      background-color: #6c5ce7;
+                      color: white;
+                    }
+                </style>'''
 
 @bp.route("/")
 @login_required
@@ -97,10 +115,7 @@ def get_history(item_id):
 
 def get_table(table):
     db = get_db()
-
     query = "SELECT * FROM {}".format(table)
-    #columns = db.execute("SELECT * FROM {}".format(table)).fetchall()
-
     df = pd.read_sql_query(query, db)
 
     return df
@@ -127,9 +142,11 @@ def get_all_tables():
         df = pd.read_sql_query(query, db)
 
         combined_html.append(str(df.to_html(index=False)))
+        
+    html = " ".join(combined_html)
+    html = TABLE_STYLE + "\n" + html
 
-
-    return " ".join(combined_html)
+    return html
 
 
 def export_tables():
@@ -335,10 +352,6 @@ def tables():
         db = get_db()
         table = request.form['table']
 
-
-        print(table)
-
-
         if table == "all":
             html = get_all_tables()
 
@@ -354,6 +367,7 @@ def tables():
             df = get_table(table)
 
             html = df.to_html(index=False)
+            html = TABLE_STYLE + "\n" + html
 
         filename = "tables/tabula-{}.html".format(table)
         full_path = os.path.join(current_app.config['REPORTING_FOLDER'],
@@ -436,6 +450,14 @@ def reports():
     db = get_db()
 
     return render_template("track/reports.html")
+
+
+@bp.route("/relations", methods=("GET", "POST"))
+@admin_required
+def relations():
+    db = get_db()
+
+    return render_template("track/relations.html")
 
 @bp.route("/<int:item_id>/edit", methods=("GET", "POST"))
 @login_required
