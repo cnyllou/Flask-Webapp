@@ -18,7 +18,8 @@
         <input name="vards" id="vards" placeholder="Vārds" required>
         <input name="uzv" id="uzv" placeholder="Uzvārds" required>
         <input name="pers_kods" id="pers_kods"
-                placeholder="Personas kods" required>
+               placeholder="Personas kods"
+               pattern="[0-9]{6}-[0-9]{5}" required>
       </div>
       <div class="work-info">
         <label for="pozicija">Darba stāža:</label><br>
@@ -50,8 +51,9 @@
         <label for="email">Kontakti:</label><br>
         <input type="email" name="epasts" id="epasts"
                 placeholder="E-pasts" required>
-        <input name="tel_num" id="tel_num"
-                placeholder="Telefona numurs" required>
+        <input type="tel" name="tel_num" id="tel_num"
+                placeholder="Telefona numurs"
+                pattern="[0-9]{8}" required>
       </div>
       <div class="profile-pic">
         <label for="profil_bild_cels">Profila bilde:</label><br>

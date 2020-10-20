@@ -10,6 +10,25 @@ from flask import send_from_directory, current_app
 from trakeris.auth import login_required, admin_required, allowed_file
 from trakeris.db import get_db
 
+TABLE_STYLE = '''<style>
+                    table {
+                      border-collapse: collapse;
+                      width: auto;
+                    }
+
+                    th, td {
+                      text-align: left;
+                      padding: 8px;
+                    }
+
+                    tr:nth-child(even){background-color: #f2f2f2}
+
+                    th {
+                      background-color: #6c5ce7;
+                      color: white;
+                    }
+                </style>'''
+
 # t_lietotaji
 t_lietotaji = '''SELECT l.liet_id, lietv, parole, vards, uzv, poz.pozicija,
                         pro.projekts, b.birojs, pers_kods, epasts, tel_num,
@@ -266,7 +285,7 @@ def choose_query(query_name, f_lietotaji=None, f_projekti=None, f_razotaji=None,
     elif query_name == "t_komentari":
         query_name = t_komentari
     else:
-        flash("Unknown query: [{}]".format(query_name))
+        print("Unknown query: [{}]".format(query_name))
 
     return query_name
 
@@ -376,7 +395,7 @@ def get_query(query, f_lietotajs=None, f_projekts=None, f_razotajs=None, f_biroj
         df = pd.read_sql_query(query, db)
         html = df.to_html(index=False)
 
-
+    html = TABLE_STYLE + "\n" + html
 
     filename = "queries/query-{}.html".format(query_name)
     full_path = os.path.join(current_app.config['REPORTING_FOLDER'],
