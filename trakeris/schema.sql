@@ -12,10 +12,6 @@ DROP TABLE IF EXISTS t_razotaji;
 DROP TABLE IF EXISTS t_ieraksti;
 DROP TABLE IF EXISTS t_komentari;
 
-DROP TABLE IF EXISTS t_pieprasijumi;
-DROP TABLE IF EXISTS t_statusi;
-DROP TABLE IF EXISTS t_prioritate;
-
 
 CREATE TABLE t_lietotaji (
   liet_id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -32,7 +28,7 @@ CREATE TABLE t_lietotaji (
   profil_bild_cels VARCHAR(10),
   izveid_dat TIMESTAMP DEFAULT (datetime('now','localtime')),
   FOREIGN KEY (poz_id) REFERENCES t_pozicijas (poz_id),
-  FOREIGN KEY (proj_id) REFERENCES t_pozicijas (proj_id),
+  FOREIGN KEY (proj_id) REFERENCES t_projekti (proj_id),
   FOREIGN KEY (biroj_id) REFERENCES t_biroji (biroj_id)
 );
 
@@ -56,28 +52,28 @@ CREATE TABLE t_projekti (
 CREATE TABLE t_pozicijas (
   poz_id INTEGER PRIMARY KEY AUTOINCREMENT,
   pozicija TEXT UNIQUE NOT NULL
-);
 
 
-CREATE TABLE t_vienumi (
-  vienum_id INTEGER PRIMARY KEY AUTOINCREMENT,
-  svitr_kods INTEGER NOT NULL,
-  vienum_nosauk TEXT NOT NULL,
-  modelis TEXT NOT NULL,
-  razot_id INTEGER NOT NULL,
-  iss_aprakst TEXT,
-  detalas TEXT NOT NULL,
-  kateg_id INTEGER NOT NULL,
-  biroj_id INTEGER NOT NULL,
-  liet_id INTEGER NOT NULL,
-  bilde_cels VARCHAR(10),
-  nopirkt_dat DATE,
-  izveid_dat TIMESTAMP DEFAULT (datetime('now','localtime')),
-  atjauninats TIMESTAMP DEFAULT (datetime('now','localtime')),
-  FOREIGN KEY (kateg_id) REFERENCES t_kategorijas (kateg_id),
-  FOREIGN KEY (biroj_id) REFERENCES t_pilsetas (biroj_id),
-  FOREIGN KEY (liet_id) REFERENCES t_lietotaji (liet_id),
-  FOREIGN KEY (razot_id) REFERENCES t_razotaji (razot_id)
+  CREATE TABLE t_vienumi (
+    vienum_id INTEGER PRIMARY KEY AUTOINCREMENT,
+    svitr_kods INTEGER NOT NULL,
+    vienum_nosauk TEXT NOT NULL,
+    modelis TEXT NOT NULL,
+    razot_id INTEGER NOT NULL,
+    iss_aprakst TEXT,
+    detalas TEXT NOT NULL,
+    kateg_id INTEGER NOT NULL,
+    biroj_id INTEGER NOT NULL,
+    liet_id INTEGER NOT NULL,
+    bilde_cels VARCHAR(10),
+    nopirkt_dat DATE,
+    izveid_dat TIMESTAMP DEFAULT (datetime('now','localtime')),
+    atjauninats TIMESTAMP DEFAULT (datetime('now','localtime')),
+    FOREIGN KEY (kateg_id) REFERENCES t_kategorijas (kateg_id),
+    FOREIGN KEY (biroj_id) REFERENCES t_biroji (biroj_id),
+    FOREIGN KEY (liet_id) REFERENCES t_lietotaji (liet_id),
+    FOREIGN KEY (razot_id) REFERENCES t_razotaji (razot_id)
+  );
 );
 
 CREATE TABLE t_ieraksti (
@@ -113,25 +109,4 @@ CREATE TABLE t_kategorijas (
 CREATE TABLE t_razotaji (
   razot_id INTEGER PRIMARY KEY AUTOINCREMENT,
   razotajs TEXT UNIQUE NOT NULL
-);
-
-
-CREATE TABLE t_pieprasijumi (
-  piepras_id INTEGER PRIMARY KEY AUTOINCREMENT,
-  liet_id INTEGER NOT NULL,
-  vienum_id INTEGER NOT NULL,
-  koment TEXT,
-  piepr_laiks TIMESTAMP DEFAULT (datetime('now','localtime')),
-  FOREIGN KEY (liet_id) REFERENCES t_lietotaji (liet_id),
-  FOREIGN KEY (vienum_id) REFERENCES t_vienumi (vienum_id)
-);
-
-CREATE TABLE t_statusi (
-  stat_id INTEGER PRIMARY KEY AUTOINCREMENT,
-  status TEXT UNIQUE NOT NULL
-);
-
-CREATE TABLE t_prioritate (
-  prior_id INTEGER PRIMARY KEY AUTOINCREMENT,
-  prioritate TEXT UNIQUE NOT NULL
 );

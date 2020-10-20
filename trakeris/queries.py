@@ -266,7 +266,7 @@ def choose_query(query_name, f_lietotaji=None, f_projekti=None, f_razotaji=None,
     elif query_name == "t_komentari":
         query_name = t_komentari
     else:
-        flash("Unknown query: [{}]".format(query_name))
+        print("Unknown query: [{}]".format(query_name))
 
     return query_name
 
