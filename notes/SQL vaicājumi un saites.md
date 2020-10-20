@@ -2,7 +2,7 @@
 tags: [Datubāze, SQL]
 title: SQL vaicājumi un saites
 created: '2020-10-09T18:32:21.949Z'
-modified: '2020-10-19T20:37:17.728Z'
+modified: '2020-10-20T07:50:46.336Z'
 ---
 
 # SQL vaicājumi un saites
@@ -208,7 +208,7 @@ SELECT count(p.projekts) AS 'Vienumu sk.', p.projekts
                GROUP by p.projekts
                ORDER BY count(p.projekts) DESC
 ```
-Vienumu sk. uz pozīcijām
+Vienumu sk. uz pozīcijāmņ
 ```SQL
 SELECT count(poz.pozicija) AS 'Vienumu sk.', poz.pozicija
   FROM t_vienumi v
