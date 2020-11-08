@@ -168,9 +168,9 @@ def login():
             'SELECT liet_id, lietv, parole FROM t_lietotaji WHERE lietv = ?', (lietv,)
         ).fetchone()
         if user is None:
-            error = 'Nepareizs lietotajs.'
+            error = 'Nepareizs lietotājs vai parole.'
         elif not check_password_hash(user['parole'], parole):
-            error = 'Nepareiza parole'
+            error = 'Nepareizs lietotājs vai parole.'
 
         if error is None:
             session.clear()
