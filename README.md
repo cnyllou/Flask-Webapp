@@ -1,5 +1,13 @@
 Inventāra pārvaldības/izsekošanas sistēmas datubāze
 
+# Kā palaist?
+python3 -m venv venv
+. venv/bin/activate
+pip install flask venv Werkzeug click pytz pandas
+
+export FLASK_APP=trakeris.py
+flask run
+
 # Projekta mērķis
 - Izveidot mājaslapu ar Python un savienot to ar datubāzi
 - Izstrādāt sistēmu ar, kuru var pārvaldīt/izsekot inventāru
